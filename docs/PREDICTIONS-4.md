@@ -137,3 +137,31 @@ An ensemble of 100 costs 100 times a single estimate: about 0.29 s at T = 80 for
 - **Truncation does not average out.** The per-start truncated gradient has a spread (IQR / oracle about 0.85) that does not shrink as T grows from 5 to 80, and the ensemble of 100 only brings it to about 0.6. The per-start values are heavy-tailed (largest 13102 at T = 5). This agrees in kind with the heavy tails Eyink et al. 2004 describe. I did not fit a tail exponent.
 - **Truncation is biased low by 9% to 16% here and is wrong for a periodic system** (control error 0.90).
 - LSS needs one trajectory and gives an IQR / oracle of 0.003 to 0.05. Its cost per estimate is 8 to 28 times that of one naive gradient.
+
+## Amendment, 2026-10-26 (task A0): why the LSS control gate cannot be met on a 10-period window
+
+This amendment changes no gate and no result above. The control gate for (d) LSS stays at 1e-4. The test stays a strict `xfail`.
+The "Results" section already says the gate failed. This adds what I measured about the failure, and what I did not find out.
+
+What was measured (control: driven damped oscillator, c = 0.5, w = 1.5, closed-form derivative 0.37098692):
+
+| Window | alpha | samples per period | Relative error of LSS |
+|---|---|---|---|
+| 10 periods | 1 | 2000 | 4.49e-2 (same for all four start points) |
+| 10 periods | 1 | 200 | 4.47e-2 |
+| 20 periods | 1 | 200 | 2.22e-2 |
+| 40 periods | 1 | 200 | 1.10e-2 |
+| 80 periods | 1 | 200 | 5.35e-3 |
+| 160 periods | 1 | 200 | 2.54e-3 |
+
+- The error halves each time the window doubles. It scales like 1/T over this range.
+- It does not depend on the sample density. So it is not a time-discretization error.
+- To reach 1e-4 by this scaling takes a window about 450 times longer than 10 periods, which is about 4500 periods or 19000 time units. I did not run that.
+- Stronger damping did not shrink the error. At c = 2 with 10 periods it was 0.29. So I could not explain it as a decaying boundary layer of the stable direction.
+- The error depends on alpha, not steadily. At 10 periods: alpha = 0.01 gave 4.7e-2, alpha = 1 gave 4.5e-2, alpha = 10 gave 1.9e-3, alpha = 100 gave 0.19. I did not choose alpha to pass the gate, and alpha = 1 was fixed before any run. I have no explanation for the shape.
+- The LSS code matches a dense solve of the full constrained least-squares problem (`tests/test_fixes_1_lss_solver.py`), including the Eq. 22 and 23 assembly. The remaining difference to the closed form is therefore in the method on a finite window, not in the solver.
+
+What I did not find out: the cause of the 1/T term. The free end conditions of the minimum-norm solution on a finite window are my best guess. It is not proven here.
+
+Consequence: a window of 10 periods cannot meet a 1e-4 gate for LSS. The gate stays as a recorded failure.
+The passing test `test_control_d_lss_error_falls_like_one_over_T` is the clearly labelled long-window check (10, 40 and 160 periods). It documents the 1/T behaviour. It does not replace the gate.

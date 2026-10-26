@@ -130,3 +130,11 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Verification: planning session re-ran the PR 4 tests only; it did not re-check the Phase 4 numbers (LSS 1.016, oracle 1.0029).
 - Caveats: the nilss-jax claims in `TODO.md` come from its README, changelog and doc headings, unverified; Phase 9 text in `PLAN.md` was added by a cloud session at the owner's request and has no search behind it yet.
 - Next step: Phase A0 (tidy) then A1 (oracle v2) on branch `claude/phase-A1-oracle-v2`.
+
+## 2026-10-26 Phase A0 session: tidy Phase 4
+
+- Status: A0 done. Documentation only. No code or test changed.
+- Changes: dated Amendment at the end of `docs/PREDICTIONS-4.md`. It records the LSS control error against window length (4.5e-2, 2.2e-2, 1.1e-2, 5.4e-3, 2.5e-3 at 10, 20, 40, 80, 160 periods), that it does not depend on sample density, that stronger damping made it worse, and the alpha dependence. The gate and the strict `xfail` are unchanged.
+- Verification: no code changed, so no new test run is claimed. The numbers in the Amendment are from the Phase 4 session diagnostics (the 10, 40 and 160 period rows are also asserted by `test_control_d_lss_error_falls_like_one_over_T`). The 20 and 80 period rows, the c = 2 case, the alpha sweep and the 2000 samples per period case were run in that session as one-off diagnostics and are not in a results file or a test.
+- Caveats: the cause of the 1/T term is not known. The window needed for 1e-4 (about 4500 periods) was extrapolated and not run.
+- Next step: A1 (oracle v2) on branch `claude/phase-A1-oracle-v2`.
