@@ -60,3 +60,19 @@ def double_pendulum_energy(x, p):
                + m2 * l1 * l2 * w1 * w2 * jnp.cos(th1 - th2))
     potential = -(m1 + m2) * g * l1 * jnp.cos(th1) - m2 * g * l2 * jnp.cos(th2)
     return kinetic + potential
+
+
+def driven_oscillator_params(c=0.5, k=4.0, F=1.0, w=1.5):
+    return jnp.array([c, k, F, w])
+
+
+def driven_oscillator(x, p):
+    """x'' + c x' + k x = F cos(w t), made autonomous with state (x, v, t). p = (c, k, F, w)."""
+    c, k, F, w = p[0], p[1], p[2], p[3]
+    return jnp.array([x[1], -c * x[1] - k * x[0] + F * jnp.cos(w * x[2]), 1.0])
+
+
+def driven_oscillator_mean_square(p):
+    """Closed-form steady-state time average of x^2."""
+    c, k, F, w = p[0], p[1], p[2], p[3]
+    return F ** 2 / (2.0 * ((k - w ** 2) ** 2 + c ** 2 * w ** 2))
