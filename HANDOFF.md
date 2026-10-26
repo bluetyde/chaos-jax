@@ -72,3 +72,12 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - The oracle averages 100 time units after a 50-unit spin-up. Phase 3 and 4 horizons T up to 80 are shorter than or close to this window, so the oracle target is the long-time average, as intended.
   - The control window length depends on omega (whole number of periods). This differs from the Lorenz pipeline and is documented in `docs/PREDICTIONS-2.md`.
 - Next step: owner review, then Phase 3 (gradient blow-up). Write `docs/PREDICTIONS-3.md` first, including the one number for T* in P3.3.
+
+## 2026-10-26 Phase 2 follow-up: 25 to 50 slope check
+
+- Status: done on branch `claude/phase-2-wide-slope` (stacked on `claude/reading-notes`, which is stacked on the Phase 2 branch). No Phase 3 work.
+- Changes: `docs/PREDICTIONS-2b.md` (predictions and decision rule committed before the run, results appended after), `experiments/phase2b_wide_slope.py`, `results/phase2b_wide_slope.json`.
+- Verification: `python experiments/phase2b_wide_slope.py` took 39 s. Ensemble line slope over rho 25 to 50 is 0.9888 (SE 0.0001). A single run with the Lea et al. setup gives 0.9925. Across 20 start points the slope spans 0.9698 to 0.9925. `python -m pytest -q` gave `26 passed` (no source change in this follow-up).
+- Result: the range explains part of the gap to 0.96 (decision rule band 0.98 to 1.00). About 0.03 remains unexplained. Window slopes vary from 0.963 to 1.007. All three predictions hit.
+- Caveats: the Lea et al. fit range is only "roughly 25 to 50" in the text, and I did not test wider ranges. The SE of 0.0001 on the line slope is sampling error over start points only. It does not include the bias from the fixed grid or from RK4. No Phase 2 number changed.
+- Next step: owner decides whether the remaining 0.03 matters. Phase 3 is still next.
