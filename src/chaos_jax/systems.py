@@ -76,3 +76,12 @@ def driven_oscillator_mean_square(p):
     """Closed-form steady-state time average of x^2."""
     c, k, F, w = p[0], p[1], p[2], p[3]
     return F ** 2 / (2.0 * ((k - w ** 2) ** 2 + c ** 2 * w ** 2))
+
+
+def driven_oscillator_phase(x, p):
+    """The driven oscillator with a phase state (x, v, theta), theta' = w. p = (c, k, F, w).
+
+    Same motion as `driven_oscillator`. Forcing is bounded, so it suits LSS.
+    """
+    c, k, F, w = p[0], p[1], p[2], p[3]
+    return jnp.array([x[1], -c * x[1] - k * x[0] + F * jnp.cos(x[2]), w])

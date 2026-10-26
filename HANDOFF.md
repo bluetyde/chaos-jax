@@ -100,3 +100,25 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - The float32 run uses the same code with x64 turned off in a separate process.
   - The median |g| is a size. It is not an error, because the signs are random.
 - Next step: owner review. Then Phase 4 (the fixes). It needs a sparse or block-tridiagonal solver for LSS, and the formulation papers `arxiv-1204.0159` and `arxiv-1611.00880` (check equations against the PDF pages). Write `docs/PREDICTIONS-4.md` first.
+
+## 2026-10-26 Phase 4 session: the fixes
+
+- Status: Phase 4 done, with one failed gate reported. **LSS fails the driven-oscillator control** (error 4.5e-2 against the gate 1e-4). All other methods pass the control. On Lorenz, LSS works at all five horizons, truncated and ensemble-of-truncated work at most of them, and naive and ensemble-of-naive work at none. NILSS (stretch goal) was not attempted. Phase 5 not started.
+- Changes: `docs/PREDICTIONS-4.md` (predictions, gates and equation check committed before any code ran, results appended), `src/chaos_jax/fixes.py` (naive, truncated, block-tridiagonal LSS), `src/chaos_jax/controls.py`, `driven_oscillator_phase` in `systems.py`, `tests/test_fixes_*.py`, `experiments/phase4_fixes.py`, `results/phase4*`, `READING-LOG.md` rows.
+- Verification:
+  - `python -m pytest -q` gave: `40 passed, 1 xfailed in 41.82s`. The xfail is the LSS control gate test (strict), kept on purpose.
+  - Control first: naive error 1.9e-11, truncated with whole window identical to naive, LSS 4.49e-2 (fail). LSS error falls like 1/T: 4.5e-2, 1.1e-2, 2.5e-3 at 10, 40, 160 periods. LSS also matches a dense solve of the full constrained problem.
+  - Lorenz, oracle 1.0029, median (IQR / oracle) at T = 80: naive 1.1e25 (7e28), truncated 0.853 (0.83), ensemble naive 3.8e28, ensemble truncated 0.851 (0.60), LSS 1.016 (0.003). "Works" per gate: LSS at T = 5, 10, 20, 40, 80. Truncated at T = 5, 20, 40, 80 (not 10, IQR 1.08). Ensemble truncated at all five. Naive and ensemble naive at none.
+  - Cost at T = 80, one estimate: naive 2.8 ms, truncated 2.9 ms, LSS 79 ms. Memory above a bare process: 50 MB, 51 MB, 105 MB.
+  - Break-it: all three caught (3, 1 and 3 failing tests). Bug 2 (shifted window) was caught only by the Lorenz test at first. I added a test that now catches it directly.
+- Predictions against results: see the table in `docs/PREDICTIONS-4.md`. Misses: LSS fails the control, LSS works at T = 5, LSS IQR 25 times smaller than predicted, truncated passes at more horizons than predicted, ensemble naive fails at T = 5, cost and compute were much lower than predicted.
+- Equation check: the printed LSS equations in arXiv 1204.0159 (Eq. 16 to 21) disagree with each other in four places. I derived my own discretization from Eq. 13 and 15. Details in `docs/PREDICTIONS-4.md`.
+- Caveats:
+  - **LSS and the Phase 2 oracle differ by 1.3%** (1.016 against 1.0029). The gate (25%) does not see it. The cause is not known. A central difference with h = 1 being a coarser slope than the local derivative is one candidate. Not tested.
+  - The LSS control gate cannot be met on a window of 10 periods. I did not change it.
+  - alpha = 10 was fixed on dimensional grounds. A sweep shows little effect (0.2% for alpha 3 to 30).
+  - Truncation length L = 2.0 was fixed in advance. Other L values were not run.
+  - The truncated gate verdict at T = 10 is near the threshold and flips on noise.
+  - Ensembles reuse the same 5000 start points for every T.
+  - The control for (b) is a code check only.
+- Next step: owner review. Then Phase 5 (fitting task). Decide first whether to run the oracle at smaller h to explain the 1.3% gap (needs a prediction file first), and whether to attempt NILSS. Read `arxiv-1611.00880` before NILSS.

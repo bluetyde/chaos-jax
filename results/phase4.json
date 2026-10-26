@@ -1,0 +1,162 @@
+{
+  "5": {
+    "a_naive": {
+      "median": 0.8678224673539293,
+      "rel_err_of_median": 0.13468694051856675,
+      "rel_iqr": 3.452566492311706,
+      "works": false
+    },
+    "b_truncated": {
+      "median": 0.8606590229433133,
+      "rel_err_of_median": 0.14182967101075541,
+      "rel_iqr": 0.8383709255794491,
+      "works": true
+    },
+    "c_ensemble_naive": {
+      "median": 0.5727408030579566,
+      "rel_err_of_median": 0.4289153424489414,
+      "rel_iqr": 5.88714123564223,
+      "works": false
+    },
+    "c_ensemble_truncated": {
+      "median": 0.9137210636631988,
+      "rel_err_of_median": 0.08892106524758309,
+      "rel_iqr": 0.6324902306866312,
+      "works": true
+    },
+    "d_lss": {
+      "median": 0.9889964954986161,
+      "rel_err_of_median": 0.013863300928690578,
+      "rel_iqr": 0.050453747695484524,
+      "works": true
+    }
+  },
+  "10": {
+    "a_naive": {
+      "median": 2.7259118073926105,
+      "rel_err_of_median": 1.7180295217794503,
+      "rel_iqr": 168.06548337855025,
+      "works": false
+    },
+    "b_truncated": {
+      "median": 0.8838115963170559,
+      "rel_err_of_median": 0.11874404594968996,
+      "rel_iqr": 1.075098803894205,
+      "works": false
+    },
+    "c_ensemble_naive": {
+      "median": -3.7010930019876165,
+      "rel_err_of_median": 4.6903908684690565,
+      "rel_iqr": 240.91534706833096,
+      "works": false
+    },
+    "c_ensemble_truncated": {
+      "median": 0.8585735242606214,
+      "rel_err_of_median": 0.1439091392355953,
+      "rel_iqr": 0.6234275527954677,
+      "works": true
+    },
+    "d_lss": {
+      "median": 1.004425084609955,
+      "rel_err_of_median": 0.0015206746534600069,
+      "rel_iqr": 0.025817682246131922,
+      "works": true
+    }
+  },
+  "20": {
+    "a_naive": {
+      "median": 10403.116824033596,
+      "rel_err_of_median": 10372.035022468439,
+      "rel_iqr": 1136834.7943594074,
+      "works": false
+    },
+    "b_truncated": {
+      "median": 0.8591225137927796,
+      "rel_err_of_median": 0.143361737169429,
+      "rel_iqr": 0.9170481434867844,
+      "works": true
+    },
+    "c_ensemble_naive": {
+      "median": 30734.09449251344,
+      "rel_err_of_median": 30644.223344813483,
+      "rel_iqr": 1645587.265148757,
+      "works": false
+    },
+    "c_ensemble_truncated": {
+      "median": 0.9142715022893931,
+      "rel_err_of_median": 0.08837221827760174,
+      "rel_iqr": 0.5667264236350875,
+      "works": true
+    },
+    "d_lss": {
+      "median": 1.0118684182404443,
+      "rel_err_of_median": 0.008942485033846212,
+      "rel_iqr": 0.012009636756353753,
+      "works": true
+    }
+  },
+  "40": {
+    "a_naive": {
+      "median": -1246874767585.7417,
+      "rel_err_of_median": 1243269286655.4438,
+      "rel_iqr": 23860106543550.293,
+      "works": false
+    },
+    "b_truncated": {
+      "median": 0.8503844516098029,
+      "rel_err_of_median": 0.15207453224668163,
+      "rel_iqr": 0.8506203634419214,
+      "works": true
+    },
+    "c_ensemble_naive": {
+      "median": -2733598138782.0283,
+      "rel_err_of_median": 2725693627263.966,
+      "rel_iqr": 77663237149958.14,
+      "works": false
+    },
+    "c_ensemble_truncated": {
+      "median": 0.8460943870213227,
+      "rel_err_of_median": 0.15635219162297062,
+      "rel_iqr": 0.5584873983886052,
+      "works": true
+    },
+    "d_lss": {
+      "median": 1.0140019354346586,
+      "rel_err_of_median": 0.01106983291919299,
+      "rel_iqr": 0.008029489858180638,
+      "works": true
+    }
+  },
+  "80": {
+    "a_naive": {
+      "median": 1.0622593917193376e+25,
+      "rel_err_of_median": 1.059187747252306e+25,
+      "rel_iqr": 7.445734463831328e+28,
+      "works": false
+    },
+    "b_truncated": {
+      "median": 0.8533750028791685,
+      "rel_err_of_median": 0.14909262849818672,
+      "rel_iqr": 0.8277723241796864,
+      "works": true
+    },
+    "c_ensemble_naive": {
+      "median": 3.765019848911484e+28,
+      "rel_err_of_median": 3.7541328636070242e+28,
+      "rel_iqr": 2.7478139650119505e+29,
+      "works": false
+    },
+    "c_ensemble_truncated": {
+      "median": 0.8508009903573702,
+      "rel_err_of_median": 0.15165919796852098,
+      "rel_iqr": 0.6040794609114514,
+      "works": true
+    },
+    "d_lss": {
+      "median": 1.0157661968607916,
+      "rel_err_of_median": 0.012828992781724712,
+      "rel_iqr": 0.003422219635531456,
+      "works": true
+    }
+  }
+}

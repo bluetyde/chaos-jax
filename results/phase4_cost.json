@@ -1,0 +1,110 @@
+{
+  "bare_process_mb": 182.8984375,
+  "rows": [
+    {
+      "method": "naive",
+      "T": 5,
+      "wall_s": 0.0005061149597167969,
+      "maxrss_mb": 234.62890625,
+      "peak_above_bare_mb": 51.73046875
+    },
+    {
+      "method": "naive",
+      "T": 10,
+      "wall_s": 0.0010770797729492188,
+      "maxrss_mb": 232.26953125,
+      "peak_above_bare_mb": 49.37109375
+    },
+    {
+      "method": "naive",
+      "T": 20,
+      "wall_s": 0.001073455810546875,
+      "maxrss_mb": 233.9453125,
+      "peak_above_bare_mb": 51.046875
+    },
+    {
+      "method": "naive",
+      "T": 40,
+      "wall_s": 0.001629018783569336,
+      "maxrss_mb": 234.36328125,
+      "peak_above_bare_mb": 51.46484375
+    },
+    {
+      "method": "naive",
+      "T": 80,
+      "wall_s": 0.0027501583099365234,
+      "maxrss_mb": 232.53125,
+      "peak_above_bare_mb": 49.6328125
+    },
+    {
+      "method": "truncated",
+      "T": 5,
+      "wall_s": 0.0004807949066162109,
+      "maxrss_mb": 234.02734375,
+      "peak_above_bare_mb": 51.12890625
+    },
+    {
+      "method": "truncated",
+      "T": 10,
+      "wall_s": 0.0005907058715820312,
+      "maxrss_mb": 230.9609375,
+      "peak_above_bare_mb": 48.0625
+    },
+    {
+      "method": "truncated",
+      "T": 20,
+      "wall_s": 0.0008396148681640625,
+      "maxrss_mb": 231.70703125,
+      "peak_above_bare_mb": 48.80859375
+    },
+    {
+      "method": "truncated",
+      "T": 40,
+      "wall_s": 0.0013665199279785157,
+      "maxrss_mb": 235.17578125,
+      "peak_above_bare_mb": 52.27734375
+    },
+    {
+      "method": "truncated",
+      "T": 80,
+      "wall_s": 0.0028657913208007812,
+      "maxrss_mb": 233.73828125,
+      "peak_above_bare_mb": 50.83984375
+    },
+    {
+      "method": "lss",
+      "T": 5,
+      "wall_s": 0.0040532112121582035,
+      "maxrss_mb": 272.13671875,
+      "peak_above_bare_mb": 89.23828125
+    },
+    {
+      "method": "lss",
+      "T": 10,
+      "wall_s": 0.007689857482910156,
+      "maxrss_mb": 278.140625,
+      "peak_above_bare_mb": 95.2421875
+    },
+    {
+      "method": "lss",
+      "T": 20,
+      "wall_s": 0.013866424560546875,
+      "maxrss_mb": 280.49609375,
+      "peak_above_bare_mb": 97.59765625
+    },
+    {
+      "method": "lss",
+      "T": 40,
+      "wall_s": 0.0402982234954834,
+      "maxrss_mb": 281.2265625,
+      "peak_above_bare_mb": 98.328125
+    },
+    {
+      "method": "lss",
+      "T": 80,
+      "wall_s": 0.07875452041625977,
+      "maxrss_mb": 288.23828125,
+      "peak_above_bare_mb": 105.33984375
+    }
+  ]
+}
