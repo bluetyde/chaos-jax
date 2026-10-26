@@ -17,6 +17,8 @@ Questions this repo answers by measurement:
 
 A short search on 2026-10-26 found theory papers on all the fixes (see `reference/LEDGER.md`) and a JAX package (lyapax) that warns about naive gradients, but no JAX implementation of MSS and no head-to-head comparison of the fixes on Lorenz plus a pendulum. That judgement came from a few searches, not a survey. The write-up must say it plainly and must not claim novelty beyond "a small, reproducible comparison".
 
+**Update 2026-10-26 (planning session):** later checks found that a JAX NILSS implementation (`nilss-jax`, MIT, one author) and Julia's SciMLSensitivity (`ForwardLSS`, `AdjointLSS`, `NILSS`, `NILSAS`) already exist, and that truncation and warm-up are standard practice. The statement above is therefore true only for MSS and for the exact head-to-head comparison. The direction is now an independent audit of nilss-jax; see `TODO.md`.
+
 ## Systems and quantities
 
 - **Lorenz-63**: σ=10, β=8/3, ρ=28. Parameter of interest: ρ. Commonly quoted λ₁ is about 0.906 and is **not confirmed in the reference set**, so Phase 1 measures it two independent ways and treats the quoted number only as a sanity band.

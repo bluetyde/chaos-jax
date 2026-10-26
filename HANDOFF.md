@@ -122,3 +122,11 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - Ensembles reuse the same 5000 start points for every T.
   - The control for (b) is a code check only.
 - Next step: owner review. Then Phase 5 (fitting task). Decide first whether to run the oracle at smaller h to explain the 1.3% gap (needs a prediction file first), and whether to attempt NILSS. Read `arxiv-1611.00880` before NILSS.
+
+## 2026-10-26 planning session: PR 4 merged, TODO.md written
+
+- Status: PR 4 (Phase 4) merged at the owner's request after a quick check (tests: 40 passed, 1 xfailed in 20.84s on the PR branch; predictions committed 22:39:53, before the first code at 22:44:12). Direction changed to an independent audit of nilss-jax (owner approved). `TODO.md` holds the new task list (A0 to A8).
+- Changes: `TODO.md` (new), `AGENTS.md` (read-list now includes `TODO.md`), `PLAN.md` (prior-art update paragraph). No code changed.
+- Verification: planning session re-ran the PR 4 tests only; it did not re-check the Phase 4 numbers (LSS 1.016, oracle 1.0029).
+- Caveats: the nilss-jax claims in `TODO.md` come from its README, changelog and doc headings, unverified; Phase 9 text in `PLAN.md` was added by a cloud session at the owner's request and has no search behind it yet.
+- Next step: Phase A0 (tidy) then A1 (oracle v2) on branch `claude/phase-A1-oracle-v2`.

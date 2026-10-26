@@ -1,6 +1,6 @@
 # Agent instructions
 
-Read `PLAN.md`, then `HANDOFF.md` (newest entry last), then `READING-LOG.md`, before changing anything.
+Read `PLAN.md`, then `TODO.md` (the current task list and direction), then `HANDOFF.md` (newest entry last), then `READING-LOG.md`, before changing anything.
 
 ## Scope and flow
 
