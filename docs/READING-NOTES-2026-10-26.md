@@ -12,8 +12,8 @@ Read on 2026-10-26 while the Phase 2 pull request was in review. Depth for each 
    The +/- is the error of the line fit. It is not a sampling error. The Phase 2 oracle gives
    1.0029 +/- 0.0021 at rho = 28, about 4% higher. Figures 5d and 6a of arXiv 1204.0159 show
    about 1.0 to 1.02. No gate was set on this. The reason for the gap is not known. A wide-range
-   slope against a local slope is one possible reason. A check is proposed in the pull request
-   comment and has not been run.
+   slope against a local slope is one possible reason. A check (the same pipeline over r from 25 to 50) is proposed to the owner
+   and has not been run.
 2. **Phase 1 Lyapunov method.** It agrees with Benettin 1980 (tangent vector, renormalise every
    s steps, log of the diagonal of R, divide by elapsed time). The two-trajectory variant is not
    described in that paper. No paper here confirms the Lorenz value 0.906 directly. Eyink et al.
