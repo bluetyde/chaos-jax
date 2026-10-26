@@ -130,3 +130,21 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Verification: planning session re-ran the PR 4 tests only; it did not re-check the Phase 4 numbers (LSS 1.016, oracle 1.0029).
 - Caveats: the nilss-jax claims in `TODO.md` come from its README, changelog and doc headings, unverified; Phase 9 text in `PLAN.md` was added by a cloud session at the owner's request and has no search behind it yet.
 - Next step: Phase A0 (tidy) then A1 (oracle v2) on branch `claude/phase-A1-oracle-v2`.
+
+## 2026-10-26 Task A1 session: oracle v2
+
+- Status: A1 done. Control passes. rho and sigma converged. beta not converged under the gate (one pair fails). A2 not started.
+- Changes: `docs/PREDICTIONS-A1.md` (predictions and gates committed before any code, results appended), `tests/test_oracle_v2_control.py`, `experiments/phaseA1_oracle_v2.py`, `results/phaseA1_oracle_v2.json`, `.gitignore` (raw arrays not committed).
+- Verification:
+  - `python -m pytest -q` gave: `42 passed, 1 xfailed in 42.41s`.
+  - Control first: slope error 5.9e-8, curvature error 8.0e-4.
+  - Oracle v2 at the smallest step, bootstrap SE: **d<z>/d(rho) = 1.0015 +- 0.0015** (weighted mean over four converged rungs 1.0032 +- 0.0007), **d<z>/d(sigma) = 0.1494 +- 0.0015**, **d<z>/d(beta) = -1.658 +- 0.006** (not converged at the largest step).
+  - rho stays near the Phase 2 value. It did not move to 1.012 or above.
+  - Compute: about 4.4 minutes on CPU (88 s per parameter).
+- Predictions against results: see the table in `docs/PREDICTIONS-A1.md`. Misses: rho description, rho ladder behaviour, sigma convergence, beta convergence, compute time.
+- Caveats:
+  - Our LSS (1.016) and the nilss-jax README (about 1.02) both sit about 1.3% to 1.7% above this oracle. I did not find the cause. A2 and later tasks should not assume either side is right.
+  - Single averaging window (100) and dt (0.01). Not varied here.
+  - The sigma prediction is not independent of the nilss-jax README numbers relayed in `TODO.md`. I read no nilss-jax source.
+  - The beta convergence failure is marginal (0.0197 against a limit of 0.0165) and in the pair with the largest steps.
+- Next step: owner review. Then A2 (run nilss-jax on Lorenz-63 for rho, sigma, beta). Pin one exact commit first, record the hash, and write `docs/PREDICTIONS-A2.md` before running. Do not read nilss-jax source. A decision for the owner: whether to run a window-length check on the oracle before A2, given the LSS gap.
