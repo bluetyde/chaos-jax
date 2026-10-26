@@ -81,3 +81,22 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Result: the range explains part of the gap to 0.96 (decision rule band 0.98 to 1.00). About 0.03 remains unexplained. Window slopes vary from 0.963 to 1.007. All three predictions hit.
 - Caveats: the Lea et al. fit range is only "roughly 25 to 50" in the text, and I did not test wider ranges. The SE of 0.0001 on the line slope is sampling error over start points only. It does not include the bias from the fixed grid or from RK4. No Phase 2 number changed.
 - Next step: owner decides whether the remaining 0.03 matters. Phase 3 is still next.
+
+## 2026-10-26 Phase 3 session: gradient blow-up
+
+- Status: Phase 3 done. P3.1, P3.2 and P3.3 pass. **P3.4 fails** as the plan states it. Phase 4 not started.
+- Changes: `docs/PREDICTIONS-3.md` (committed before any run, results appended), `src/chaos_jax/blowup.py`, `tests/test_blowup.py`, `experiments/phase3_blowup.py`, `results/phase3*.json` and `.npz`, a Phase 9 proposal in `PLAN.md` (owner request, no gates). This branch also carries the reading notes and the 25 to 50 slope check, which were not yet merged.
+- Verification:
+  - `python -m pytest -q` gave `30 passed in 19.75s`.
+  - Controls first: oscillator slope -0.2004. Low-energy pendulum slope -0.0146 (limit 0.02).
+  - Lorenz Jacobian log-norm slope over T in [2, 20]: **0.9057** (SE 0.0037, N = 200). Phase 1 lambda_1 mean 0.9041. Difference +0.18%.
+  - Naive gradient of the time average of z, median over 200 start points: 0.81 at T = 1, 13.5 at T = 8 (so **T\* = 8**), 105 at T = 10, 4.6e5 at T = 20, 2.0e9 at T = 30. Oracle 1.0029.
+  - Sign of the gradient: negative for 37.5% of start points at T = 5 and 53% at T = 30.
+  - Float32 against float64: median relative difference 1.6e-2 at T = 10, 0.21 at T = 13, so **T_leave32 = 14**. Float64 against the oracle is already 40% off at T = 1, so **T_leave64 = 2**. P3.4 therefore fails.
+- Predictions against results: see the table in `docs/PREDICTIONS-3.md`. Misses: pendulum slope sign, T* (8 against 6), T_leave64 (2 against 4), T_leave32 (14 against 16). All numbers except the pendulum sign were inside my stated ranges. I predicted P3.4 would fail.
+- Caveats:
+  - P3.4 compares two times defined by my own rule (fixed before the run). The float64 side is the bottom of the grid because of short-average bias. It does not show a clean cross-over.
+  - One system (Lorenz). The pendulum is Phase 6.
+  - The float32 run uses the same code with x64 turned off in a separate process.
+  - The median |g| is a size. It is not an error, because the signs are random.
+- Next step: owner review. Then Phase 4 (the fixes). It needs a sparse or block-tridiagonal solver for LSS, and the formulation papers `arxiv-1204.0159` and `arxiv-1611.00880` (check equations against the PDF pages). Write `docs/PREDICTIONS-4.md` first.

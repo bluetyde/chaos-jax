@@ -43,3 +43,34 @@ If a quantity never crosses its threshold on the grid, the result is "not reache
 - P3.4 **T_leave64 = 4** (range 2 to 7). **T_leave32 = 16** (range 13 to 19). Reasoning: float32 round-off is about 6e-8. It grows like exp(0.9 T) and reaches 25% near T = ln(4e6) / 0.9, about 17. Float64 leaves the oracle earlier, because of sampling noise from the chaotic growth, not round-off. So I expect **P3.4 to fail**: float32 leaves float64 *later* than float64 leaves the oracle. I am writing this down because it contradicts the plan's wording.
 
 Expected compute: under 5 minutes on CPU for all parts. Stop and say so if it takes more than 10.
+
+## Results (added after the run, 2026-10-26)
+
+Commands: `python experiments/phase3_blowup.py f64` (34 s), then `f32` (32 s, separate process, dtype checked as float32), then `report`.
+Output in `results/phase3_f64.json`, `results/phase3.json` and the `.npz` files. N = 200 start points for Lorenz, 50 for each control.
+
+| Gate | Result | Pass |
+|---|---|---|
+| P3.2 (controls first) damped oscillator slope <= 0.02 | -0.2004 | yes |
+| P3.2 low-energy pendulum slope <= 0.02 | -0.0146 (SE 0.0009) | yes |
+| P3.1 Lorenz slope within 15% of 0.9041 | 0.9057 (SE 0.0037), +0.18% | yes |
+| P3.3 median \|g\| > 10 x 1.0029 at some T | T* = 8 (median \|g\| = 13.5) | yes |
+| P3.4 T_leave32 < T_leave64 | T_leave32 = 14, T_leave64 = 2 | **no** |
+
+| Prediction | Result |
+|---|---|
+| P3.1 slope 0.92, range 0.88 to 0.96 | 0.9057. In range, point 0.014 low. |
+| P3.2 oscillator slope -0.2 | -0.2004. Hit. |
+| P3.2 pendulum slope about +0.01, risk above 0.02 | -0.0146. **Miss on the sign.** The gate passes. |
+| P3.3 T* = 6, range 4 to 9 | 8. **Point miss by 2.** In range. |
+| P3.4 T_leave64 = 4, range 2 to 7 | 2. Point miss. At the edge of the range. |
+| P3.4 T_leave32 = 16, range 13 to 19 | 14. Point miss by 2. In range. |
+| P3.4 expected to fail | Failed. Hit. |
+| Compute under 5 minutes | About 70 s. |
+
+Notes on these results:
+- **T_leave64 = 2 is not a sharp finding.** The float64 gradient is already 40% off the oracle in median at T = 1 (median |g| = 0.81, e64 = 0.40) and at T = 2 (0.87, e64 = 0.41). That is the short-average bias that Lea et al. describe, plus scatter between start points. So the float64 side of P3.4 never had a window where the gradient agreed with the oracle within 25%. The comparison in P3.4 is therefore between a time that is the lower edge of my grid and T_leave32. P3.4 fails as the plan states it.
+- **Float32 holds up longer than I wrote the gate to expect.** e32 stays below 1e-3 up to T = 7, reaches 0.016 at T = 10 and 0.2 at T = 13. Float32 round-off is not what ends the usefulness of the naive gradient. Sampling noise does.
+- **The sign of the gradient is random at long T.** The fraction of start points with a negative gradient is 0.375 at T = 5, 0.53 at T = 10, 0.485 at T = 20 and 0.53 at T = 30. The oracle is +1.0029. This matches a gradient whose sign carries no information.
+- **Exploratory, not predicted:** over T = 10 to 30, the slope of ln(median |g|) against T is 0.850. The slope of ln(T x median |g|) is 0.903. This is close to the Phase 1 lambda_1 of 0.9041. It is consistent with g being about exp(lambda_1 T) / T.
+- **What is not shown here:** no truncation or ensemble result (Phase 4). Median |g| is a measure of size, not of error, because the signs are random. The comparison with the oracle at T = 8 means "13 times too big in magnitude", not "13 times off".

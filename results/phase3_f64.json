@@ -1,0 +1,10 @@
+{
+  "oscillator_slope": -0.20035163844343096,
+  "oscillator_slope_se": 2.7762517112702714e-17,
+  "pendulum_low_slope": -0.014597462905747958,
+  "pendulum_low_slope_se": 0.0008922710812439975,
+  "lorenz_slope": 0.9056884460151943,
+  "lorenz_slope_se": 0.003730533712468793,
+  "lorenz_slope_vs_lambda1_rel": 0.001756936196432024,
+  "wall_seconds_f64": 32.659669399261475
+}
