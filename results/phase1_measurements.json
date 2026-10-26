@@ -1,0 +1,42 @@
+{
+  "damped_oscillator_spectrum_T20": [
+    -0.2021957284231587,
+    -0.19780426908978907
+  ],
+  "lorenz_start0": {
+    "start": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "spectrum_tangent": [
+      0.9064005143487908,
+      -0.0008975918023971431,
+      -14.572067419998442
+    ],
+    "lambda1_two_trajectory": 0.9038735061921823,
+    "sum": -13.666564497452049
+  },
+  "lorenz_start1": {
+    "start": [
+      -5.0,
+      7.0,
+      30.0
+    ],
+    "spectrum_tangent": [
+      0.9018398993912576,
+      -0.0005599193787454003,
+      -14.567844809432366
+    ],
+    "lambda1_two_trajectory": 0.9043230521369022,
+    "sum": -13.666564829419853
+  },
+  "pendulum_high": {
+    "lambda1_tangent": 1.3626253191648277,
+    "lambda1_two_trajectory": 1.3623969067752437
+  },
+  "pendulum_low": {
+    "lambda1_tangent": 0.0015035708375165696,
+    "lambda1_two_trajectory": 0.0011646472280257803
+  }
+}
