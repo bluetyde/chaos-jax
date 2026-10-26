@@ -57,6 +57,12 @@ def test_lss_matches_dense_kkt_system():
     K = np.block([[H, C.T], [C, np.zeros((C.shape[0], C.shape[0]))]])
     sol = np.linalg.solve(K, np.concatenate([np.zeros(nv + ne), rhs]))
     v_ref, eta_ref = sol[:nv].reshape(m, n), sol[nv:nv + ne]
-    _, v, eta = lss_derivative(lorenz, _zobs, jnp.asarray(xs), p, idx, dt, alpha)
+    deriv, v, eta = lss_derivative(lorenz, _zobs, jnp.asarray(xs), p, idx, dt, alpha)
     np.testing.assert_allclose(np.asarray(v), v_ref, rtol=1e-7, atol=1e-9 * np.abs(v_ref).max())
     np.testing.assert_allclose(np.asarray(eta), eta_ref, rtol=1e-7, atol=1e-9 * np.abs(eta_ref).max())
+    # Eq. 22 and 23 assembled independently in numpy. The observable is z, so dJ/du = (0, 0, 1).
+    J = xs[:, 2]
+    Jt = 0.5 * (J[:-1] + J[1:]) - J.mean()
+    deriv_ref = v_ref[:, 2].sum() / m + (eta_ref * Jt).sum() / (m - 1)
+    np.testing.assert_allclose(float(deriv), deriv_ref, rtol=1e-8)
+    assert abs((eta_ref * Jt).sum() / (m - 1)) > 1e-3 * abs(deriv_ref)  # the eta term is not negligible, so a shift would show
