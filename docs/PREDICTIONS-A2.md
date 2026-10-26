@@ -53,3 +53,7 @@ I made these knowing the numbers above.
 - **P-A2.5 Controls:** C1 and C2 pass. Leading exponent about 0.90.
 - **P-A2.6 Reliability report on Stage 2:** CAUTION. This is not a gate. A4 tests the report.
 - **P-A2.7 Cost:** unknown. My guess is about 20 s per orbit of T = 1000, so about 11 minutes for 32 orbits on one core. I will replace this by a measured number after the probe, before the main runs.
+
+## Amendment, 2026-10-26: timing probe (before any stage ran)
+
+The probe (one orbit, T = 100, T_spinup = 20, after one compile call) took **0.08 s**. P-A2.7 (about 20 s per orbit of T = 1000) was a miss by a large factor. At this speed I expect Stage 1 in under 10 s and Stage 2 (32 orbits of T = 1000) in about 30 to 60 s. No gate or other prediction changes. Because it is cheap, A3 can use larger ensembles. A2 keeps the 32 orbits stated above.
