@@ -104,6 +104,15 @@ Only if `julia --version` works in the environment. If not, write `docs/julia-sk
 
 `RESULTS.md`: what was measured, tables with all gates and all misses, compute used, the prior-art statement above, and limits (two systems, low dimension, no PDE). No claim without a result file behind it.
 
+### Phase 9 (proposed by the owner on 2026-10-26, not started, no gates yet)
+
+Windowed 4D-Var on Lorenz-96 in JAX. The question: how long can a data-assimilation window be before the gradient of the 4D-Var cost fails? This extends the Phase 5 fitting question from a parameter to a full initial state, with the same single-shooting against multiple-shooting comparison.
+
+Notes:
+- The owner reports that the existing data-assimilation libraries they found (ADDA, TorchDA) are PyTorch-based, and that they found nothing on gradient failure against window length in JAX. I have not searched. Treat this as the owner's claim until a search is logged. Do not claim novelty beyond "a small, reproducible comparison".
+- Needs a vector field for Lorenz-96 (N = 40, F = 8 is the usual choice, not yet decided) and its Lyapunov spectrum from the Phase 1 code, before any gradient work.
+- Gates and predictions must be written and committed before the first run, as for every phase. Do this only after Phase 8, or earlier if the owner says so.
+
 ## Decisions left to the owner
 
 - Licence: none chosen yet; repo is private.
