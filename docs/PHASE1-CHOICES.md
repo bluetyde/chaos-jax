@@ -22,3 +22,19 @@ Try dt in the ladder 0.02, 0.01, 0.005, 0.0025, 0.00125. For each, integrate the
 case to T = 10 and compute max |E(t) - E(0)| / |E(0)|. Choose the largest dt whose drift is at
 least 10 times below the G1.5 gate of 1e-6. The 10x margin is my choice. It stops the test
 from passing by a hair.
+
+## Result of the dt scan
+
+Run with `python experiments/pendulum_dt_scan.py` (about 5 s). Output in `results/pendulum_dt_scan.json`.
+
+| dt | max relative energy drift, T = 10 |
+|---|---|
+| 0.02 | 3.349e-03 |
+| 0.01 | 2.301e-04 |
+| 0.005 | 7.157e-06 |
+| 0.0025 | 3.095e-07 |
+| 0.00125 | 2.064e-08 |
+
+dt = 0.0025 meets the gate of 1e-6 but not the 10x margin (1e-7). The chosen dt is **0.00125**,
+with drift 2.06e-8. This is the last rung of the ladder. The drift falls by about 16 per halving,
+as expected for a fourth-order method.

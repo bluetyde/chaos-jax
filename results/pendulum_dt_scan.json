@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "dt": 0.02,
+      "steps": 500,
+      "max_rel_energy_drift": 0.00334938590862063
+    },
+    {
+      "dt": 0.01,
+      "steps": 1000,
+      "max_rel_energy_drift": 0.00023005334512363673
+    },
+    {
+      "dt": 0.005,
+      "steps": 2000,
+      "max_rel_energy_drift": 7.156998561359928e-06
+    },
+    {
+      "dt": 0.0025,
+      "steps": 4000,
+      "max_rel_energy_drift": 3.095413520244003e-07
+    },
+    {
+      "dt": 0.00125,
+      "steps": 8000,
+      "max_rel_energy_drift": 2.0642540352511016e-08
+    }
+  ],
+  "chosen_dt": 0.00125
+}

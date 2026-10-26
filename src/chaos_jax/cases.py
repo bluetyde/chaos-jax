@@ -16,7 +16,7 @@ PENDULUM_HIGH = (2.5, 2.5, 0.0, 0.0)
 PENDULUM_LOW = (0.1, 0.1, 0.0, 0.0)
 PENDULUM_LAMBDA_T = 1000.0
 PENDULUM_ENERGY_T = 10.0
-PENDULUM_DT = None  # set from the energy drift scan, see docs/PHASE1-CHOICES.md
+PENDULUM_DT = 0.00125  # from experiments/pendulum_dt_scan.py, see docs/PHASE1-CHOICES.md
 PENDULUM_DT_LADDER = (0.02, 0.01, 0.005, 0.0025, 0.00125)
 ENERGY_DRIFT_MARGIN = 10.0  # choose dt so drift is this many times below the gate
 
