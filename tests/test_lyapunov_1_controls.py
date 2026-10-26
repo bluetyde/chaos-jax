@@ -14,8 +14,10 @@ def test_g1_4_damped_oscillator_lambda_is_negative():
     x0 = jnp.array(cases.OSCILLATOR_START)
     exps, _, _ = lyapunov_spectrum(damped_oscillator, x0, p, 0.01, n_blocks=2000, k=2)
     assert float(exps[0]) < 0.0
-    # Both exponents of the linear system equal -c/2 (complex pair, underdamped).
-    np.testing.assert_allclose(exps, [-c / 2, -c / 2], atol=2e-3)
+    # Exact values: both exponents are -c/2 (underdamped pair). Over a finite time the two
+    # split by O(1/T), so check each loosely and their sum (the trace, -c) tightly.
+    np.testing.assert_allclose(exps, [-c / 2, -c / 2], atol=1e-2)
+    np.testing.assert_allclose(float(exps.sum()), -c, atol=1e-6)
 
 
 def test_g1_4_low_energy_pendulum_lambda_is_near_zero():
