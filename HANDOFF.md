@@ -43,3 +43,32 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - The pendulum dt is the finest rung of the ladder. The finite-time estimates have not been given error bars beyond the two-start spread.
   - Dependencies: `pip install -e .` was run as root without a virtual environment. Versions: Python 3.13.17, jax 0.12.0.1, numpy 2.5.3, scipy 1.18.1.
 - Next step: owner review, then Phase 2 (ground truth for Q_b). Write `docs/PREDICTIONS-2.md`-style gates before any run.
+
+## 2026-10-26 Phase 2 session: ground truth for Q_b
+
+- Status: Phase 2 done. G2.1, G2.2 and G2.3 all pass. Phase 3 not started.
+- Changes: `docs/PREDICTIONS-2.md` (committed before any run), `src/chaos_jax/response.py` (time average, ensemble, bootstrap), driven oscillator added to `systems.py`, `tests/test_response_1_control.py`, `tests/test_response_2_lorenz_pipeline.py`, `experiments/phase2_oracle.py`, `results/phase2_oracle.json`, a `READING-LOG.md` row.
+- Verification:
+  - Control first. `python -m pytest -q -s tests/test_response_1_control.py` gave `3 passed in 3.92s`. G2.3: finite difference 0.37098694, closed form 0.37098692, relative error 5.9e-8 (gate 1e-6).
+  - Oracle: `python experiments/phase2_oracle.py` took 1.9 s of compute (N = 1000 start points, 5 rho values, 50 spin-up and 100 averaging time units, dt = 0.01, CPU).
+  - **d<z>/drho at rho = 28 = 1.0029, bootstrap SE 0.0021** (central difference over rho = 27 and 29, 2000 resamples). Mean <z>: 22.548, 23.052, 23.551, 24.055, 24.554 at rho = 27, 27.5, 28, 28.5, 29.
+  - G2.1: SE is 0.21% of the estimate, gate 10%. Pass.
+  - G2.2: quadratic coefficient c2 = -0.0014, SE 0.0032, |c2| < 2 SE. Pass. One-sided slopes: 1.0031 on [27, 28] and 1.0026 on [28, 29].
+  - Full suite: `python -m pytest -q` gave `26 passed in 15.95s`.
+- Predictions against results:
+
+  | Prediction | Result |
+  |---|---|
+  | P2.a estimate in [0.95, 1.08] | 1.0029. Hit. |
+  | P2.b SE about 0.02 | 0.0021. **Miss by about 10x.** The standard deviation of one 100-unit average of z is 0.095 over start points, not the 0.8 I assumed. |
+  | P2.c G2.2 passes | Hit. |
+  | P2.d G2.3 error near 1e-8 or smaller | 5.9e-8. **Miss by about 6x.** The gate still passes. |
+  | Compute about 3 minutes | 1.9 s. **Miss.** |
+
+- Sanity band: the paper text has no number. Figures 5d and 6a of `arxiv-1204.0159` show about 1.0 to 1.02 (read from a plot, not stated). The oracle value 1.0029 sits at the low end of that band. Nothing was tuned to it.
+- Caveats:
+  - The oracle uses fixed N, T and h. Because SE was already far below the gate, I did not raise them. A smaller SE would need more start points.
+  - Finite difference with h = 1 has an O(h^2) bias. G2.2 found no curvature above the noise. The quadratic term gives a bias of about c2 h^2 = -0.0014, below the SE.
+  - The oracle averages 100 time units after a 50-unit spin-up. Phase 3 and 4 horizons T up to 80 are shorter than or close to this window, so the oracle target is the long-time average, as intended.
+  - The control window length depends on omega (whole number of periods). This differs from the Lorenz pipeline and is documented in `docs/PREDICTIONS-2.md`.
+- Next step: owner review, then Phase 3 (gradient blow-up). Write `docs/PREDICTIONS-3.md` first, including the one number for T* in P3.3.
