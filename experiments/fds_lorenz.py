@@ -45,6 +45,15 @@ def run_dop853(name, u0, value, nsteps, dt=DT, tol=1e-12):
     return sol.y[:, -1], sol.y[2]
 
 
+class Run:
+    """Picklable run(u0, parameter, nsteps), because fds sends the function to worker processes."""
+
+    def __init__(self, name, integrator="rk4"):
+        self.name, self.fn = name, {"rk4": run_rk4, "dop853": run_dop853}[integrator]
+
+    def __call__(self, u0, value, nsteps):
+        return self.fn(self.name, u0, value, nsteps)
+
+
 def make_run(name, integrator="rk4"):
-    fn = {"rk4": run_rk4, "dop853": run_dop853}[integrator]
-    return lambda u0, value, nsteps: fn(name, u0, value, nsteps)
+    return Run(name, integrator)
