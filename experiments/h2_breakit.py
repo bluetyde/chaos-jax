@@ -59,6 +59,30 @@ BUGS = [
         "BOUND_STUCK = 1e-3",
         "BOUND_STUCK = 0.0",
     ),
+    (
+        "9 float32 filter result inverted",
+        "src/hyperchaos/search3d.py",
+        "        ok &= np.abs(e).min(1) <= F32_ZERO" + chr(10) + "    return ok",
+        "        ok &= np.abs(e).min(1) <= F32_ZERO" + chr(10) + "    return ~ok",
+    ),
+    (
+        "10 float32 sum-check tolerance huge",
+        "src/hyperchaos/search3d.py",
+        "F32_SUM_TOL = 0.05",
+        "F32_SUM_TOL = 1e9",
+    ),
+    (
+        "11 float32 lambda_1 threshold hugely negative",
+        "src/hyperchaos/search3d.py",
+        "F32_EPS_L1 = 0.005",
+        "F32_EPS_L1 = -1e9",
+    ),
+    (
+        "12 float32 zero-exponent limit huge",
+        "src/hyperchaos/search3d.py",
+        "F32_ZERO = 0.05",
+        "F32_ZERO = 1e9",
+    ),
 ]
 
 FAST = ["tests/test_h2_search.py", "-k", "g5"]

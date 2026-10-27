@@ -1,0 +1,22 @@
+{
+ "f32_batch16": {
+  "cpu_s_per_system": 0.291015625,
+  "wall_s_per_system": 0.298387348651886
+ },
+ "f32_batch32": {
+  "cpu_s_per_system": 0.24853515625,
+  "wall_s_per_system": 0.2538912519812584
+ },
+ "f32_batch64": {
+  "cpu_s_per_system": 0.2373046875,
+  "wall_s_per_system": 0.24054323136806488
+ },
+ "f32_batch128": {
+  "cpu_s_per_system": 0.2108154296875,
+  "wall_s_per_system": 0.2157018929719925
+ },
+ "f64_sequential": {
+  "cpu_s_per_system": 1.09375,
+  "wall_s_per_system": 1.1037119925022125
+ }
+}
