@@ -2,6 +2,7 @@
 import jax
 import jax.numpy as jnp
 import numpy as np
+import pytest
 
 import chaos_jax  # noqa: F401
 from chaos_jax.fixes import _block_thomas, lss_derivative
@@ -33,14 +34,21 @@ def test_block_thomas_matches_dense_solve():
     np.testing.assert_allclose(got.ravel(), np.linalg.solve(full, r.ravel()), rtol=1e-10)
 
 
-def test_lss_matches_dense_kkt_system():
+@pytest.mark.parametrize("idx", [0, 1, 2])
+def test_lss_matches_dense_kkt_system(idx):
     """Build the constrained least-squares problem from its definition and solve the KKT system densely."""
     p = lorenz_params()
-    dt, m, alpha, idx = 0.01, 40, 10.0, 1
+    dt, m, alpha = 0.01, 40, 10.0
     xs = np.asarray(integrate(lorenz, jnp.array([1.0, 2.0, 25.0]), p, dt, m)[1:])
     n = 3
     A = np.asarray(jax.vmap(lambda x: jax.jacfwd(lorenz)(x, p))(jnp.asarray(xs)))
-    S = np.zeros((m, n)); S[:, 1] = xs[:, 0]  # d f / d rho = (0, x, 0)
+    S = np.zeros((m, n))  # analytic d f / d parameter: sigma (index 0) (y - x, 0, 0), rho (1) (0, x, 0), beta (2) (0, 0, -z)
+    if idx == 0:
+        S[:, 0] = xs[:, 1] - xs[:, 0]
+    elif idx == 1:
+        S[:, 1] = xs[:, 0]
+    else:
+        S[:, 2] = -xs[:, 2]
     nv, ne = m * n, m - 1
     C = np.zeros((m - 1) * n, dtype=float).reshape(-1, 1) @ np.zeros((1, nv + ne))
     rhs = np.zeros((m - 1) * n)
