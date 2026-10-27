@@ -321,3 +321,16 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - `RESULTS.md`: one clause added to the "Not done" line.
 - Verification: documentation only. `python -m pytest -q tests/test_results_doc.py` passes.
 - Next step: owner decides. Options: provide a Julia environment, or the map-scope unstable-contribution test, or stop the audit here.
+
+## 2026-10-27 Task A5c, map scope (S3 on the Solenoid map): done
+
+- Branch `claude/phase-A5c-map-unstable`, stacked on `claude/phase-A7-julia` (PR 17), then PR 16, then PR 15. Merge in the order 15, 16, 17, then this one. Predictions in `docs/PREDICTIONS-A5c.md`, committed before the code ran. Results in the same file and in `results/phaseA5c_*.json`.
+- Result: my S3 implementation (arXiv 2103.08816, Eqs. 4.5 to 4.10, checked on the page images) matches a noise-free oracle on the Solenoid map. The oracle is exact for s1 (derivative 2) and comes from a Fourier transfer operator for s2. S3 total: s1 1.99983 +- 0.00030 (exact 2), s2 -0.3807 +- 0.0031 (oracle -0.3833) at s = (1, 0), s2 -0.1895 +- 0.0017 (oracle -0.1906) at s = (1, 0.5). All gates G-M0 to G-M4 pass.
+- Main finding: the shadowing contribution (the bounded solution of the tangent equation) equals the full response for s1 and is about zero for s2 (0.00004 and -0.00075, against -0.383 and -0.191). A shadowing target can miss the whole response of a uniformly hyperbolic map at unstable dimension 1 of 3.
+- Not shown: that the Lorenz-63 gaps have this cause. The flow is not hyperbolic, and the objective and perturbations differ. Decision on a flow version (rule written before the run): do not implement one now. See the end of `docs/PREDICTIONS-A5c.md`.
+- Deviations and misses: the oracle derivative stencil failed G-M0 (a) at first and was changed by a dated Amendment before any S3 run. P-M1 (a typo in my own test) and P-M5 (run time 14 s against 2 to 10 minutes) missed.
+- Break-it: four planted bugs, all caught. Two are caught only by the small-sample oracle test.
+- Reading: `READING-LOG.md` has rows for arXiv 2103.08816 and arXiv 2003.09801 (partial). The section on the conditions for a small unstable contribution in 2003.09801 is not read.
+- Verification: `python -m pytest -q`: `81 passed, 1 xfailed in 111.21s`.
+- `RESULTS.md`: the paragraph on the missing unstable contribution (section 5) now includes the map result, and `tests/test_results_doc.py` checks its numbers. The failed-predictions table is unchanged, so the A5c misses are only in `docs/PREDICTIONS-A5c.md`.
+- Next step: owner review. The audit tasks of `TODO.md` are done, skipped (A7) or stopped by rule (A6). Open for the owner: whether to try a flow version (not recommended), a stage 2 of A6, and what to post upstream.
