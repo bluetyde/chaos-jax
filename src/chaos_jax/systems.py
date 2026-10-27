@@ -85,3 +85,22 @@ def driven_oscillator_phase(x, p):
     """
     c, k, F, w = p[0], p[1], p[2], p[3]
     return jnp.array([x[1], -c * x[1] - k * x[0] + F * jnp.cos(x[2]), w])
+
+
+def lorenz96_params(F=8.0):
+    return jnp.array([F])
+
+
+def lorenz96(x, p):
+    """Lorenz-96, du_i/dt = (u_{i+1} - u_{i-2}) u_{i-1} - u_i + F, periodic in i. p = (F,)."""
+    return (jnp.roll(x, -1) - jnp.roll(x, 2)) * jnp.roll(x, 1) - x + p[0]
+
+
+def rossler_params(a=0.2, b=0.2, c=5.7):
+    return jnp.array([a, b, c])
+
+
+def rossler(x, p):
+    """Roessler: dx = -y - z, dy = x + a y, dz = b + z (x - c). p = (a, b, c)."""
+    a, b, c = p[0], p[1], p[2]
+    return jnp.array([-x[1] - x[2], x[0] + a * x[1], b + x[2] * (x[0] - c)])
