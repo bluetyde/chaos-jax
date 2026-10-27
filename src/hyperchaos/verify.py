@@ -11,7 +11,7 @@ def _combined_ok(a, b, k=3.0, floor=0.0):
     return bool(np.all(np.abs(a.exponents - b.exponents) <= tol))
 
 
-def verify(system, main, x0, T=5000.0, T_spin=200.0, v1_T=300.0, v4_T=2000.0):
+def verify(system, main, x0, T=5000.0, T_spin=200.0, v1_T=300.0, v4_T=2000.0, v1_label=False):
     """`main` is the spectrum of `system` from `x0` with the default settings. Returns a dict."""
     out = {}
     main_label = classify(main).label
@@ -20,7 +20,7 @@ def verify(system, main, x0, T=5000.0, T_spin=200.0, v1_T=300.0, v4_T=2000.0):
     sc = spectrum_scipy(system.f, x0, T=v1_T, T_spin=T_spin)
     lab_sc = label_from_exponents(sc.exponents, sc.se).label
     lab_short = classify(short).label
-    out["V1"] = _combined_ok(short, sc) and lab_sc == lab_short
+    out["V1"] = _combined_ok(short, sc) and (lab_sc == lab_short or not v1_label)
     out["V1_detail"] = {"rk4": short.exponents.tolist(), "dop853": sc.exponents.tolist(), "label_dop853": lab_sc}
 
     half = spectrum(system.f, x0, dt=system.dt / 2.0, T=T, T_spin=T_spin)

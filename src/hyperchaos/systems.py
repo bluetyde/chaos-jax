@@ -155,7 +155,7 @@ POSITIVE = [
     System("SC", _sprott("C"), (0.05, 0.05, 0.05), 0.05, expected="chaotic", published=(0.163, 0.0, -1.163)),
     System("SF", _sprott("F"), (0.05, 0.05, 0.05), 0.05, expected="chaotic", published=(0.117, 0.0, -0.617)),
     System("SS", _sprott("S"), (0.05, 0.05, 0.05), 0.05, expected="chaotic", published=(0.188, 0.0, -1.188)),
-    System("R79", rossler79(), (-10.0, -6.0, 0.0, 10.0), 1.0, dt=0.002, expected="hyperchaotic"),
+    System("R79", rossler79(), (-10.0, -6.0, 0.0, 10.0), 0.2, dt=0.002, expected="hyperchaotic"),
     System(
         "LS", li_sprott(), (1.0, 1.0, 1.0, 1.0), 0.5, expected="hyperchaotic", published=(0.0704, 0.0128, 0.0, -1.0832)
     ),

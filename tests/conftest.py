@@ -1,3 +1,4 @@
+import os
 from functools import lru_cache
 
 import pytest
@@ -9,12 +10,13 @@ from hyperchaos.systems import ALL
 from hyperchaos.verify import verify
 
 SEED = 1
+T_MAIN = float(os.environ.get("H1_T", "5000"))
 
 
 @lru_cache(maxsize=None)
 def main_run(sid):
     s = ALL[sid]
-    return spectrum(s.f, s.start(SEED), dt=s.dt)
+    return spectrum(s.f, s.start(SEED), dt=s.dt, T=T_MAIN)
 
 
 @lru_cache(maxsize=None)
@@ -25,7 +27,7 @@ def main_class(sid):
 @lru_cache(maxsize=None)
 def verification(sid):
     s = ALL[sid]
-    return verify(s, main_run(sid), s.start(SEED))
+    return verify(s, main_run(sid), s.start(SEED), T=T_MAIN, v4_T=0.4 * T_MAIN)
 
 
 @pytest.fixture(scope="session")
