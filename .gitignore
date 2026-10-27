@@ -4,3 +4,4 @@ __pycache__/
 .venv/
 results/phaseA1_*_k*.npy
 results/phaseA1b_*.npy
+results/phaseA3b_*.npy
