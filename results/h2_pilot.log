@@ -1,0 +1,15 @@
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+seed 7000 {'draws': 20000, 'keep_a': 4617, 'keep_b': 57, 'stage2': 0, 'confirmed': 0, 'secs': 81.56709718704224} | total {'draws': 20000, 'keep_a': 4617, 'keep_b': 57, 'stage2': 0, 'confirmed': 0} | wall 82s
+seed 7001 {'draws': 20000, 'keep_a': 4745, 'keep_b': 49, 'stage2': 4, 'confirmed': 1, 'secs': 98.64333724975586} | total {'draws': 40000, 'keep_a': 9362, 'keep_b': 106, 'stage2': 4, 'confirmed': 1} | wall 99s
+seed 7002 {'draws': 20000, 'keep_a': 4672, 'keep_b': 51, 'stage2': 0, 'confirmed': 0, 'secs': 75.00958466529846} | total {'draws': 60000, 'keep_a': 14034, 'keep_b': 157, 'stage2': 4, 'confirmed': 1} | wall 99s
+seed 7003 {'draws': 20000, 'keep_a': 4645, 'keep_b': 51, 'stage2': 0, 'confirmed': 0, 'secs': 75.81993579864502} | total {'draws': 80000, 'keep_a': 18679, 'keep_b': 208, 'stage2': 4, 'confirmed': 1} | wall 99s
+seed 7004 {'draws': 20000, 'keep_a': 4577, 'keep_b': 64, 'stage2': 0, 'confirmed': 0, 'secs': 89.95414113998413} | total {'draws': 100000, 'keep_a': 23256, 'keep_b': 272, 'stage2': 4, 'confirmed': 1} | wall 99s
