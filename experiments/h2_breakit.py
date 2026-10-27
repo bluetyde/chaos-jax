@@ -14,18 +14,14 @@ BUGS = [
     (
         "1 support class ignores one of the 6 variable permutations",
         "src/hyperchaos/search3d.py",
-        "    perms = list(permutations(range(3))) if perms is None else perms
-    return min(",
-        "    perms = list(permutations(range(3)))[:5] if perms is None else perms
-    return min(",
+        "    perms = list(permutations(range(3))) if perms is None else perms" + chr(10) + "    return min(",
+        "    perms = list(permutations(range(3)))[:5] if perms is None else perms" + chr(10) + "    return min(",
     ),
     (
         "2 stage 1a test inverted (drops chaos, keeps the wrong orbits)",
         "src/hyperchaos/search3d.py",
-        "        return (m <= 1e4) & moving
-",
-        "        return (m > 1e4) & moving
-",
+        "        return (m <= 1e4) & moving" + chr(10),
+        "        return (m > 1e4) & moving" + chr(10),
     ),
     (
         "3 monomial order swapped in the flow (decode swaps xz and yy)",
