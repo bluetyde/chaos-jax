@@ -177,3 +177,19 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Predictions against results: control hit, rho and sigma stability hit, "no variant reaches shadowing values" hit. Misses: beta spin-up 10 (5.1 SE, I predicted none beyond 3 SE and beta within 0.02), compute time (72 s against 4 min).
 - Caveats: one step h per parameter, one factor at a time, box start points. The check removes three possible biases in the oracle. It does not say which method is closer to the true derivative.
 - Next step: owner review, then A3 (vary `dt`, `T_seg`, `nus`, `T` for nilss-jax and extend our own LSS to sigma and beta). With the oracle stable, A3's LSS for sigma and beta is the most informative next step: it can show whether an independent shadowing code also gives sigma near 0.134.
+
+## 2026-10-27 Task A3 session: nilss-jax settings, and our own LSS for sigma and beta
+
+- Status: A3 done. Controls pass. **A3.1 and A3.2 pass** (nilss-jax is stable against dt, T_seg, nus and T, and the sigma gap stays at about 21 SE). **A3.3 fails on the strict 2 SE test for all three parameters** (relative differences to nilss-jax below 0.5%). **A3.4 fails for rho and sigma** (my LSS is still rising with T). A4 not started.
+- Changes: `docs/PREDICTIONS-A3.md` (predictions and gates committed before any run, results appended), `experiments/phaseA3_settings.py`, `experiments/phaseA3_lss.py`, `results/phaseA3_*.json`, dense KKT test now covers sigma and beta. Branch is stacked on A1b, A2, A1.
+- Verification:
+  - `python -m pytest -q` gave: `44 passed, 1 xfailed in 39.03s`.
+  - nilss-jax, 8 variants, 32 orbits each: rho 1.0170 to 1.0178, sigma 0.1336 to 0.1338, beta -1.6584 to -1.6634. All controls pass. Verdict CAUTION in all.
+  - Our LSS at T = 320: rho 1.01637 +- 0.00006, sigma 0.13429 +- 0.00006, beta -1.65591 +- 0.00078. Against nilss-jax: -0.07%, +0.41%, +0.20%. Against the oracle: +1.32%, -9.76%, +0.13%.
+  - Compute: 3.6 minutes and 2.1 minutes on CPU.
+- Predictions against results: see `docs/PREDICTIONS-A3.md`. Misses: the 2 SE agreement of my LSS with nilss-jax, and convergence in T for rho. The compute estimate was close.
+- Caveats:
+  - Two shadowing codes agree for rho, sigma, beta, and both disagree with the finite-difference oracle for rho (1.4%) and sigma (10%). I do not know which is closer to the truth, and I did not find the cause.
+  - My LSS is not fully independent of nilss-jax: same kind of method, and I read the README and `docs/usage.md` before the A3 predictions. I read no source.
+  - The T extrapolation of my LSS (about 1.0167 for rho, 0.1347 for sigma) is a guess.
+- Next step: owner review, then A4 (calibrate the reliability report). A4 needs `docs/reliability.md` of nilss-jax, which I have not read. Log it first. A4 also needs cases with a finite-difference oracle for each. The cost of those oracles for Lorenz-96 may be high, so say what is dropped. Consider first, as a separate task, a test of the open question above: a third method for the Lorenz rho and sigma derivative (for example an adjoint of the invariant measure, or a much larger h-window study), so that the shadowing-versus-finite-difference gap can be assigned to one side.
