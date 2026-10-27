@@ -195,7 +195,7 @@ d<z>/d(parameter) at rho = 28, sigma = 10, beta = 8/3:
 | My LSS, T = 320 (A3) | 1.0164 | 0.1343 | -1.6559 |
 | My NILSS (A5) | 1.0170 | 0.1336 | -1.6574 |
 
-The three shadowing codes use two formulations (LSS and NILSS). I wrote two of them and the `nilss-jax` author wrote the third. They agree within 0.5%. They all use RK4 with a trapezoid-style quadrature, so a shared numerical effect is not excluded. The `fds` check that would test this (A7b) was not done.
+The three shadowing codes use two formulations (LSS and NILSS). I wrote two of them and the `nilss-jax` author wrote the third. They agree within 0.5%. They all use RK4 with a trapezoid-style quadrature, so a shared numerical effect was not excluded when A8 was written. The `fds` check (A7b) then tested it: `fds` 0.1.0.dev1, run as a black box with RK4 and with an adaptive DOP853 solver, gives rho 1.01709 +- 0.00024, sigma 0.13362 +- 0.00021 and beta -1.65926 +- 0.00239 (8 orbits, T = 1000). That agrees with `nilss-jax` within 0.1% and sits on the shadowing side of the oracle gaps. So a shared RK4 effect is not the cause. Details in `docs/PREDICTIONS-A7b.md`.
 The published paper arXiv 1806.02077 reports the same pattern for rho with the same observable, sigma, beta and step (Delta rho = 0.5). In its sections 5.3 and 5.4 it finds shadowing-type methods converge to about 1.017 and finite differences stay lower. It states the bias does not depend on the integration step or on the finite-difference step. It attributes the bias to the lack of uniform hyperbolicity in Lorenz-63, and it says linear shadowing-based methods are "questionable" there. It also reports that a method on unstable periodic orbits converges to the shadowing value.
 **What this repository does not settle:** which number is closer to the true derivative. The noise check and the reading of that paper point to the finite-difference side. Neither is a proof.
 **Two candidate causes of the gap remain.** The hyperbolicity test (section 4.10) did not support the first. The second was not tested.
@@ -309,7 +309,7 @@ Not claimed as new: that gradients blow up, that shadowing fixes it, the sigma g
 - The noise-regularised check rests on an untested assumption.
 - The `nilss-jax` code is one author's code from October 2026. Findings are about one commit.
 - Predictions in the audit tasks followed my reading of its documents. They are weak evidence.
-- Not done: Phases 5 to 9 of the plan (fitting task, double pendulum for the fixes, Julia port, Lorenz-96 4D-Var), and A6, A7 and A7b of `TODO.md`. The double pendulum appears only in Phase 1.
+- Not done: Phases 5 to 9 of the plan (fitting task, double pendulum for the fixes, Julia port, Lorenz-96 4D-Var), and A6 and A7 of `TODO.md`. The double pendulum appears only in Phase 1.
 - The finite-difference oracle needs many start points. Its standard errors scale like 1/h.
 
 ## 11. Reproduce

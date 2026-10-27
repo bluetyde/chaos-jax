@@ -1,0 +1,57 @@
+{
+ "tag": "dop853",
+ "versions": {
+  "fds": "0.1.0.dev1",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "mpi4py": "4.1.2",
+  "mpich": "5.0.2",
+  "dill": "0.4.1"
+ },
+ "n_orbits": 8,
+ "settings": {
+  "subspace_dimension": 1,
+  "steps_per_segment": 100,
+  "runup_steps": 4000,
+  "num_segments": 1000,
+  "epsilon": "default 1e-6",
+  "dt": 0.005,
+  "T": 500.0
+ },
+ "C-F3": {
+  "mean_J": 23.537629013869267,
+  "pass": true
+ },
+ "rho": {
+  "mean": 1.0171431160680826,
+  "sem": 0.00026598459575802606,
+  "sd_orbits": 0.0007523180454066514,
+  "rel_sd": 0.0007396383395041282,
+  "rel_to_nilss_jax": 6.205614905673578e-05,
+  "rel_to_oracle": 0.013925929095063877,
+  "G-F1_pass": true,
+  "seconds_per_call_mean": 144.30132082104683,
+  "G-F2": "shadowing side"
+ },
+ "sigma": {
+  "mean": 0.13386209088834833,
+  "sem": 0.00023621758600302604,
+  "sd_orbits": 0.0006681242275930249,
+  "rel_sd": 0.004991138440757614,
+  "rel_to_nilss_jax": 0.0008380627166229584,
+  "rel_to_oracle": -0.10049798486508135,
+  "G-F1_pass": true,
+  "seconds_per_call_mean": 143.81312027573586,
+  "G-F2": "shadowing side"
+ },
+ "beta": {
+  "mean": -1.6638342454687804,
+  "sem": 0.0021659721888963425,
+  "sd_orbits": 0.0061262944905202945,
+  "rel_sd": 0.0036820341372371676,
+  "rel_to_nilss_jax": -0.002750755132546497,
+  "rel_to_oracle": -0.0034341162198490483,
+  "G-F1_pass": true,
+  "seconds_per_call_mean": 144.46531811356544
+ }
+}

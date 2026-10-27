@@ -61,3 +61,50 @@ A bug that nothing catches is reported, and the tests are fixed.
 - **P-F5** the DOP853 run agrees with the RK4 run (G-F3 passes for all three), about 70%.
 - **P-F6** wall time per orbit for the RK4 wrapper at T = 1000: 1 to 10 minutes. This is a guess until I run the probe.
 - **P-F7** if `fds` is on the shadowing side with the adaptive solver as well, then a shared RK4 effect is not the cause of the rho and sigma gaps. If it is on the oracle side, the gap depends on the algorithm, and I would say that the three shadowing codes share an effect that `fds` does not.
+
+## Results (written after the runs; the gates above did not change)
+
+Versions: `fds` 0.1.0.dev1, numpy 2.5.4, scipy 1.18.1, mpi4py 4.1.2, mpich 5.0.2, dill 0.4.1, Python 3.13. Files: `results/phaseA7b_control.json`, `phaseA7b_probe.json`, `phaseA7b_main.json`, `phaseA7b_dop853.json`, `phaseA7b_report_main.json`, `phaseA7b_report_dop853.json`, `phaseA7b_gf3.json`.
+
+**Controls.** C-F1 (9 tests, `tests/test_fds_wrapper.py`) passed at the first run. C-F2 (Van der Pol): `fds` G = 0.1136, central difference 0.1118, difference 1.6%, gate 10%, pass. C-F3: mean J 23.550 (main) and 23.538 (DOP853), gate 23.55 +- 0.2, pass.
+
+**Run choices written before the main run.** The probe took 22 s for T = 100, so 16 orbits would have taken about 2.9 hours. The written fallback rule gave 8 orbits. The real time was longer than the projection: about 290 to 300 s per call at T = 1000 (about 15 minutes per orbit for the three parameters), so the main run took about 1 hour 50 minutes. The DOP853 run used 8 orbits at T = 500 and took about 144 s per call, about 1 hour in all.
+
+**Main run (RK4 wrapper, 8 orbits, T = 1000).** Mean +- SEM over orbits.
+
+| Parameter | `fds` | nilss-jax (A2) | Oracle (A1) | `fds` against nilss-jax | `fds` against oracle | G-F1 | G-F2 |
+|---|---|---|---|---|---|---|---|
+| rho | 1.01709 +- 0.00024 | 1.01708 | 1.00317 | +0.0007% | +1.39% | pass | shadowing side |
+| sigma | 0.13362 +- 0.00021 | 0.13375 | 0.14882 | -0.10% | -10.22% | pass | shadowing side |
+| beta | -1.65926 +- 0.00239 | -1.65927 | -1.65814 | +0.0008% | -0.07% | pass | not decisive |
+
+**Second integrator (DOP853, rtol = atol = 1e-12, same 8 orbits, T = 500), G-F3.**
+
+| Parameter | RK4, T = 1000 | DOP853, T = 500 | Difference | Combined SE | Result |
+|---|---|---|---|---|---|
+| rho | 1.01709 | 1.01714 | +0.00006 | 0.00036 | pass (0.16 SE) |
+| sigma | 0.13362 | 0.13386 | +0.00025 | 0.00032 | pass (0.78 SE) |
+| beta | -1.65926 | -1.66383 | -0.00458 | 0.00323 | pass (1.42 SE) |
+
+The adaptive solver ran with `fds` without any change of `epsilon` or tolerances. It sits on the shadowing side too: rho +1.39% and sigma -10.05% from the oracle.
+
+**Break-it (run after the code commit).** Bug 1 (sigma and rho swapped): 9 of 9 tests failed. Bug 2 (x returned in place of z): 6 failed, 3 passed (the three DOP853 tests, which the bug did not touch). Bug 3 (series reported at every second step): 6 failed, 3 passed (same reason). All three were caught. Files restored with git.
+
+**Predictions against results.**
+
+| Prediction | Outcome |
+|---|---|
+| P-F1 `fds` runs on Python 3.13 and NumPy 2.x (60%) | **Hit.** It needed `mpich` from PyPI for the MPI library, and a picklable `run` object (see below). |
+| P-F2 controls pass at the first run, wrapper repairs count as a miss | **Miss.** C-F1 to C-F3 passed, but my first control call failed: `fds` sends `run` to worker processes, so a lambda cannot be used. I replaced the lambdas with a picklable class. This was a mistake in my script, not a failure of `fds`. |
+| P-F3 shadowing side for rho and sigma, G-F1 passes for all three (65%) | **Hit.** |
+| P-F4 spread over orbits 1% to 5% of the mean for sigma, larger than my NILSS | **Miss.** The spread is 0.44% for sigma and 0.07% for rho, about the same as my NILSS. |
+| P-F5 DOP853 agrees with RK4 (70%) | **Hit.** |
+| P-F6 1 to 10 minutes per orbit at T = 1000 | **Partly.** About 5 minutes for one parameter (in range), about 15 minutes for the three parameters of one orbit (out of range). The projection from the probe was also low by about 30%. |
+| P-F7 conditional reading | The condition "`fds` on the shadowing side with the adaptive solver" holds. |
+
+**What this shows, and what it does not.**
+- A fourth code, written by other people and run as a black box, with RK4 and with an adaptive solver, gives the same rho and sigma as nilss-jax and my two codes. So a shared RK4 or quadrature effect in my three codes is not the cause of the +1.4% (rho) and -10% (sigma) gaps to the finite-difference oracle.
+- It does not tell which side is nearer to the true derivative. All four codes are shadowing-type methods, so they can share a method-level effect (for example a missing unstable contribution, or non-hyperbolicity).
+- I could not read which formulation `fds` implements (the documentation page is empty and I did not read the source). I only know that it has a subspace dimension, segments, a run-up and a finite-difference step `epsilon`, so it looks like a NILSS-type code. That is a guess.
+- Limits: 8 orbits only, one version of `fds` (2016, a pre-release), one objective, one set of settings, T = 500 for the adaptive run against T = 1000 for the RK4 run, and finite-difference tangents with `epsilon` = 1e-6 that I did not vary.
+- Source of `fds` is still unread. The GPL-3.0 licence note stands: no source was copied into this repository.
