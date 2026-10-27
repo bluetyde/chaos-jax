@@ -101,6 +101,29 @@ def run(N, integrator, tag, n_seg, names=NAMES):
     (OUT / f"phaseA7b_{tag}.json").write_text(json.dumps(res, indent=1))
 
 
+S = {"rho": 1.01708, "sigma": 0.13375, "beta": -1.65927}   # nilss-jax mean, A2 (32 orbits)
+O = {"rho": 1.003173, "sigma": 0.148818, "beta": -1.658140}  # A1 oracle (weighted mean; finest rung for beta)
+
+
+def report(tag="main", with_gf2=True):
+    d = json.loads((OUT / f"phaseA7b_{tag}.json").read_text())
+    res = {"tag": tag, "versions": d["versions"], "n_orbits": d["n_orbits"], "settings": d["settings"]}
+    J = np.concatenate([np.asarray(v) for v in d["per_orbit_J"].values()])
+    res["C-F3"] = {"mean_J": float(J.mean()), "pass": bool(abs(J.mean() - 23.55) < 0.2)}
+    for n in NAMES:
+        g = np.asarray(d["per_orbit_G"][n])
+        m, se = float(g.mean()), float(g.std(ddof=1) / np.sqrt(g.size))
+        r = {"mean": m, "sem": se, "sd_orbits": float(g.std(ddof=1)), "rel_sd": float(g.std(ddof=1) / abs(m)), "rel_to_nilss_jax": (m - S[n]) / abs(S[n]),
+             "rel_to_oracle": (m - O[n]) / abs(O[n]), "G-F1_pass": bool(abs(m - S[n]) / abs(S[n]) < 0.01), "seconds_per_call_mean": float(np.mean(d["seconds"][n]))}
+        if n in ("rho", "sigma"):
+            ds, do = abs(m - S[n]), abs(m - O[n])
+            lim = 0.005 if n == "rho" else 0.01
+            r["G-F2"] = "neither" if min(ds, do) / abs(S[n]) > lim else ("shadowing side" if ds < do else "oracle side")
+        res[n] = r
+    (OUT / f"phaseA7b_report_{tag}.json").write_text(json.dumps(res, indent=1))
+    print(json.dumps(res, indent=1))
+
+
 if __name__ == "__main__":
     mode = sys.argv[1]
     if mode == "x0s":
@@ -111,5 +134,7 @@ if __name__ == "__main__":
         probe()
     elif mode == "run":
         run(int(sys.argv[2]), "rk4", "main", int(sys.argv[3]) if len(sys.argv) > 3 else 2000)
+    elif mode == "report":
+        report(sys.argv[2] if len(sys.argv) > 2 else "main")
     elif mode == "dop":
         run(8, "dop853", "dop853", int(sys.argv[2]) if len(sys.argv) > 2 else 1000)
