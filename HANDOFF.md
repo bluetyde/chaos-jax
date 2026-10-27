@@ -250,3 +250,19 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - My code was written after seeing nilss-jax docs and results, so it is not blind.
   - One homogeneous tangent, one system, trapezoid quadrature.
 - Next step: owner review. Then A6 (double pendulum): first check that the long-time average does not depend on the starting point. A Hamiltonian flow with a mixed phase space may fail this; if so, say so and stop. A7 (Julia) only if `julia --version` works. A8 (write-up). The finding most worth a decision before A8: three shadowing codes versus finite differences on rho and sigma. A direct test of non-hyperbolicity (for example the angle between stable and unstable directions) would be a separate task.
+
+## 2026-10-27 Task A8 session: write-up
+
+- Status: A8 done. `RESULTS.md` written. A5b, A6, A7 and A7b are **not done**: the owner chose A8 before them.
+- Changes: `RESULTS.md` (new), `tests/test_results_doc.py` (new, checks the headline numbers in `RESULTS.md` against `results/*.json`), `READING-LOG.md` rows for the sections of the papers I opened for the prior-art statement. Branch is on `main` b24a063.
+- Verification:
+  - `python -m pytest -q` gave: `61 passed, 1 xfailed in 63.16s`.
+  - The new test fails when I corrupt a quoted number (checked once) and passes on the final text.
+  - Every table in `RESULTS.md` was checked against the result file or the predictions file it comes from. The appendix lists the files.
+- What the write-up says: an independent audit and replication, not a new method. Shadowing codes (nilss-jax, our LSS, our NILSS) agree within 0.5% and differ from the finite-difference oracle by about +1.4% (rho) and -10% (sigma). Not new: the nilss-jax README states the sigma gap, and arXiv 1806.02077 reports the rho bias (shadowing about 1.017, finite differences lower, same observable and parameters).
+- I read arXiv 1806.02077 sections 5.3, 5.4 and the conclusion myself. It also reports that unstable periodic orbits converge to the shadowing value, and it reads that as a limit of linear methods under non-hyperbolicity. The A3b noise check leans to the finite-difference side. `RESULTS.md` says the question of which side is closer to the true derivative is not settled here.
+- Caveats:
+  - Prior-art statements are limited to what I opened. SciMLSensitivity, `fds` and `lyapax` are named from the planning notes and were not opened. The papers added in the second library round were not opened except the four abstracts quoted.
+  - `RESULTS.md` has 32 failed predictions listed. Several audit predictions followed my reading of nilss-jax documents.
+  - I did not edit `TODO.md`. Its order (A5b first) was overruled by the owner.
+- Next step: owner review. Then, if wanted: A5b (the only open question that could explain the headline result), A6, A7b. Decide whether anything goes upstream.
