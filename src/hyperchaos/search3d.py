@@ -16,7 +16,12 @@ from hyperchaos.spectrum import spectrum_p
 
 MONOS = [(0, 0, 0), (1, 0, 0), (0, 1, 0), (0, 0, 1), (2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0, 2)]
 NAMES = ["1", "x", "y", "z", "xx", "xy", "xz", "yy", "yz", "zz"]
-GRID = np.round(np.arange(1, 101) * 0.1, 1)
+import os
+
+# Registered grid: magnitudes 0.1 .. 5.0 (50 values) with both signs = 100 nonzero values (docs/PREDICTIONS-H2.md).
+# H2_GRID_MAX=10 reproduces the wide-grid run of 2026-10-27 (200 nonzero values), kept in results/h2_wide_grid/.
+N_MAG = int(round(float(os.environ.get("H2_GRID_MAX", "5.0")) * 10))
+GRID = np.round(np.arange(1, N_MAG + 1) * 0.1, 1)
 START = np.array([0.05, 0.05, 0.05])
 START2 = np.array([0.1, -0.05, 0.07])
 
@@ -133,7 +138,7 @@ def sample(rng, n, ks=(5, 6)):
     k = rng.choice(np.asarray(ks), size=n)
     rank = np.argsort(rng.random((n, 30)), axis=1).argsort(axis=1)
     mask = rank < k[:, None]
-    mag = GRID[rng.integers(0, 100, size=(n, 30))]
+    mag = GRID[rng.integers(0, N_MAG, size=(n, 30))]
     sign = np.where(rng.random((n, 30)) < 0.5, -1.0, 1.0)
     return np.where(mask, mag * sign, 0.0)
 
@@ -141,7 +146,7 @@ def sample(rng, n, ks=(5, 6)):
 def sample_on_support(rng, slots, n):
     slots = sorted(slots)
     c = np.zeros((n, 30))
-    mag = GRID[rng.integers(0, 100, size=(n, len(slots)))]
+    mag = GRID[rng.integers(0, N_MAG, size=(n, len(slots)))]
     sign = np.where(rng.random((n, len(slots))) < 0.5, -1.0, 1.0)
     c[:, slots] = mag * sign
     return c
