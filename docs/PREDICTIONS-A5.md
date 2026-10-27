@@ -57,3 +57,55 @@ Each must be caught by a test among C-A5.1 to C-A5.4 and the comparison tests. A
 ## Amendment, 2026-10-27: first run of control C-A5.4
 
 On its first run C-A5.4 **failed**: relative difference 1.016e-3 against the gate 1e-3. The difference fell by half each time I halved dt (1.0e-3, 5.4e-4, 2.8e-4), which is first order, not the second order of the trapezoid error I expected. I traced it with two diagnostics: the per-segment integrals of grad J . (v* + W a) agreed with the direct evaluation to 1e-16, and the quadrature piece sum xi*_i (trapz(dJ/dt) - dJ_i) / T scaled as dt^2 but was only 1.5e-4. The remaining O(dt) part was a bug in **my test**: it started the reconstructed v at zero at t = 0, while the correct start is v*(0) + W(0) a_0 = W(0) a_0 (v* starts at zero but W a_0 does not). The NILSS code was right. I fixed the test and left the gate at 1e-3. The test now gives 1.4e-4 and passes. I count this as one repaired mistake in my own control code (P-A5.1 allowed repairs of my code; I count it as a miss).
+
+## Results (added after the runs, 2026-10-27)
+
+`python -m pytest -q` gives `55 passed, 1 xfailed in 58.81s` (5 new NILSS tests). Commands: `python experiments/phaseA5_run.py probe | run | control | report` (the run takes 4 s for 32 orbits). Output in `results/phaseA5_own.json` and `results/phaseA5_report.json`. I did not read any nilss-jax source, before or after.
+
+### Controls (ran first)
+
+- **C-A5.1** Schur solve against the dense KKT system: pass (relative error below 1e-9).
+- **C-A5.2** tangents against finite differences: pass (below 1e-5).
+- **C-A5.3** continuity of v_perp at every interface: pass (below 1e-8). Improved after the break-it check, see below.
+- **C-A5.4** formula (41) against (15): passes at **1.42e-4** (gate 1e-3) after repairing my test (see the Amendment above).
+- **C-A5.5** main run: mean exponent 0.9040 (within 0.02 of 0.9041), mean z 23.555 (within 0.2 of 23.55). Pass.
+
+### Own NILSS, 32 orbits, T = 1000, dt 0.005, T_seg 0.5, M = 1 (same start points as A2)
+
+| | own mean +- SEM (orbit sd) | nilss-jax (A2) | difference | A5.1a (2 combined SE) | A5.1b (below 0.5%) | A5.2 median per orbit | A5.3 against my LSS T = 320 | against the A1 oracle |
+|---|---|---|---|---|---|---|---|---|
+| rho | 1.01701 +- 0.00006 (0.00035) | 1.01708 +- 0.00007 | -0.007% | pass | pass | 0.03% (pass) | +0.06% (pass) | +1.38% |
+| sigma | 0.13363 +- 0.00009 (0.00052) | 0.13375 +- 0.00008 | -0.089% | pass | pass | 0.32% (pass) | -0.50% (pass) | -10.21% |
+| beta | -1.65739 +- 0.00112 (0.00631) | -1.65927 +- 0.00116 | +0.113% | pass | pass | 0.31% (not gated) | -0.09% (pass) | +0.05% |
+
+### Break-it (each planted after committing, then restored with git)
+
+| Bug | Tests that failed |
+|---|---|
+| 1. Drop the xi boundary term in (41) | C-A5.4, Lorenz regression (2 of 5) |
+| 2. Wrong sign in the continuity (a_{i+1} = R a_i - b) | C-A5.3, C-A5.4, Lorenz regression (3 of 5) |
+| 3. Skip the subtraction Q b at the reset of v* | **First run: C-A5.4 and Lorenz regression, not C-A5.3** (2 of 5). Then I found why: C-A5.3 recomputed the reset from the paper's formula, so it could not see what the code did. The code now records the reset it applied (`V_next`) and C-A5.3 uses it. With bug 3 planted again, C-A5.3, C-A5.4 and the Lorenz regression all fail (3 of 5). |
+
+No bug went uncaught. One control had a blind spot, now fixed.
+
+### Predictions against results
+
+| Prediction | Result |
+|---|---|
+| P-A5.1 controls pass at first run (repairs count as misses) | **Miss**: C-A5.4 failed at first because of a bug in my test (repaired, see Amendment). |
+| P-A5.2 rho 1.017, sigma 0.134, beta -1.66, SEM about 1e-4 | Hit (1.01701, 0.13363, -1.65739; SEM 6e-5, 9e-5, 1.1e-3). |
+| P-A5.3 A5.1b passes for all three | Hit. |
+| P-A5.3 A5.1a fails for at least two of three | **Miss**: it passes for all three. |
+| P-A5.4 A5.2 passes for rho and sigma | Hit (0.03%, 0.32%). |
+| P-A5.5 A5.3 passes for all three | Hit. |
+| P-A5.6 break-it: bugs 1 and 3 caught by the Lorenz comparison, bug 2 by C-A5.3 | Hit. Bug 3 was not caught by C-A5.3 at first (blind spot, fixed). |
+| P-A5.7 oracle differences about +1.4%, -10%, about 0% | Hit (+1.38%, -10.21%, +0.05%). |
+| Compute 1 to 5 minutes | **Miss**: 4 s. |
+
+### What this shows, and what it does not
+
+- **A NILSS written from the papers agrees with nilss-jax** at the same settings to 0.007% for rho, 0.09% for sigma and 0.11% for beta in the ensemble mean. Per orbit, for the same start points, the median difference is 0.03% (rho) and 0.3% (sigma, beta), even though the initial tangent vectors differ. That the agreement is closer than I predicted says my predictions underestimated how deterministic NILSS is on Lorenz-63.
+- **Three shadowing implementations now give one answer** for rho, sigma and beta: nilss-jax, my own LSS (A3) and my own NILSS. They agree within 0.5%. The LSS and NILSS formulations differ (A3 and A5 solve different problems), and I wrote both from the papers. **All three disagree with the finite-difference oracle** for rho (+1.4%) and sigma (-10%), and agree with it for beta. A3b (noise-regularised finite differences) sided with the oracle.
+- **So the sigma gap and the rho gap are not coding errors in any one of these implementations.** They look like a property of shadowing on this system. Candidate cause, not tested: Lorenz-63 at rho = 28 is not uniformly hyperbolic. I did not test it.
+- **Independence limits:** I wrote this after reading nilss-jax docs and results (A2, A3, A4), so my code could not be blind to what the answer should be. I did not read its source. All three shadowing codes use the same RK4 and the same per-step quadrature kind. A shared systematic effect of that kind is not excluded.
+- **Not done:** other systems (Lorenz-96, Roessler), more than one homogeneous tangent, the FD-NILSS variant, a check against the author's Python reference code (which I did not read).

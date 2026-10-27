@@ -226,3 +226,19 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - The exploratory reading that the report is conservative at rho = 45 is post hoc and not scored.
   - I read `docs/reliability.md` before predicting; it names the blind spots that show up here.
 - Next step: owner review. Then A5 (optional: our own NILSS from the papers) or A6 (double pendulum). Before A6, check that the long-time average does not depend on the start point. If the owner wants A4 to be a stronger test, add cases where the oracle converges and the report says `ok`, for example other parameter values near rho = 28 to 35 and more parameters of Lorenz-96 with small F. A4's oracle rule (SE below 5% and two steps agree) is the bottleneck.
+
+## 2026-10-27 Task A5 session: our own NILSS, from the papers
+
+- Status: A5 done. Controls pass (one repaired test). **A5.1a, A5.1b, A5.2 and A5.3 all pass.** Break-it: all three bugs caught, with one blind spot in a control found and fixed. A6 not started.
+- Changes: `docs/PREDICTIONS-A5.md` (reading, equation check, design, gates and break-it plan committed before any code, an Amendment, results appended), `src/chaos_jax/nilss.py`, `tests/test_nilss.py`, `experiments/phaseA5_run.py`, `results/phaseA5_*.json`, two `READING-LOG.md` rows (`arxiv-1611.00880`, `arxiv-1711.06633`). Branch is stacked on A4, A3b, A3, A1b, A2, A1.
+- Verification:
+  - `python -m pytest -q` gave: `55 passed, 1 xfailed in 58.81s`.
+  - Own NILSS, 32 orbits, T = 1000: rho 1.01701 +- 0.00006, sigma 0.13363 +- 0.00009, beta -1.65739 +- 0.00112. nilss-jax (A2): 1.01708, 0.13375, -1.65927. Differences -0.007%, -0.089%, +0.113%. Against the A1 oracle: +1.38%, -10.21%, +0.05%.
+  - Compute: 4 s for the 32 orbits.
+- Predictions against results: see `docs/PREDICTIONS-A5.md`. Misses: a bug in my own control test (C-A5.4) at first, A5.1a passing for all three (I predicted at least two failures), compute time.
+- Caveats:
+  - Three shadowing codes (nilss-jax, our LSS, our NILSS) agree to 0.5% and disagree with the finite-difference oracle for rho (+1.4%) and sigma (-10%). Not a coding error in any one of them. The cause is not found.
+  - I did not read nilss-jax source. The rule in `TODO.md` allows it now that results are logged. I have not needed to.
+  - My code was written after seeing nilss-jax docs and results, so it is not blind.
+  - One homogeneous tangent, one system, trapezoid quadrature.
+- Next step: owner review. Then A6 (double pendulum): first check that the long-time average does not depend on the starting point. A Hamiltonian flow with a mixed phase space may fail this; if so, say so and stop. A7 (Julia) only if `julia --version` works. A8 (write-up). The finding most worth a decision before A8: three shadowing codes versus finite differences on rho and sigma. A direct test of non-hyperbolicity (for example the angle between stable and unstable directions) would be a separate task.
