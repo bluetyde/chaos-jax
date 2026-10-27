@@ -1,0 +1,54 @@
+# Task A1b predictions and gates: does the oracle depend on its window, dt or spin-up?
+
+Written and committed before any A1b code ran. This is a follow-up to A1 that the owner asked for after A2. It adds no gate to `TODO.md` and changes no A1 or A2 result.
+Do not edit a gate or prediction after results. Add a dated Amendment instead.
+
+## Why
+
+A2 found that nilss-jax (1.017 for rho, 0.134 for sigma) and my own LSS (1.014 to 1.016 for rho) disagree with the A1 finite-difference oracle (1.003 for rho, 0.149 for sigma). The oracle used one averaging window (100 time units), one dt (0.01) and one spin-up (50). If the oracle depends on any of them, that could explain the gap. This task tests that, one factor at a time.
+
+## Disclosure
+
+I have seen the nilss-jax numbers (rho 1.017, sigma 0.134, beta -1.659) and its own finite-difference values from `docs/usage.md` (rho 1.004 over T = 1000 windows, sigma 0.167 to 0.144, beta -1.647). See `docs/PREDICTIONS-A2.md`. I do not tune anything to them.
+
+## Method (fixed now)
+
+Lorenz (sigma, rho, beta) = (10, 28, 8/3), RK4, time average of z, same pipeline as A1. For each parameter, two runs at theta - h and theta + h, same start points at both. Slope = (mean z(+h) - mean z(-h)) / (2 h). Bootstrap SE with 2000 resamples (start points resampled jointly).
+Step: h = 0.5 for rho and sigma, h = 0.125 for beta (the second rung of A1 for each).
+Start points as in A1: x, y uniform in [-15, 15], z uniform in [5, 45]. Independent set for every (parameter, variant): key `fold_in(PRNGKey(80), 10 x parameter_index + variant_index)`; parameter_index 0, 1, 2 for rho, sigma, beta.
+
+Variants, one factor changed at a time from the baseline (averaging window T = 100, dt = 0.01, spin-up 50):
+
+| index | name | T (average) | dt | spin-up | N |
+|---|---|---|---|---|---|
+| 0 | baseline | 100 | 0.01 | 50 | 8000 |
+| 1 | T25 | 25 | 0.01 | 50 | 32000 |
+| 2 | T400 | 400 | 0.01 | 50 | 2000 |
+| 3 | dt0.02 | 100 | 0.02 | 50 | 8000 |
+| 4 | dt0.005 | 100 | 0.005 | 50 | 8000 |
+| 5 | spin10 | 100 | 0.01 | 10 | 8000 |
+| 6 | spin200 | 100 | 0.01 | 200 | 8000 |
+
+N changes with T so that N x T is constant. That keeps the noise of the slope about equal. The dt = 0.005 value is the dt that nilss-jax uses. T = 400 and T = 1000 are close to the window nilss-jax uses (T = 1000 per orbit).
+
+Expected compute: about 3e9 RK4 steps per parameter at about 4e7 steps per second, so about 80 s per parameter, about 4 minutes in all. One parameter at a time.
+
+## Control first
+
+The baseline must reproduce the A1 slope at the same step. Gate **C-W**: for each parameter, |baseline - A1 rung with the same h| <= 2 x sqrt(SE_baseline^2 + SE_A1^2). A1 rungs: rho +1.00305 +- 0.00150 (h = 0.5), sigma +0.14887 +- 0.00142 (h = 0.5), beta -1.65030 +- 0.00581 (h = 0.125).
+If C-W fails for any parameter, I stop and find out why before reading the variants.
+
+## Gates
+
+- **W1, per variant and parameter:** report the difference to the baseline slope in units of the combined SE: |slope_variant - slope_baseline| / sqrt(SE_variant^2 + SE_baseline^2).
+- **W2, window dependence found:** at least one variant for rho or sigma has a difference of 3 or more combined SE. Otherwise: "no window dependence found at this resolution". (There are 18 comparisons, so I use 3 SE and not 2 to keep false alarms rare.)
+- **W3, toward the shadowing value:** a variant whose slope for rho is within 2 combined SE of 1.017, or for sigma within 2 combined SE of 0.134 (with SE from the variant only plus 0.0001 for the tool). If any exists, report it as the main result.
+- Resolution: with SE of about 0.0015 for rho and sigma, a shift of the size of the A2 gap (0.014 for rho, 0.015 for sigma) is about 9 SE, so it would be found. A shift below about 0.004 would not.
+
+## Predictions (not gates)
+
+- **P-W1 control C-W passes** for all three parameters.
+- **P-W2 no window dependence for rho and sigma:** all variants within 2 combined SE of the baseline, with at most 2 of the 18 comparisons beyond 2 SE and none beyond 3 SE. I expect the oracle to be stable. I have no reason from the physics to expect a shift of 1% from these three settings.
+- **P-W3** no variant reaches the shadowing values. rho stays at 1.003 +- 0.004 and sigma at 0.149 +- 0.004 in every variant. Then the A2 gap is not explained by the oracle window, dt or spin-up.
+- **P-W4 beta:** stays at -1.65 +- 0.02 in every variant.
+- **P-W5 compute:** about 4 minutes.
