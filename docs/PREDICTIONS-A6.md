@@ -40,3 +40,38 @@ Stage 1 passes only if G-A6.1, G-A6.2 and G-A6.3 all pass. If any gate fails, I 
 ## Known problem for stage 2 (written now, so it is not a surprise later)
 
 If the parameter changes, the energy of a fixed start changes. A sensitivity then needs a definition: the average at fixed energy E, with starts rebuilt on the shell for each parameter value, or the average at fixed start. Shadowing theory assumes a hyperbolic attractor. A Hamiltonian flow has neither. So stage 2 may have no meaningful answer for LSS and NILSS even if stage 1 passes. If stage 1 passes, I propose the definition and the risk to the owner before running anything.
+
+## Results (stage 1; written after the run, gates unchanged)
+
+Files: `results/phaseA6_controls.json`, `phaseA6_spread.json`, `phaseA6_report.json`. Script: `experiments/phaseA6_spread.py`. Run time: scan 9.9 s, Lyapunov step 9.7 s (faster than the 1 to 5 minutes I stated).
+
+**Controls.** C-A6.1: energy error 4.5e-16, pass. C-A6.2: drift 5.3e-8 at T = 100, pass. C-A6.3: largest final drift 2.2e-6 over T = 1000, pass.
+
+**Gates, observable cos(theta2), 32 starts, T = 1000.**
+
+| Gate | Value | Limit | Result |
+|---|---|---|---|
+| G-A6.1 R = SD between starts / mean within-start SE | 1.52 (0.0195 / 0.0129) | below 2.0 | pass |
+| G-A6.2 SD(T = 1000) / SD(T = 250) | 0.67 | below 0.7 | pass (barely) |
+| G-A6.3 largest distance from the median in own SE | 138 | below 4 | **fail** |
+
+**Stage 1 fails.** The failing start is start 22: (theta1, theta2, w1, w2) = (-1.240, 0.209, -2.151, 8.620). Its finite-time exponent is 0.015, against 1.19 to 1.56 for the other 31. The block means of cos(theta2) on that start hardly change (SE 0.0006), and its mean is -0.023, against a median near 0.06. For the second observable, cos(theta1), the difference is large: start 22 gives 0.805 and the others give about 0.05, so G-A6.1 (R = 10.6) and G-A6.2 (ratio 0.99) fail for that observable too. This is the signature of a regular island: one orbit that does not mix with the chaotic sea.
+
+**Post-hoc check (not a gate, chosen after I saw the failure).** Without start 22 (the 31 starts with exponent above 0.5), cos(theta2) gives R = 0.93, a ratio of 0.48 (the value I expect for independent noise), a largest distance of 2.2 SE, and a range of 0.052. For cos(theta1): R = 1.07, ratio 0.48, largest distance 3.3 SE. So the chaotic sea looks start-independent at this resolution. I did not predict this, and a rule that drops starts by their exponent was not in the plan.
+
+**Decision.** Following `TODO.md`, I say that the long-time average on this energy shell is **not start-independent** and I stop A6. Stage 2 (sensitivity to a parameter) is not started.
+
+**Predictions against results.**
+
+| Prediction | Outcome |
+|---|---|
+| P-A6.1 stage 1 passes (about 60%) | **Miss.** G-A6.3 failed. |
+| P-A6.2 exponent above 0.5 for at least 30 of 32 starts | **Hit.** 31 of 32. |
+| P-A6.3 range of the 32 means within 0.05 and ensemble mean within 0.3 of zero | **Partly.** The mean is 0.061 (hit). The range is 0.108 with start 22 (miss) and 0.052 without it. |
+| P-A6.4 drift below 1e-4 for all starts | **Hit.** Largest 2.2e-6. |
+
+**What this means.**
+- At E = 23.58 the phase space is mixed. One of 32 random starts (about 3%) lay in a regular island. With 32 starts, the share of the shell that is regular is only known roughly: one hit in 32 is consistent with anything from about 0.1% to 16%. This is my estimate from the count, not a measurement of the island size.
+- A sensitivity ensemble that draws random starts would give each start a 3% chance (about) of an island average. Shadowing theory does not apply on an island at all.
+- A dependable stage 2 would need a rule to exclude regular starts (for example by their exponent), a definition of the average at fixed energy when a parameter changes, and a reason to trust shadowing codes on a flow that is not hyperbolic. I did not attempt any of these. They are the owner's choice.
+- Limits: one energy, one observable pair, 32 starts, one dt, one seed. Other energies may behave differently. I did not scan the energy.
