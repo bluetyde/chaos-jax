@@ -51,3 +51,12 @@ For every published case X: (a) the probability that a draw from D lands in the 
 ## What would change my mind
 
 If G1 fails for more than 2 cases, the scanned table is more likely wrong than the evaluator (H1 matched published exponents for B, C, F, S, A and others to 0.001), and I check against a second reading of the table before changing anything. If the pilot hit rate is below 1e-6, N = 1e7 cannot re-find much, and I report the budget needed instead of running a larger search without the owner's word.
+
+## Amendment 1 (2026-10-27, after building the code, before any gate run or search run)
+
+Made after a 20000-draw timing test of the screen (stage 1 only; 3438 draws passed stage 1a, 34 passed stage 1b; 18 of the 18 dissipative published cases passed stage 1) and before G1, G3, G4 or the search were run. Gates G1 and G2 are unchanged. Two feasibility changes:
+
+1. **G3 sample size.** 300 draws per class would give about 3 chaotic sets per class if the chaotic fraction on a support is near 1e-2, which cannot test a 90% recall. G3 now draws 2000 coefficient sets per class (classes F, B, C, S, K, Q) and pools the six classes: pass if the pooled evaluator-chaotic count is at least 30 and stage 1 keeps at least 90% of them. If the pooled count is below 30, more draws are added and the count reported. The ground truth is the H1 evaluator at `T = 5000`, `dt = 0.01`, from the fixed start, run on every draw (including those stage 1 rejects).
+2. **G4 stage.** Sprott's case A has a largest exponent of 0.014 (above the 0.01 stage-1 threshold) and is conservative, so it passes stage 1b by design and is rejected at stage 2 by the conservative flag. G4 therefore tests the whole pipeline: none of 10 planted non-chaotic systems is **confirmed** chaotic, and the report names the stage that rejected each. The 10: fixed sink; spiral sink; centre; divergent `x' = 1 + x^2`; Sprott A; Rössler 1976 with c = 2.5, 3, 3.5, 4; Lorenz with rho = 14. Each planted system must first be labelled not-chaotic by the H1 evaluator at `T = 20000` (otherwise it is replaced and the replacement reported).
+
+Machine timing so far: stage 1 about 2300 draws per second in one process (compile included). At that speed `N = 1e7` takes about 70 minutes in one process, so the main run uses several processes; `N = 1e7` stays the plan, and `N = 1e8` (about 12 hours single, about 2 to 3 hours with 6 processes) is only run with the owner's word.
