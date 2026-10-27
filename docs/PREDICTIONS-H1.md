@@ -127,3 +127,75 @@ Second run, rule v2 and `dt = 0.002` for R79, `T = 5000` (as pre-registered): 6 
 2. **V1 no longer requires the label to agree** (it still requires every exponent to agree within 3 combined SE). With `T = 300` the standard error of a second exponent near 0.015 is about 0.01, so the label is unresolvable there (LS: DOP853 0.0116 against RK4 0.035). V1 now verifies that the exponents do not depend on the integrator; it says nothing about the label. The other three checks keep the label requirement.
 3. **R79 start points:** one of the four V4 start points (box width 1.0) diverged, so the basin of the Rössler 1979 attractor is small. The control's start box is narrowed to width 0.2 around (-10, -6, 0, 10). I record that this was chosen after seeing a divergence. The width-1.0 outcome (one of four diverge) is a result about the system and stays in this file.
 4. **KP:** no change; reported as it is.
+
+## Results (added after the runs, 2026-10-26)
+
+Commands (all with `PYTHONPATH=src` and the project venv: Python 3.14.6 on Windows, jax and jaxlib 0.12.0.1, numpy 2.5.4, scipy 1.18.1, **lyapax 0.3.0**, pytest 9.1.1):
+- pre-registered configuration: `python -m pytest -q tests` (`T = 5000`): first run 11 failed, 56 passed (`results/h1_run1_summary.txt`, rule v1, `dt = 0.01`); second run after Amendment 2 (rule v2, R79 `dt = 0.002`): 6 failed, 61 passed.
+- amended "long" configuration: `H1_T=100000 python -m pytest -q tests`: **1 failed, 66 passed in 710.7 s** (the failure is G3 for KP). The lyapax test was added after that run started and was run on its own with `H1_T=100000`: 3 passed in 84 s.
+- numbers: `python experiments/h1_report.py results/h1_report_short.json` (`H1_T=5000`) and `results/h1_report_long.json` (`H1_T=100000`).
+- planted bugs: `python experiments/h1_breakit.py`: `results/h1_breakit_run1.txt` and `results/h1_breakit_run2.txt`.
+- Wall times are not results: other jobs used the CPU (about 59% load when I started).
+
+### The spectra (rule v2; long run `T = 100000`; SE from 10 blocks)
+
+| System | Label | Exponents (SE in brackets) | Published | Verified V1 to V4 |
+|---|---|---|---|---|
+| L | chaotic | 0.9059, 0.0000, -14.572 (0.0004) | (0.906, 0, -14.573) | yes |
+| R76 | chaotic | 0.0711, 0.0000, -5.394 (0.0005) | about 0.07 (memory) | yes |
+| SB | chaotic | 0.2108, 0, -1.2108 (0.0004) | (0.210, 0, -1.210) | yes |
+| SC | chaotic | 0.1624, 0, -1.1624 (0.0009) | (0.163, 0, -1.163) | yes |
+| SF | chaotic | 0.1166, 0, -0.6166 (0.0005) | (0.117, 0, -0.617) | yes |
+| SS | chaotic | 0.1870, 0, -1.187 (0.0007) | (0.188, 0, -1.188) | yes |
+| R79 | hyperchaotic | 0.1126, 0.0207, 0.0000, -25.10 (0.0008, 0.0005, 0.0000, 0.20) | none found | yes |
+| LS | hyperchaotic | 0.0708, 0.0128, -0.0001, -1.0835 (0.0012, 0.0009, 0.0001, 0.001) | (0.0704, 0.0128, 0, -1.0832) | yes |
+| CS13 | hyperchaotic | 0.1319, 0.0343, 0.0000, -1.2575 (0.001, 0.0012, 0.0001, 0.0056) | (0.132, 0.035, 0, -1.25) | yes |
+| CS12 | hyperchaotic | 0.1427, 0.0187, -0.0001, -0.2614 (0.0027, 0.0014, 0.0002, 0.0017) | (0.141, 0.0168, 0, -0.257) | yes |
+| **KP** | **chaotic** | 0.1471, 0.0001, 0.0000, -0.7672 (0.0003, 0.0001, 0.0001, 0.0003) | (0.1385, 0.0201, 0.0076, -0.7864) | yes, as chaotic |
+| N-fix, N-lor14 | fixed point | all negative | | n/a |
+| N-div | diverges | | | n/a |
+| N-per, N-vdp, N-per4, N-lor160 | periodic | one zero, the rest negative | | n/a |
+| N-qp | quasi-periodic | (0, 0, -2, -2) | | n/a |
+| N-cons (Sprott A, start near 0.05) | quasi-periodic, conservative flag | (0.0001, 0, -0.0001) | | n/a |
+
+At `T = 5000` the same systems give the same picture with larger standard errors (`results/h1_report_short.json`). LS has second exponent 0.0175 +- 0.0039 there, and V4 and G5 fail for LS and CS12 because the label flips between runs.
+
+### Gates
+
+| Gate | `T = 5000` (pre-registered) | `T = 100000` (amended) |
+|---|---|---|
+| G1 sum equals mean divergence | pass for every control (R79 only with `dt = 0.002`; at `dt = 0.01` it failed: error 0.043) | pass (largest: L 1.0e-4, R79 4.9e-5, N-lor160 9.5e-4) |
+| G2 Lorenz | pass | pass (0.9059) |
+| G3 labels | **fail** under rule v1 (R79 quasi-periodic; LS, CS12, CS13 chaotic; KP chaotic). Under rule v2: **fail for KP only** | **fail for KP only** under rule v2. Under rule v1 also R79 |
+| G4 published values | **fail for CS13 (fourth exponent off by -0.037) and CS12 (-0.012)** | pass (largest differences 0.0075 and 0.0044) |
+| G5 verification | **fail for LS and CS12** (R79 passes with its narrowed box) | pass for every positive control; no negative control is labelled chaotic |
+| G6 planted bugs | bug 3 **not caught** on the first run; classifier unit tests added; then all three caught | |
+| G7 lyapax | pass (3 of 3; the two largest exponents agree within 0.01, the others within the 5% or 0.02 tolerance) | |
+
+**Overall: G3 is not met** (KP), so H1 is not fully passed. G1, G2, G6 and G7 are met. G4 and G5 are met only at the amended length `T = 100000`. G3 is met for every system except KP only under the amended classifier rule v2.
+
+### Predictions against results
+
+| Prediction | Result |
+|---|---|
+| P-H1.1 Lorenz 0.905, SE 0.003, sum error below 1e-5, V1 to V4 pass | 0.9046 +- 0.0025 at `T = 5000`; V1 to V4 pass. **Miss:** the sum error is 1.0e-4, from the RK4 step (`dt = 0.01`). |
+| P-H1.2 R76 between 0.06 and 0.08 | Hit: 0.0695 and 0.0711. |
+| P-H1.3 B, C, F, S pass G4 | Hit: all four within 0.003 at `T = 5000`, within 0.001 at `T = 100000`. The scanned Table I digits are confirmed for these four. |
+| P-H1.4 R79 hyperchaotic, 0.11 and 0.02 | Hit on the values (0.1126, 0.0207; fourth exponent -25.1). **Miss on method:** it needed `dt = 0.002`, rule v2, and a narrower start box. |
+| P-H1.5 LS second exponent 0.0128 +- 0.005; labelled hyperchaotic (75%) | Exponent hit (0.0175 at `T = 5000`; 0.0128 +- 0.0009 at `T = 100000`, equal to the published value). Label: hyperchaotic at `T = 5000` only under v2; **v1 gave chaotic.** |
+| P-H1.6 CS13 hyperchaotic and within G4 (80%) | **Miss at `T = 5000`** (fourth exponent -1.287 against -1.25, SE 0.020). Hit at `T = 100000`. |
+| P-H1.7 Kopp hyperchaotic, second exponent about 0.02, zero exponent below 0.002 | **Miss.** The second exponent is 0.0001 +- 0.0001; the system is chaotic with two zero exponents. Zero exponent below 0.002: hit. |
+| P-H1.8 Sprott A: conservative flag (95%); fails V3 or V4 (60%) | Flag: hit. The orbit from the start near 0.05 is quasi-periodic (all exponents near 0), so V3 and V4 were not run: no information on the second part. |
+| P-H1.9 rho = 14 fixed point; rho = 160 periodic (60%) | Both hit. The memory about rho = 160 was right. |
+| P-H1.10 all three bugs caught (85%) | **Miss on the first run** (bug 3). Caught after adding `tests/test_h1_classifier.py`. |
+| P-H1.11 suite under 10 minutes of CPU | Pre-registered `T = 5000`: 69 s wall. Amended `T = 100000`: 711 s wall (11.8 min, CPU shared, so not comparable). CPU time was not measured. |
+| P-H1.12 lyapax installs and runs on Python 3.14 | Hit (lyapax 0.3.0). |
+| P-H1.13 at least one miss at the first run | Hit: 11 failures. |
+
+### What this shows, and what it does not
+
+- **The evaluator reproduces published exponents** to about 0.001 for seven systems at `T = 100000`, including the small second exponent of Li and Sprott 2014 (0.0128 +- 0.0009 against the published 0.0128). That also checks the H0 session's reading of the scanned Sprott Table I for B, C, F, S.
+- **Short runs are not enough for weak hyperchaos.** A second exponent near 0.013 to 0.02 needs about `T = 100000` for a stable label. `T = 5000` was a poor choice on my part; the runs are cheap (about 0.5 s per 5000 time units for a 3D or 4D system at `dt = 0.01`).
+- **Kopp 2025 (a = 0.62, b = 0.55) is not hyperchaotic in our runs** (second exponent 0.0001, at `T = 100000`, and also from the paper's own start (1, 1, 1, 1) at `T = 5000`). Possible causes: an error in my transcription (the sum of the exponents does match the published sum), a different coexisting attractor, a short run in the paper (its published third exponent 0.0076 suggests so), or the published claim itself. I did not find which. Until that is settled, the H0 table should not count Kopp 2025 as a known 7-term hyperchaotic flow.
+- **Not tested:** Yu 2023 and PHYSCON 2015 (other 7-term systems in the H0 table), start-point dependence of the weakly hyperchaotic systems beyond four start points, non-smooth systems other than Kopp, and any claim about candidates outside the controls.
+- **Independence:** the cross-check used lyapax as a black box (public names and three docstrings read, no source). It uses the same RK4 and the same QR idea, so it checks my code but not the method. The scipy DOP853 check (V1) is a different integrator, but only at `T = 300`.

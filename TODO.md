@@ -18,13 +18,13 @@ Stage order is H0 to H6 (see `PLAN.md`). Do one stage at a time and wait for the
   Done: `LITERATURE.md` section A; best known is 7 terms, and 7 terms with 1 nonlinear term (Chlouverakis and Sprott Eq. 13).
 - [x] H0.8 List the papers the owner must supply (paywalled) in `NEEDED-FROM-OWNER.md`.
 
-## H1. Evaluator
-- [ ] H1.0 `docs/PREDICTIONS-H1.md` committed before any run.
-- [ ] H1.1 Integrators and Lyapunov spectrum (Benettin QR), float64.
-- [ ] H1.2 Classifier and the verification checks.
-- [ ] H1.3 Positive and negative controls (list in `PLAN.md`).
-- [ ] H1.4 Cross-check against `lyapax` and, if easy, `jitcode`; pin versions.
-- [ ] H1.5 Planted-bug check.
+## H1. Evaluator (built on branch `claude/h1-evaluator`, not merged; G3 not met because of Kopp 2025, see `docs/PREDICTIONS-H1.md`)
+- [x] H1.0 `docs/PREDICTIONS-H1.md` committed before any run.
+- [x] H1.1 Integrators and Lyapunov spectrum (Benettin QR), float64.
+- [x] H1.2 Classifier and the verification checks.
+- [x] H1.3 Positive and negative controls (list in `PLAN.md`).
+- [x] H1.4 Cross-check against `lyapax` (done, 3 of 3 agree) and, if easy, `jitcode` (NOT tried); versions pinned in `requirements-h1.txt`.
+- [x] H1.5 Planted-bug check.
 
 ## H2 to H6
 See `PLAN.md`. Tasks are written when the previous stage is approved.
