@@ -313,3 +313,11 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Misses: P-A6.1 (predicted a pass at 60%), part of P-A6.3 (range 0.108 against 0.05).
 - Verification: `python -m pytest -q` was run on the A7b branch (`76 passed, 1 xfailed in 63.80s`). This task adds no test and changes no library code.
 - Next step: owner decides. Options: stop the pendulum line here, or ask for a stage 2 with a rule that drops regular starts (the rule would be a new, pre-registered choice), or A7 (Julia) or the map-scope unstable-contribution test.
+
+## 2026-10-27 Task A7 (Julia cross-check): skipped by the rule in `TODO.md`
+
+- Branch `claude/phase-A7-julia`, stacked on `claude/phase-A6-pendulum` (PR 16), which is stacked on PR 15. Merge in that order.
+- `julia --version` gives `julia: command not found`. I wrote `docs/julia-skipped.md` and ran nothing. I did not install Julia and wrote no Julia code.
+- `RESULTS.md`: one clause added to the "Not done" line.
+- Verification: documentation only. `python -m pytest -q tests/test_results_doc.py` passes.
+- Next step: owner decides. Options: provide a Julia environment, or the map-scope unstable-contribution test, or stop the audit here.
