@@ -47,3 +47,6 @@
 
 ## H2 result (2026-10-27, branch claude/h2-search, not merged)
 Registered-grid main run done (1e7 draws, 472 confirmed, 266 classes, 3 of 19 published re-found). G2 and G3 pass; misses: P-H2.3 (pipeline throughput) and P-H2.6 "6 of 19". Details and caveats in docs/PREDICTIONS-H2.md (Results). Wide-grid run kept apart in results/h2_wide_grid/. Next: merge decision (owner), then H3 or a 1e9 run (about 10 days CPU, or GPU stage 2: ask first). 263 non-Table-I classes need the H5 equivalence check before any claim.
+
+## H2B / H2C (2026-10-27, branches claude/h2-faster-screen and claude/h2-boundedness, not merged)
+H2B middle filter (short exponent test): safe (472/472) but 0.93x, no use; off by default. H2C boundedness filter (state-only, 5000 time units at dt 0.02, drop if |x| > 1e4 or stuck): 1.73x same-conditions speedup, same 63 hits on seeds 1000-1059, 470/472 known hits kept. Enable with H2_FILTER=bound. Remaining cost: 58% of failing survivors are not caught. Kopp-Samuilik chase on claude/kopp-samuilik: my transcribed system does not match the paper; needs the paper's Section 2 (NEEDED-FROM-OWNER.md).

@@ -31,3 +31,24 @@ State-only RK4 from the fixed start, dt = 0.02, T = 5000 (250,000 steps), for ev
 ## What would change my mind
 
 If GA fails because real hits leave |x| = 1e4 transiently, the limit is too tight for the registered search and a larger limit has to be calibrated; I would not loosen it without new data. If the speedup is under 1.5x with full recall, the remaining cost is in the 60% of failures the filter cannot see ("inconsistent", conservative quasi-periodic), and the next question is what distinguishes them from true hits cheaply.
+
+## Results (2026-10-27, written after the runs; no gate or prediction above was changed)
+
+Files: `results/h2c_recall.json`, `results/h2_h2c_new.jsonl/.log` (filtered pipeline, `H2_FILTER=bound`, seeds 1000-1059), `results/h2_h2c_old6.jsonl/.log` (old pipeline, seeds 1000-1005, run right after the new one), `results/h2c_explore.json` (calibration, seeds 2000-2005). The machine was about 28% busy with other jobs before and after the runs, so only the same-conditions comparison counts.
+
+**The boundedness filter gives a 1.7x speedup with the same hits.**
+
+| Gate | Result |
+|---|---|
+| GA recall on the 472 known hits | **pass**: 470 of 472 kept (99.6%). The two lost: hit 100 (k = 6, exponents 0.241, 0.0001, -0.422) leaves 1e4 at t = 988 in the dt = 0.02 state-only run although the dt = 0.01 evaluator keeps it bounded for 20000 time units; hit 215 (k = 6, exponents 7.35, 0.0, -1.06, a very large first exponent) leaves 1e4 at t = 2381. |
+| GB same draws, same hits | **pass**: 63 old hits, 63 new, identical, none new, none lost |
+| GC speed (1.5x or better) | **pass**: seeds 1000-1005 back to back, new 302 worker-seconds against 522 for the old pipeline, 1.73x. Over all 60 seeds the new run took 305 worker-seconds per 1e5 draws against 502 for the old run's file (1.65x, but the old figure was measured under other load) |
+| GD planted bugs | **pass**: both new bugs caught (8 of 8 in the script, tree clean after) |
+
+Share of stage-1b survivors reaching stage 2: 1366 of 3258 (41.9%). Stage 2 still sees the same 76 chaotic ones and 63 confirmed.
+
+**Predictions judged.** P-C1: 95% or more kept true, **all 472 kept missed** (470). P-C2 true. P-C3: at most 50% true, **at most 40% missed** (41.9%; the calibration had said 41%). P-C4: 1.5x or better true, **2x or better missed** (1.73x). P-C5 true on the exploration timings (0.8 to 1.5 s per chunk, one process per seed; the search log did not record it separately). P-C6 true. P-C7 true (three misses).
+
+**What remains.** About 58% of the failing survivors still reach stage 2: 81 of the "inconsistent", 23 conservative quasi-periodic, 13 fixed points and 9 quasi-periodic ones in the calibration sample did not leave 1e4 or get stuck. The next cheap test would have to tell them from true hits without the tangent frame. I have not looked at what distinguishes them. A 1e9-draw run at the new speed would take roughly 6 days of this machine's CPU instead of 10 (my estimate from 1.7x, not measured), which is still long.
+
+**Caveat on the two lost hits.** Both are hits the old pipeline confirmed at T = 20000 from two starts at dt = 0.01. The filter uses dt = 0.02, so a 0.4% loss of true hits is a real cost of the cheaper step; if it matters, the filter's step can be set to 0.01 (twice the 1 s cost).
