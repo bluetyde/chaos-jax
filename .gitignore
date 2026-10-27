@@ -3,3 +3,4 @@ __pycache__/
 .pytest_cache/
 .venv/
 results/phaseA1_*_k*.npy
+results/phaseA1b_*.npy
