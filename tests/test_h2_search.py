@@ -85,3 +85,15 @@ def test_g5_mid_filter_drops_sink_divergence_and_periodic_orbit():
     centre = _lin([(0, "y", 1), (1, "x", -1), (2, "z", -1)])
     for name, c in (("sink", sink), ("divergent", div), ("centre", centre)):
         assert not s.mid_filter(c), name
+
+
+def test_g5_bound_keep_keeps_chaos():
+    cs = np.array([s.case_coefficients("B"), s.case_coefficients("S")])
+    assert s.bound_keep(cs).tolist() == [True, True]
+
+
+def test_g5_bound_keep_drops_escape_blowup_and_sink():
+    grow = _lin([(0, "x", 1), (1, "y", -1), (2, "z", -1)])  # x' = x: exponential escape, slower than finite-time blow-up
+    blow = _lin([(0, "1", 1), (0, "xx", 1), (1, "y", -1), (2, "z", -1)])
+    sink = _lin([(0, "x", -1), (1, "y", -1), (2, "z", -1)])
+    assert s.bound_keep(np.array([grow, blow, sink])).tolist() == [False, False, False]

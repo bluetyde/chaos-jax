@@ -47,6 +47,18 @@ BUGS = [
         "MID_EPS = 0.005",
         "MID_EPS = -1e9",
     ),
+    (
+        "7 boundedness filter keeps the escapes and drops the bounded orbits",
+        "src/hyperchaos/search3d.py",
+        "return (tf < 0) & (rg >= BOUND_STUCK)",
+        "return (tf >= 0) & (rg >= BOUND_STUCK)",
+    ),
+    (
+        "8 boundedness filter stuck limit zero (sinks no longer dropped)",
+        "src/hyperchaos/search3d.py",
+        "BOUND_STUCK = 1e-3",
+        "BOUND_STUCK = 0.0",
+    ),
 ]
 
 FAST = ["tests/test_h2_search.py", "-k", "g5"]

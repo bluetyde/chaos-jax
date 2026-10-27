@@ -343,3 +343,12 @@ def bound_stats(cs, T=5000.0, dt=0.02, batch=64):
         tf[i : i + len(part)] = np.asarray(a)[: len(part)]
         rg[i : i + len(part)] = np.asarray(b)[: len(part)]
     return tf, rg
+
+
+BOUND_STUCK = 1e-3  # same limit as stage 1a
+
+
+def bound_keep(cs, T=5000.0, dt=0.02):
+    """True for systems that stay inside BOUND_LIMIT for the whole run and are still moving at the end."""
+    tf, rg = bound_stats(cs, T, dt)
+    return (tf < 0) & (rg >= BOUND_STUCK)
