@@ -193,3 +193,19 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - My LSS is not fully independent of nilss-jax: same kind of method, and I read the README and `docs/usage.md` before the A3 predictions. I read no source.
   - The T extrapolation of my LSS (about 1.0167 for rho, 0.1347 for sigma) is a guess.
 - Next step: owner review, then A4 (calibrate the reliability report). A4 needs `docs/reliability.md` of nilss-jax, which I have not read. Log it first. A4 also needs cases with a finite-difference oracle for each. The cost of those oracles for Lorenz-96 may be high, so say what is dropped. Consider first, as a separate task, a test of the open question above: a third method for the Lorenz rho and sigma derivative (for example an adjoint of the invariant measure, or a much larger h-window study), so that the shadowing-versus-finite-difference gap can be assigned to one side.
+
+## 2026-10-27 Task A3b session: third method (noise-regularised finite differences)
+
+- Status: A3b done. Controls pass. **N2: finite-difference side for both rho and sigma.** N1 passes at all noise levels. N3 plateau holds for sigma and, for rho, only at eps <= 0.25. A4 not started.
+- Changes: `docs/PREDICTIONS-A3b.md` (design, gates and decision rule committed before any code ran, results appended), `src/chaos_jax/noisy.py`, `tests/test_noisy.py`, `experiments/phaseA3b_noise.py`, `results/phaseA3b_noise.json`. Branch is stacked on A3, A1b, A2, A1.
+- Verification:
+  - `python -m pytest -q` gave: `47 passed, 1 xfailed in 51.37s`.
+  - Controls first: OU slope error 1.6% (gate 3%). eps = 0 anchor within 1.12 SE of A1 in all four cases.
+  - At eps = 0.125, h = 0.5: rho 1.0012 +- 0.0015 (finite-difference oracle 1.0032, nilss-jax 1.0171), sigma 0.1466 +- 0.0014 (oracle 0.1488, nilss-jax 0.1338). Slopes at larger eps are lower (rho 0.925 at eps = 4).
+  - Compute: 13.3 plus 13.5 minutes on CPU.
+- Predictions against results: both decision predictions hit. Misses: the size of the trend with eps (rho 0.077 and sigma 0.041 lower at eps = 4, rho 3.6 SE low at eps = 0.5), and compute time (27 minutes against 10).
+- Caveats:
+  - This supports the finite-difference oracle and not the two shadowing codes (nilss-jax, our LSS) for rho and sigma, under the stochastic-stability assumption. It does not prove it, and it does not say why the shadowing codes differ.
+  - One noise type, one dt, first-order noise scheme, rho and sigma only.
+  - The nilss-jax README names "sigma about 11% off" as a known issue. This task sides with the README's own finite differences on that point. The rho difference of 1.4% is not mentioned there as a failure.
+- Next step: owner review. Then A4 (calibrate the reliability report). Now that three lines of evidence favour the finite-difference oracle, A4 can use finite differences as the reference for the true error. Read `docs/reliability.md` of nilss-jax first and log it. Say what is dropped for the larger systems. A5 (our own NILSS) is optional.
