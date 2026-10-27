@@ -34,3 +34,22 @@ Otherwise it goes to the next tier, and after tier 2 to stage 2 as before. Stage
 ## What would change my mind
 
 If GA fails (more than 5% of real hits dropped), the filter is not safe as a screen for the registered search and the main run stays as is; the loss pattern (small lambda_1 only?) tells me whether a longer tier 2 would fix it. A speedup under 2x with full recall means the cost is in stage 1 or in confirmation, and the next step is to profile before adding anything.
+
+## Results (2026-10-27, written after the runs; no gate or prediction above was changed)
+
+Files: `results/h2b_recall.json`, `results/h2_h2b_new.jsonl/.log` (new pipeline, seeds 1000-1059, 1.2e6 draws, `H2_MID=1`), `results/h2_h2b_old6.jsonl/.log` (old pipeline rerun on seeds 1000-1005 for a same-conditions timing), `experiments/h2b_profile.py`. The machine was shared with other jobs (about 28% CPU busy before I started), so timings are comparisons within the same conditions, not absolute numbers.
+
+**The middle filter is safe but does not speed anything up. It made the pipeline slightly slower.**
+
+| Gate | Result |
+|---|---|
+| GA recall on the 472 known hits | **pass**: 472 of 472 kept |
+| GB same draws, same hits | **pass**: 63 old hits, 63 new, all identical, none new, none lost |
+| GC speed (2x or better) | **fail**: seeds 1000-1005 run back to back, new 573 worker-seconds against 534 for the old pipeline, speedup 0.93 (the old run's file gave 502 and the new run 516 per 1e5 draws over 60 seeds) |
+| GD planted bugs | **pass**: both new bugs caught (6 of 6 in the script) |
+
+**Why it fails.** The filter drops only 25% of the stage-1b survivors (2453 of 3258 reach stage 2; stage 2 still sees 76 chaotic ones, as before). Profile of one chunk (seed 1000, one process): screening 10 s; middle filter on all 54 survivors 13.5 s; stage 2 on all 54 survivors 55 s. The middle filter costs about a third of a stage-2 run per system and saves a stage-2 run for only one system in four, so it costs more than it saves. The reason is in how the survivors fail at stage 2: of the 54, 13 diverge, 23 are labelled "inconsistent", 7 are fixed points, 8 are conservative quasi-periodic, 3 are quasi-periodic. Divergence and "inconsistent" (the sum check or the zero exponent fails, i.e. unbounded or drifting orbits) are late events that a T = 300 or T = 1000 run does not see, and most survivors already have a clearly positive largest exponent at short times because stage 1b selected them for that.
+
+**Predictions judged.** P-B1 true (all 472 kept). P-B2 **missed** (75% reach stage 2; I said at most 15%, and at most 30% at 90%). P-B3 **missed** (0.93x; I said 75% for 2x). P-B4 true (identical hit sets). P-B5 not tested (no hit lost). P-B6 true. P-B7 true (two misses).
+
+**What this says about the next step.** "Stop failing runs early" needs a test that sees what actually kills the survivors: orbits that escape or drift late, not a short exponent. 43 of 54 survivors fail by escape or drift. A state-only run over a long horizon (no tangent frame, no QR; much cheaper per step, and batchable like stage 1) with a boundedness test would catch them. I have not tried it and have not measured how much it would save; a written design and predictions come first. The middle filter stays in the code, off by default (`H2_MID=1` turns it on), because it is correct and tested, just not useful.

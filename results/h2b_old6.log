@@ -1,0 +1,18 @@
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+seed 1000 {'draws': 20000, 'keep_a': 4804, 'keep_b': 54, 'mid': 54, 'stage2': 0, 'confirmed': 0, 'secs': 88.06708836555481} | total {'draws': 20000, 'keep_a': 4804, 'keep_b': 54, 'mid': 54, 'stage2': 0, 'confirmed': 0} | wall 89s
+seed 1001 {'draws': 20000, 'keep_a': 4683, 'keep_b': 47, 'mid': 47, 'stage2': 1, 'confirmed': 1, 'secs': 89.53233575820923} | total {'draws': 40000, 'keep_a': 9487, 'keep_b': 101, 'mid': 101, 'stage2': 1, 'confirmed': 1} | wall 90s
+seed 1002 {'draws': 20000, 'keep_a': 4654, 'keep_b': 51, 'mid': 51, 'stage2': 1, 'confirmed': 1, 'secs': 93.54062628746033} | total {'draws': 60000, 'keep_a': 14141, 'keep_b': 152, 'mid': 152, 'stage2': 2, 'confirmed': 2} | wall 94s
+seed 1003 {'draws': 20000, 'keep_a': 4609, 'keep_b': 51, 'mid': 51, 'stage2': 0, 'confirmed': 0, 'secs': 84.34074831008911} | total {'draws': 80000, 'keep_a': 18750, 'keep_b': 203, 'mid': 203, 'stage2': 2, 'confirmed': 2} | wall 94s
+seed 1004 {'draws': 20000, 'keep_a': 4738, 'keep_b': 42, 'mid': 42, 'stage2': 1, 'confirmed': 1, 'secs': 84.09376358985901} | total {'draws': 100000, 'keep_a': 23488, 'keep_b': 245, 'mid': 245, 'stage2': 3, 'confirmed': 3} | wall 94s
+seed 1005 {'draws': 20000, 'keep_a': 4626, 'keep_b': 60, 'mid': 60, 'stage2': 0, 'confirmed': 0, 'secs': 94.46824836730957} | total {'draws': 120000, 'keep_a': 28114, 'keep_b': 305, 'mid': 305, 'stage2': 3, 'confirmed': 3} | wall 95s
