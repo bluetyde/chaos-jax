@@ -72,3 +72,11 @@ Also |f| along the orbit (small near the equilibrium at the origin).
 - **P-B5 D3:** the gap changes with rho. It is small (below 0.5%) at rho = 33 and larger (above 1.5%) at 26 and 28. The correlation of the gap with the theta3 statistic is in magnitude below 0.8 (no association). I give 60% to "no association".
 - **P-B6 sigma literature:** no paper in the library reports a sensitivity to sigma on an average of z. Only the nilss-jax README does (not in the library).
 - **P-B7 compute:** about 10 minutes in all. The CLV forward runs are the slowest part. I time one before the main run.
+
+## Amendment, 2026-10-27: first run of the CLV controls
+
+The first run of the controls gave: C-B3, C-B4 and C-B5 pass. **C-B1 and C-B2 failed.** The CLV algorithm was not at fault in either case. I changed no gate.
+
+- **C-B2 (neutral CLV against the flow direction, gate 1e-6).** The maximum angle was 4.5e-6 at dt = 0.01. It falls to 2.4e-7 at dt = 0.005 and 2.6e-8 at dt = 0.0025, which is fourth order in dt. The cause is that the discrete RK4 tangent map has a neutral direction that differs from the continuous flow direction at O(dt^4). I had not stated a dt for the CLV runs. **All A5b CLV runs use dt = 0.005**, the same as my NILSS (A5), where C-B2 passes (2.4e-7). The test now runs at dt = 0.005. The gate stays at 1e-6.
+- **C-B1 (linear flow with known eigenvectors, gate 1e-8).** My test orbit was too short: about 5 time units of forward history and about 5 of backward convergence, while the exponent gaps of 2 need about 10 each for 1e-8. The test was badly designed. I now use 200 time units and check the interior from t = 20 to t = 180. The gate stays at 1e-8.
+- **Angle function.** At the next control run C-B5 read 1.49e-8, above its gate of 1e-8. That value is the floor of `arccos` for a cosine of 1 - 1.1e-16, so my angle function could not resolve small angles. Earlier passes were lucky exact zeros. I replaced it with atan2 of the perpendicular and parallel parts, which is accurate at machine precision. All five controls then pass: C-B1 and C-B4 to 1e-8, C-B2 at dt = 0.005, C-B3 with exponents 0.9085, -0.0002 and -14.575, and C-B5.
