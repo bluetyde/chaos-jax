@@ -170,7 +170,7 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Status: A1b done. Control passes. **The oracle does not depend on the averaging window, dt or spin-up for rho and sigma** at the resolution of this check (shifts under about 0.004). The A2 gap is therefore not explained by these three settings. Beta depends on spin-up (spin-up 10 shifts it by 5 SE). A3 not started.
 - Changes: `docs/PREDICTIONS-A1b.md` (design and gates committed before any code ran, results appended), `experiments/phaseA1b_windows.py`, `results/phaseA1b_windows.json`, `.gitignore`. Branch is stacked on `claude/phase-A2-nilss-run` (which is stacked on A1).
 - Verification:
-  - `python -m pytest -q` gave: `42 passed, 1 xfailed` (no new test, run time 36 s to 42 s).
+  - `python -m pytest -q` gave: `42 passed, 1 xfailed in 38.71s` (no new test).
   - Control C-W: baseline matches the A1 rung within 1.25, 0.39 and 1.09 SE for rho, sigma, beta.
   - rho by variant: 0.9976 to 1.0033 (baseline 1.0004 +- 0.0015). sigma: 0.1456 to 0.1514 (baseline 0.1497 +- 0.0015). A2 shadowing values: 1.017 and 0.134.
   - Compute: 72 s on CPU.
