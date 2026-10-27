@@ -1,0 +1,389 @@
+{
+  "rows": [
+    {
+      "case": 1,
+      "name": "Lorenz-63 rho=28.0",
+      "param": "rho",
+      "oracle": 1.0019692539574514,
+      "oracle_se": 0.0019511708982131563,
+      "oracle_converged": true,
+      "h_converged": true,
+      "se_rule_met": true,
+      "verdicts": [
+        "ok",
+        "ok",
+        "ok",
+        "ok"
+      ],
+      "rel_errors": [
+        0.01508119499719897,
+        0.014960244149220052,
+        0.014984618320054623,
+        0.015139889766401255
+      ],
+      "means": [
+        1.0170801476575817,
+        1.0169589586266667,
+        1.0169833807964337,
+        1.0171389580116905
+      ],
+      "verdict_nus_check": "ok"
+    },
+    {
+      "case": 2,
+      "name": "Lorenz-63 rho=45.0",
+      "param": "rho",
+      "oracle": 0.9576492142512407,
+      "oracle_se": 0.0015847525006382286,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        0.05241193169839612,
+        0.011315040113779715,
+        0.050079619016329374,
+        0.023519419988161965
+      ],
+      "means": [
+        1.0078414594595995,
+        0.9684850535254231,
+        1.00560792205223,
+        0.980172568322549
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 3,
+      "name": "Lorenz-63 rho=50.0",
+      "param": "rho",
+      "oracle": 0.9698061247843981,
+      "oracle_se": 0.0016223882191588226,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        0.25101943204874066,
+        0.09601688186696192,
+        0.026989329742222495,
+        0.005061137516004261
+      ],
+      "means": [
+        0.7263659421436284,
+        1.0629238849016778,
+        0.9959805420722312,
+        0.9648978026230011
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 4,
+      "name": "Lorenz-63 rho=60.0",
+      "param": "rho",
+      "oracle": 0.9392477227676395,
+      "oracle_se": 0.0022531906708091343,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        0.11976298759207848,
+        0.028971171710998018,
+        0.022103148839145426,
+        0.07712335854960563
+      ],
+      "means": [
+        1.0517348361353482,
+        0.9120366157121743,
+        0.960008054980801,
+        1.0116856616575487
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 5,
+      "name": "Lorenz-63 rho=28.0",
+      "param": "sigma",
+      "oracle": 0.1525644966734241,
+      "oracle_se": 0.0020353653663658525,
+      "oracle_converged": true,
+      "h_converged": true,
+      "se_rule_met": true,
+      "verdicts": [
+        "caution",
+        "caution",
+        "caution",
+        "caution"
+      ],
+      "rel_errors": [
+        0.12362418066227415,
+        0.12348855127844725,
+        0.12318413043687042,
+        0.1235516438444235
+      ],
+      "means": [
+        0.13370383577401979,
+        0.13372452800269746,
+        0.13377097181516953,
+        0.13371490231712546
+      ],
+      "verdict_nus_check": "caution"
+    },
+    {
+      "case": 6,
+      "name": "Lorenz-63 rho=45.0",
+      "param": "sigma",
+      "oracle": 0.40131250848862265,
+      "oracle_se": 0.0015374751546904139,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        0.6038026486211162,
+        28.242661652313373,
+        0.22600604952604136,
+        0.24692699340286725
+      ],
+      "means": [
+        0.1589989529384081,
+        11.73544590257393,
+        0.3106134538197231,
+        0.3022176173525644
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 7,
+      "name": "Lorenz-63 rho=28.0",
+      "param": "beta",
+      "oracle": -1.6454067898730216,
+      "oracle_se": 0.008271435133877025,
+      "oracle_converged": true,
+      "h_converged": true,
+      "se_rule_met": true,
+      "verdicts": [
+        "ok",
+        "ok",
+        "ok",
+        "ok"
+      ],
+      "rel_errors": [
+        0.008673601934514,
+        0.008278793981349968,
+        0.008082618053873997,
+        0.009658610943021334
+      ],
+      "means": [
+        -1.6596783933887267,
+        -1.6590287737018947,
+        -1.6587059844988161,
+        -1.6612991338994108
+      ],
+      "verdict_nus_check": "ok"
+    },
+    {
+      "case": 8,
+      "name": "Lorenz-96 N=8 F=6.0",
+      "param": "F",
+      "oracle": 3.4033980603667366,
+      "oracle_se": 0.017536550052665335,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        8.473962421681822,
+        5.237668892616397,
+        2.453499628405047,
+        147.17266488401626
+      ],
+      "means": [
+        -25.436869209205792,
+        -14.422474089607105,
+        -4.946837816057511,
+        -497.4837641448979
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 9,
+      "name": "Lorenz-96 N=8 F=10.0",
+      "param": "F",
+      "oracle": 3.6790917450614984,
+      "oracle_se": 0.023697258922718924,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        4.746426638291758,
+        0.054895244981024195,
+        5.083831285302866,
+        2.1387102267522367
+      ],
+      "means": [
+        -13.783447318417707,
+        3.4771271024086836,
+        22.382973460104658,
+        -4.18941939526126
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 10,
+      "name": "Lorenz-96 N=16 F=8.0",
+      "param": "F",
+      "oracle": 3.4588971579894334,
+      "oracle_se": 0.01606793219706523,
+      "oracle_converged": true,
+      "h_converged": true,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        29.459493412023274,
+        5.040872644774293,
+        7.410074845777576,
+        0.38253383676274083
+      ],
+      "means": [
+        105.35625519664518,
+        20.894757222785913,
+        -22.17178966655961,
+        4.7820423588028715
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 11,
+      "name": "Roessler c=5.0",
+      "param": "c",
+      "oracle": 0.016331339399134892,
+      "oracle_se": 0.0006406013521887617,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        2.951647618946725,
+        3.0425316981689505,
+        3.7501350763223105,
+        13.1556411783255
+      ],
+      "means": [
+        0.06453569845080223,
+        0.06601995719455826,
+        0.07757606812315518,
+        -0.19851790169733372
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 12,
+      "name": "Roessler c=7.0",
+      "param": "c",
+      "oracle": -0.010767959927692194,
+      "oracle_se": 0.0008315259773482778,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": false,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        4.794983637263429,
+        0.6564060894500502,
+        3.4693504540897373,
+        0.06322840847192722
+      ],
+      "means": [
+        0.04086423173230017,
+        -0.003699805460200916,
+        0.026589866737066817,
+        -0.01144880089640966
+      ],
+      "verdict_nus_check": "unreliable"
+    },
+    {
+      "case": 13,
+      "name": "Roessler c=9.0",
+      "param": "c",
+      "oracle": -0.02854758600930707,
+      "oracle_se": 0.0014000359277470172,
+      "oracle_converged": false,
+      "h_converged": false,
+      "se_rule_met": true,
+      "verdicts": [
+        "unreliable",
+        "unreliable",
+        "unreliable",
+        "unreliable"
+      ],
+      "rel_errors": [
+        4.0899217219125905,
+        13.910091392186823,
+        3.0478454239280888,
+        1.8631738214362878
+      ],
+      "means": [
+        0.08820980611832588,
+        -0.4256471164250823,
+        0.058461043373353005,
+        0.02464152890843469
+      ],
+      "verdict_nus_check": "unreliable"
+    }
+  ],
+  "A4.1_confident_misses": 0,
+  "A4.1_pass": true,
+  "ok_ensembles_in_converged_cases": 8,
+  "A4.2_tested": true,
+  "misses_ok_err_gt_10pct": [],
+  "false_alarms_unreliable_err_lt_5pct": [],
+  "cases_with_stable_verdict": 13,
+  "oracle_converged_cases": 4
+}

@@ -1,0 +1,47 @@
+{
+  "rho": {
+    "own": 1.0170107615053152,
+    "own_sem": 6.158834055451957e-05,
+    "own_sd_orbits": 0.000348396265985018,
+    "nilss_jax": 1.0170805550622952,
+    "nilss_jax_sem": 7.127763681878162e-05,
+    "rel_diff_to_nilss_jax": -6.862146428089715e-05,
+    "A5.1a_pass": true,
+    "A5.1b_pass": true,
+    "median_per_orbit_rel_diff": 0.00029148794301855007,
+    "rel_diff_to_lss_T320": 0.000633781882133765,
+    "A5.3_pass": true,
+    "rel_diff_to_oracle": 0.013793810745616019,
+    "A5.2_pass": true
+  },
+  "sigma": {
+    "own": 0.13362867301139478,
+    "own_sem": 9.183333225591819e-05,
+    "own_sd_orbits": 0.0005194877758169365,
+    "nilss_jax": 0.13374808157662368,
+    "nilss_jax_sem": 7.695812711803821e-05,
+    "rel_diff_to_nilss_jax": -0.0008927871250287662,
+    "A5.1a_pass": true,
+    "A5.1b_pass": true,
+    "median_per_orbit_rel_diff": 0.003159273308501472,
+    "rel_diff_to_lss_T320": -0.0049454525326425155,
+    "A5.3_pass": true,
+    "rel_diff_to_oracle": -0.10206776853745647,
+    "A5.2_pass": true
+  },
+  "beta": {
+    "own": -1.6573896391690188,
+    "own_sem": 0.0011157459311453787,
+    "own_sd_orbits": 0.006311612111953569,
+    "nilss_jax": -1.6592685136185696,
+    "nilss_jax_sem": 0.0011609968611038383,
+    "rel_diff_to_nilss_jax": 0.0011323510535695784,
+    "A5.1a_pass": true,
+    "A5.1b_pass": true,
+    "median_per_orbit_rel_diff": 0.0030939601443047615,
+    "rel_diff_to_lss_T320": -0.000892564447243466,
+    "A5.3_pass": true,
+    "rel_diff_to_oracle": 0.00045291870235114276,
+    "A5.2_pass": null
+  }
+}

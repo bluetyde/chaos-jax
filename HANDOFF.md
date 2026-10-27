@@ -138,3 +138,115 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Verification: no code changed, so no new test run is claimed. The numbers in the Amendment are from the Phase 4 session diagnostics (the 10, 40 and 160 period rows are also asserted by `test_control_d_lss_error_falls_like_one_over_T`). The 20 and 80 period rows, the c = 2 case, the alpha sweep and the 2000 samples per period case were run in that session as one-off diagnostics and are not in a results file or a test.
 - Caveats: the cause of the 1/T term is not known. The window needed for 1e-4 (about 4500 periods) was extrapolated and not run.
 - Next step: A1 (oracle v2) on branch `claude/phase-A1-oracle-v2`.
+
+## 2026-10-26 Task A1 session: oracle v2
+
+- Status: A1 done. Control passes. rho and sigma converged. beta not converged under the gate (one pair fails). A2 not started.
+- Changes: `docs/PREDICTIONS-A1.md` (predictions and gates committed before any code, results appended), `tests/test_oracle_v2_control.py`, `experiments/phaseA1_oracle_v2.py`, `results/phaseA1_oracle_v2.json`, `.gitignore` (raw arrays not committed).
+- Verification:
+  - `python -m pytest -q` gave: `42 passed, 1 xfailed in 42.41s`.
+  - Control first: slope error 5.9e-8, curvature error 8.0e-4.
+  - Oracle v2 at the smallest step, bootstrap SE: **d<z>/d(rho) = 1.0015 +- 0.0015** (weighted mean over four converged rungs 1.0032 +- 0.0007), **d<z>/d(sigma) = 0.1494 +- 0.0015**, **d<z>/d(beta) = -1.658 +- 0.006** (not converged at the largest step).
+  - rho stays near the Phase 2 value. It did not move to 1.012 or above.
+  - Compute: about 4.4 minutes on CPU (88 s per parameter).
+- Predictions against results: see the table in `docs/PREDICTIONS-A1.md`. Misses: rho description, rho ladder behaviour, sigma convergence, beta convergence, compute time.
+- Caveats:
+  - Our LSS (1.016) and the nilss-jax README (about 1.02) both sit about 1.3% to 1.7% above this oracle. I did not find the cause. A2 and later tasks should not assume either side is right.
+  - Single averaging window (100) and dt (0.01). Not varied here.
+  - The sigma prediction is not independent of the nilss-jax README numbers relayed in `TODO.md`. I read no nilss-jax source.
+  - The beta convergence failure is marginal (0.0197 against a limit of 0.0165) and in the pair with the largest steps.
+- Next step: owner review. Then A2 (run nilss-jax on Lorenz-63 for rho, sigma, beta). Pin one exact commit first, record the hash, and write `docs/PREDICTIONS-A2.md` before running. Do not read nilss-jax source. A decision for the owner: whether to run a window-length check on the oracle before A2, given the LSS gap.
+
+## 2026-10-27 Task A2 session: run nilss-jax on Lorenz-63
+
+- Status: A2 done. Controls pass. **A2.1 fails for rho and sigma, passes for beta.** A2.2 holds (the sigma claim reproduces and the gap to the oracle is confirmed). A3 not started.
+- Changes: `docs/PREDICTIONS-A2.md` (predictions, pin and disclosure committed before nilss-jax was installed or run, a timing Amendment, results appended), `experiments/phaseA2_run.py`, `results/phaseA2_*.json`, `READING-LOG.md` row. Branch is stacked on `claude/phase-A1-oracle-v2` because A2 needs its oracle file.
+- Pin: nilss-jax 0.1.0, commit `ad5b635f5798d89f5d31afa4118d31b778ab86f7` (2026-10-08). Cloned into the session scratchpad after the owner allowed github.com. I read only its README, CHANGELOG and `docs/usage.md`. I read no source.
+- Verification:
+  - `python -m pytest -q` gave: `42 passed, 1 xfailed in 36.68s`.
+  - Controls first: leading exponent 0.9053 (against 0.9041), mean z 23.552 (against 23.55).
+  - Stage 2 (32 orbits, T = 1000, 23 s): rho 1.01708 +- 0.00007, sigma 0.13375 +- 0.00008, beta -1.65927 +- 0.00116. Oracle (A1): 1.00317 +- 0.00074, 0.14882 +- 0.00072, -1.65814 +- 0.00595. Differences +1.39%, -10.13%, -0.07%.
+- Predictions against results: all hit, but I made them after reading the README and `docs/usage.md` numbers, so they are weak evidence. Only the compute-time prediction missed.
+- Caveats:
+  - `docs/usage.md` showed more numbers than `TODO.md` listed, including the tool's own finite-difference values. Disclosed in the predictions file.
+  - My LSS for rho (1.014 to 1.016) agrees with nilss-jax (1.017) and not with the oracle (1.003). I do not know which is right. The oracle has one window and one dt.
+  - Its per-orbit scatter (0.0004 for rho) is far smaller than the gaps, so the gaps are not noise.
+- Next step: owner review. Then A3 (vary `dt`, `T_seg`, `nus`, `T` and extend our own LSS to sigma and beta). A3 can use larger ensembles since a T = 1000 orbit takes 0.7 s. Consider an oracle window-length check (averaging window, dt, spin-up) before A4, since the disagreement is between shadowing and finite differences.
+
+## 2026-10-27 Task A1b session: oracle window, dt and spin-up check
+
+- Status: A1b done. Control passes. **The oracle does not depend on the averaging window, dt or spin-up for rho and sigma** at the resolution of this check (shifts under about 0.004). The A2 gap is therefore not explained by these three settings. Beta depends on spin-up (spin-up 10 shifts it by 5 SE). A3 not started.
+- Changes: `docs/PREDICTIONS-A1b.md` (design and gates committed before any code ran, results appended), `experiments/phaseA1b_windows.py`, `results/phaseA1b_windows.json`, `.gitignore`. Branch is stacked on `claude/phase-A2-nilss-run` (which is stacked on A1).
+- Verification:
+  - `python -m pytest -q` gave: `42 passed, 1 xfailed in 38.71s` (no new test).
+  - Control C-W: baseline matches the A1 rung within 1.25, 0.39 and 1.09 SE for rho, sigma, beta.
+  - rho by variant: 0.9976 to 1.0033 (baseline 1.0004 +- 0.0015). sigma: 0.1456 to 0.1514 (baseline 0.1497 +- 0.0015). A2 shadowing values: 1.017 and 0.134.
+  - Compute: 72 s on CPU.
+- Predictions against results: control hit, rho and sigma stability hit, "no variant reaches shadowing values" hit. Misses: beta spin-up 10 (5.1 SE, I predicted none beyond 3 SE and beta within 0.02), compute time (72 s against 4 min).
+- Caveats: one step h per parameter, one factor at a time, box start points. The check removes three possible biases in the oracle. It does not say which method is closer to the true derivative.
+- Next step: owner review, then A3 (vary `dt`, `T_seg`, `nus`, `T` for nilss-jax and extend our own LSS to sigma and beta). With the oracle stable, A3's LSS for sigma and beta is the most informative next step: it can show whether an independent shadowing code also gives sigma near 0.134.
+
+## 2026-10-27 Task A3 session: nilss-jax settings, and our own LSS for sigma and beta
+
+- Status: A3 done. Controls pass. **A3.1 and A3.2 pass** (nilss-jax is stable against dt, T_seg, nus and T, and the sigma gap stays at about 21 SE). **A3.3 fails on the strict 2 SE test for all three parameters** (relative differences to nilss-jax below 0.5%). **A3.4 fails for rho and sigma** (my LSS is still rising with T). A4 not started.
+- Changes: `docs/PREDICTIONS-A3.md` (predictions and gates committed before any run, results appended), `experiments/phaseA3_settings.py`, `experiments/phaseA3_lss.py`, `results/phaseA3_*.json`, dense KKT test now covers sigma and beta. Branch is stacked on A1b, A2, A1.
+- Verification:
+  - `python -m pytest -q` gave: `44 passed, 1 xfailed in 39.03s`.
+  - nilss-jax, 8 variants, 32 orbits each: rho 1.0170 to 1.0178, sigma 0.1336 to 0.1338, beta -1.6584 to -1.6634. All controls pass. Verdict CAUTION in all.
+  - Our LSS at T = 320: rho 1.01637 +- 0.00006, sigma 0.13429 +- 0.00006, beta -1.65591 +- 0.00078. Against nilss-jax: -0.07%, +0.41%, +0.20%. Against the oracle: +1.32%, -9.76%, +0.13%.
+  - Compute: 3.6 minutes and 2.1 minutes on CPU.
+- Predictions against results: see `docs/PREDICTIONS-A3.md`. Misses: the 2 SE agreement of my LSS with nilss-jax, and convergence in T for rho. The compute estimate was close.
+- Caveats:
+  - Two shadowing codes agree for rho, sigma, beta, and both disagree with the finite-difference oracle for rho (1.4%) and sigma (10%). I do not know which is closer to the truth, and I did not find the cause.
+  - My LSS is not fully independent of nilss-jax: same kind of method, and I read the README and `docs/usage.md` before the A3 predictions. I read no source.
+  - The T extrapolation of my LSS (about 1.0167 for rho, 0.1347 for sigma) is a guess.
+- Next step: owner review, then A4 (calibrate the reliability report). A4 needs `docs/reliability.md` of nilss-jax, which I have not read. Log it first. A4 also needs cases with a finite-difference oracle for each. The cost of those oracles for Lorenz-96 may be high, so say what is dropped. Consider first, as a separate task, a test of the open question above: a third method for the Lorenz rho and sigma derivative (for example an adjoint of the invariant measure, or a much larger h-window study), so that the shadowing-versus-finite-difference gap can be assigned to one side.
+
+## 2026-10-27 Task A3b session: third method (noise-regularised finite differences)
+
+- Status: A3b done. Controls pass. **N2: finite-difference side for both rho and sigma.** N1 passes at all noise levels. N3 plateau holds for sigma and, for rho, only at eps <= 0.25. A4 not started.
+- Changes: `docs/PREDICTIONS-A3b.md` (design, gates and decision rule committed before any code ran, results appended), `src/chaos_jax/noisy.py`, `tests/test_noisy.py`, `experiments/phaseA3b_noise.py`, `results/phaseA3b_noise.json`. Branch is stacked on A3, A1b, A2, A1.
+- Verification:
+  - `python -m pytest -q` gave: `47 passed, 1 xfailed in 51.37s`.
+  - Controls first: OU slope error 1.6% (gate 3%). eps = 0 anchor within 1.12 SE of A1 in all four cases.
+  - At eps = 0.125, h = 0.5: rho 1.0012 +- 0.0015 (finite-difference oracle 1.0032, nilss-jax 1.0171), sigma 0.1466 +- 0.0014 (oracle 0.1488, nilss-jax 0.1338). Slopes at larger eps are lower (rho 0.925 at eps = 4).
+  - Compute: 13.3 plus 13.5 minutes on CPU.
+- Predictions against results: both decision predictions hit. Misses: the size of the trend with eps (rho 0.077 and sigma 0.041 lower at eps = 4, rho 3.6 SE low at eps = 0.5), and compute time (27 minutes against 10).
+- Caveats:
+  - This supports the finite-difference oracle and not the two shadowing codes (nilss-jax, our LSS) for rho and sigma, under the stochastic-stability assumption. It does not prove it, and it does not say why the shadowing codes differ.
+  - One noise type, one dt, first-order noise scheme, rho and sigma only.
+  - The nilss-jax README names "sigma about 11% off" as a known issue. This task sides with the README's own finite differences on that point. The rho difference of 1.4% is not mentioned there as a failure.
+- Next step: owner review. Then A4 (calibrate the reliability report). Now that three lines of evidence favour the finite-difference oracle, A4 can use finite differences as the reference for the true error. Read `docs/reliability.md` of nilss-jax first and log it. Say what is dropped for the larger systems. A5 (our own NILSS) is optional.
+
+## 2026-10-27 Task A4 session: calibrate the reliability report
+
+- Status: A4 done. Controls pass. **A4.1 passes** (no `ok` verdict with error above 25%) and A4.2 is met (8 `ok` ensembles), but **only 4 of 13 oracles converged** (prediction: at least 10), so the test is weak. A5 not started.
+- Changes: `docs/PREDICTIONS-A4.md` (design, gates, disclosure and predictions committed before any ensemble or oracle ran, results appended), `src/chaos_jax/systems.py` (Lorenz-96, Roessler), `tests/test_systems_a4.py`, `experiments/phaseA4_calibration.py`, `results/phaseA4_*.json`, a `READING-LOG.md` row for `docs/reliability.md`. Branch is stacked on A3b, A3, A1b, A2, A1.
+- Verification:
+  - `python -m pytest -q` gave: `50 passed, 1 xfailed in 52.01s`.
+  - Controls first: case 1 exponent 0.9058 and mean z 23.549; fixed points of the new fields; oracle for case 1 1.0020 +- 0.0020.
+  - Verdict against error (converged cases): ok 0.8% to 1.5% (8 ensembles), caution 12.3% (4), unreliable 38% to 2946% (4). Verdict stable across four ensembles in 13 of 13 cases. No misses, no false alarms among converged cases.
+  - Compute: about 24 minutes on CPU.
+- Predictions against results: see `docs/PREDICTIONS-A4.md`. Misses: oracle convergence (4 of 13), the verdicts at rho = 45, 50 and sigma at rho = 45 (unreliable, I predicted caution), the size of Lorenz-96 and Roessler errors.
+- Caveats:
+  - The `ok` ensembles all come from Lorenz-63 at rho = 28 (parameters rho and beta). A4.1 passing says little about other systems.
+  - Nine finite-difference oracles did not meet the convergence rule, most because the response is rough or nonlinear at my step sizes. I have no clean true error for those cases.
+  - The exploratory reading that the report is conservative at rho = 45 is post hoc and not scored.
+  - I read `docs/reliability.md` before predicting; it names the blind spots that show up here.
+- Next step: owner review. Then A5 (optional: our own NILSS from the papers) or A6 (double pendulum). Before A6, check that the long-time average does not depend on the start point. If the owner wants A4 to be a stronger test, add cases where the oracle converges and the report says `ok`, for example other parameter values near rho = 28 to 35 and more parameters of Lorenz-96 with small F. A4's oracle rule (SE below 5% and two steps agree) is the bottleneck.
+
+## 2026-10-27 Task A5 session: our own NILSS, from the papers
+
+- Status: A5 done. Controls pass (one repaired test). **A5.1a, A5.1b, A5.2 and A5.3 all pass.** Break-it: all three bugs caught, with one blind spot in a control found and fixed. A6 not started.
+- Changes: `docs/PREDICTIONS-A5.md` (reading, equation check, design, gates and break-it plan committed before any code, an Amendment, results appended), `src/chaos_jax/nilss.py`, `tests/test_nilss.py`, `experiments/phaseA5_run.py`, `results/phaseA5_*.json`, two `READING-LOG.md` rows (`arxiv-1611.00880`, `arxiv-1711.06633`). Branch is stacked on A4, A3b, A3, A1b, A2, A1.
+- Verification:
+  - `python -m pytest -q` gave: `55 passed, 1 xfailed in 58.81s`.
+  - Own NILSS, 32 orbits, T = 1000: rho 1.01701 +- 0.00006, sigma 0.13363 +- 0.00009, beta -1.65739 +- 0.00112. nilss-jax (A2): 1.01708, 0.13375, -1.65927. Differences -0.007%, -0.089%, +0.113%. Against the A1 oracle: +1.38%, -10.21%, +0.05%.
+  - Compute: 4 s for the 32 orbits.
+- Predictions against results: see `docs/PREDICTIONS-A5.md`. Misses: a bug in my own control test (C-A5.4) at first, A5.1a passing for all three (I predicted at least two failures), compute time.
+- Caveats:
+  - Three shadowing codes (nilss-jax, our LSS, our NILSS) agree to 0.5% and disagree with the finite-difference oracle for rho (+1.4%) and sigma (-10%). Not a coding error in any one of them. The cause is not found.
+  - I did not read nilss-jax source. The rule in `TODO.md` allows it now that results are logged. I have not needed to.
+  - My code was written after seeing nilss-jax docs and results, so it is not blind.
+  - One homogeneous tangent, one system, trapezoid quadrature.
+- Next step: owner review. Then A6 (double pendulum): first check that the long-time average does not depend on the starting point. A Hamiltonian flow with a mixed phase space may fail this; if so, say so and stop. A7 (Julia) only if `julia --version` works. A8 (write-up). The finding most worth a decision before A8: three shadowing codes versus finite differences on rho and sigma. A direct test of non-hyperbolicity (for example the angle between stable and unstable directions) would be a separate task.

@@ -1,0 +1,23 @@
+{
+  "case": 12,
+  "spec": {
+    "sys": "ROS",
+    "name": "c",
+    "c": 7.0,
+    "hs": [
+      0.2,
+      0.1
+    ]
+  },
+  "N": 64000,
+  "slope": -0.010767959927692194,
+  "se": 0.0008315259773482778,
+  "slope_big_h": 0.25425174881214985,
+  "se_big_h": 0.00034986274488950337,
+  "h_pair_diff": 0.26501970873984204,
+  "h_pair_limit": 0.0018042609470546396,
+  "h_converged": false,
+  "se_rule_met": false,
+  "oracle_converged": false,
+  "wall_seconds": 206.83596682548523
+}
