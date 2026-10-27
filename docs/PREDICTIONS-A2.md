@@ -57,3 +57,53 @@ I made these knowing the numbers above.
 ## Amendment, 2026-10-26: timing probe (before any stage ran)
 
 The probe (one orbit, T = 100, T_spinup = 20, after one compile call) took **0.08 s**. P-A2.7 (about 20 s per orbit of T = 1000) was a miss by a large factor. At this speed I expect Stage 1 in under 10 s and Stage 2 (32 orbits of T = 1000) in about 30 to 60 s. No gate or other prediction changes. Because it is cheap, A3 can use larger ensembles. A2 keeps the 32 orbits stated above.
+
+## Results (added after the runs, 2026-10-27)
+
+Pinned commit `ad5b635f5798d89f5d31afa4118d31b778ab86f7`, nilss-jax 0.1.0, installed with `pip install --no-deps` from a clone outside this repo.
+Commands: `python experiments/phaseA2_run.py probe | stage1 | stage2 | controls | report`. Output in `results/phaseA2_stage1.json`, `phaseA2_stage2.json`, `phaseA2_report.json` (each records the pin).
+Compute: Stage 1 2 s, Stage 2 23 s, one core. `python -m pytest -q` gives `42 passed, 1 xfailed in 36.68s` (no new test in A2).
+
+### Controls (run first, before reading any sensitivity)
+
+| Control | Stage 1 | Stage 2 | Gate |
+|---|---|---|---|
+| C1 leading exponent, mean | 0.9038 | 0.9053 | within 0.02 of 0.9041: pass |
+| C2 mean z | 23.552 | 23.552 | within 0.2 of 23.55: pass |
+
+All orbits were kept (8 of 8, 32 of 32). The tool integrates the same system as my code.
+
+### Sensitivities, Stage 2 (32 orbits, T = 1000), against the A1 oracle
+
+| Parameter | nilss-jax mean +- SEM | oracle +- SE | difference | A2.1 (limit = 2 combined SE) |
+|---|---|---|---|---|
+| rho | **1.01708 +- 0.00007** | 1.00317 +- 0.00074 | +0.01391 (+1.39%) | **FAIL** (limit 0.00149) |
+| sigma | **0.13375 +- 0.00008** | 0.14882 +- 0.00072 | -0.01507 (-10.13%) | **FAIL** (limit 0.00144) |
+| beta | **-1.65927 +- 0.00116** | -1.65814 +- 0.00595 | -0.00113 (-0.07%) | pass (limit 0.01213) |
+
+Stage 1 (README quickstart, 8 orbits, T = 200): rho 1.01682 +- 0.00043, sigma 0.13306 +- 0.00047, beta -1.65439 +- 0.00679. Verdict CAUTION, as the README says. Same pattern as Stage 2. Per-orbit spread in Stage 2: rho 0.0004, sigma 0.00044, beta 0.0066. Reliability verdict for Stage 2: CAUTION.
+
+- **A2.2a** the sigma mean is within 2 combined standard errors of +0.133: **yes** (0.13375 against 0.133). The README claim is reproduced.
+- **A2.2b** the sigma mean differs from the oracle by more than 2 combined standard errors: **yes** (10.1% below).
+
+### Predictions against results
+
+| Prediction | Result |
+|---|---|
+| P-A2.1 Stage 1: rho about 1.02, sigma about +0.13, verdict CAUTION | Hit (1.017, +0.133, CAUTION). |
+| P-A2.2 Stage 2: rho 1.017, sigma +0.134, beta -1.658 | Hit (1.0171, 0.1338, -1.659). |
+| P-A2.3 A2.1: rho fails, sigma fails, beta passes | Hit on all three. |
+| P-A2.4 A2.2 (a) and (b) hold | Hit. |
+| P-A2.5 Controls pass, exponent about 0.90 | Hit (0.905). |
+| P-A2.6 Stage 2 verdict CAUTION | Hit. |
+| P-A2.7 about 20 s per orbit, 11 minutes in all | **Miss**: 0.7 s per orbit, 23 s in all (already amended after the probe). |
+
+I made these predictions after reading the numbers above (disclosed in the file). The hits are therefore weak evidence. They show that my reading was right. They do not test an independent guess.
+
+### What this shows, and what it does not
+
+- **The nilss-jax README numbers reproduce on this machine from independent start points.** rho 1.017, sigma 0.134, beta -1.659, exponent 0.905. The run-to-run spread is very small (0.0004 for rho). The statistical error of the tool is not the issue.
+- **rho and sigma sit away from the finite-difference oracle by amounts far outside both error bars.** The gap is +1.4% for rho and -10% for sigma. beta agrees to 0.07%.
+- **My own LSS (Phase 4) gives 1.014 to 1.016 for rho.** That is within about 0.001 of nilss-jax (1.017) and about 0.013 above the oracle. So two implementations written independently, one by me from the LSS paper and one by the nilss-jax author from the NILSS paper, agree with each other for rho, and both differ from finite differences. I did not run my LSS for sigma or beta (that is part of A3). I did not read nilss-jax source, so I cannot say how independent the two are in method. Both use shadowing and the same Lorenz equations.
+- **What this does not tell me is which is right.** The disagreement is between shadowing estimators on one side and a finite-difference oracle on the other. The oracle converged in h for rho and sigma (A1). It has one averaging window (100) and one dt (0.01). The shadowing estimators have T and window effects of their own. I have not tested either side against a third method. The README's own finite differences give rho 1.004 and sigma 0.149 at the smallest h, which agree with my oracle.
+- **Limits:** one system, one dt for the oracle, the oracle for beta not converged at the largest step.

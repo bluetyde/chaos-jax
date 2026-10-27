@@ -148,3 +148,19 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - The sigma prediction is not independent of the nilss-jax README numbers relayed in `TODO.md`. I read no nilss-jax source.
   - The beta convergence failure is marginal (0.0197 against a limit of 0.0165) and in the pair with the largest steps.
 - Next step: owner review. Then A2 (run nilss-jax on Lorenz-63 for rho, sigma, beta). Pin one exact commit first, record the hash, and write `docs/PREDICTIONS-A2.md` before running. Do not read nilss-jax source. A decision for the owner: whether to run a window-length check on the oracle before A2, given the LSS gap.
+
+## 2026-10-27 Task A2 session: run nilss-jax on Lorenz-63
+
+- Status: A2 done. Controls pass. **A2.1 fails for rho and sigma, passes for beta.** A2.2 holds (the sigma claim reproduces and the gap to the oracle is confirmed). A3 not started.
+- Changes: `docs/PREDICTIONS-A2.md` (predictions, pin and disclosure committed before nilss-jax was installed or run, a timing Amendment, results appended), `experiments/phaseA2_run.py`, `results/phaseA2_*.json`, `READING-LOG.md` row. Branch is stacked on `claude/phase-A1-oracle-v2` because A2 needs its oracle file.
+- Pin: nilss-jax 0.1.0, commit `ad5b635f5798d89f5d31afa4118d31b778ab86f7` (2026-10-08). Cloned into the session scratchpad after the owner allowed github.com. I read only its README, CHANGELOG and `docs/usage.md`. I read no source.
+- Verification:
+  - `python -m pytest -q` gave: `42 passed, 1 xfailed in 36.68s`.
+  - Controls first: leading exponent 0.9053 (against 0.9041), mean z 23.552 (against 23.55).
+  - Stage 2 (32 orbits, T = 1000, 23 s): rho 1.01708 +- 0.00007, sigma 0.13375 +- 0.00008, beta -1.65927 +- 0.00116. Oracle (A1): 1.00317 +- 0.00074, 0.14882 +- 0.00072, -1.65814 +- 0.00595. Differences +1.39%, -10.13%, -0.07%.
+- Predictions against results: all hit, but I made them after reading the README and `docs/usage.md` numbers, so they are weak evidence. Only the compute-time prediction missed.
+- Caveats:
+  - `docs/usage.md` showed more numbers than `TODO.md` listed, including the tool's own finite-difference values. Disclosed in the predictions file.
+  - My LSS for rho (1.014 to 1.016) agrees with nilss-jax (1.017) and not with the oracle (1.003). I do not know which is right. The oracle has one window and one dt.
+  - Its per-orbit scatter (0.0004 for rho) is far smaller than the gaps, so the gaps are not noise.
+- Next step: owner review. Then A3 (vary `dt`, `T_seg`, `nus`, `T` and extend our own LSS to sigma and beta). A3 can use larger ensembles since a T = 1000 orbit takes 0.7 s. Consider an oracle window-length check (averaging window, dt, spin-up) before A4, since the disagreement is between shadowing and finite differences.
