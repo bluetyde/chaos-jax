@@ -274,3 +274,24 @@ def confirm(c, T=20000.0):
         return False, r1
     ok2, _ = is_chaotic(c, T, START2)
     return ok2, r1
+
+
+# ---------- middle filter (H2B, docs/PREDICTIONS-H2B.md) ----------
+MID_TIERS = ((300.0, 100.0), (1000.0, 200.0))  # (T, spin) of each tier
+MID_EPS = 0.005
+
+
+def mid_drop(res):
+    """True if a short run clearly fails: diverges, fixed point, or the largest exponent is not clearly above zero."""
+    if classify(res, rule="v2").label in ("diverges", "fixed point"):
+        return True
+    return bool(res.exponents[0] + 3.0 * res.se[0] <= MID_EPS)
+
+
+def mid_filter(c, tiers=MID_TIERS):
+    """True if the system survives every tier; a failing system stops at the first tier that drops it."""
+    for T, spin in tiers:
+        r = spectrum_p(flow, np.asarray(c), START, dt=0.01, T=T, T_spin=spin)
+        if mid_drop(r):
+            return False
+    return True

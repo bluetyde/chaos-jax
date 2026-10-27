@@ -65,3 +65,23 @@ def test_g5_stage1_keeps_chaos_and_drops_divergence():
     div[0, 4] = 1.0  # x' = 1 + x^2: blows up in finite time
     idx, lam, _ = s.screen(np.vstack([chaotic, div]))
     assert sorted(idx.tolist()) == [0, 1]
+
+
+def _lin(rows):
+    c = np.zeros(30)
+    for e, m, v in rows:
+        c[10 * e + s.NAMES.index(m)] = v
+    return c
+
+
+def test_g5_mid_filter_keeps_chaos():
+    for case in "BS":
+        assert s.mid_filter(s.case_coefficients(case)), case
+
+
+def test_g5_mid_filter_drops_sink_divergence_and_periodic_orbit():
+    sink = _lin([(0, "x", -1), (1, "y", -1), (2, "z", -1)])
+    div = _lin([(0, "1", 1), (0, "xx", 1), (1, "y", -1), (2, "z", -1)])
+    centre = _lin([(0, "y", 1), (1, "x", -1), (2, "z", -1)])
+    for name, c in (("sink", sink), ("divergent", div), ("centre", centre)):
+        assert not s.mid_filter(c), name

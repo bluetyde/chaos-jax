@@ -35,6 +35,18 @@ BUGS = [
         'os.environ.get("H2_GRID_MAX", "5.0")',
         'os.environ.get("H2_GRID_MAX", "10.0")',
     ),
+    (
+        "5 middle filter drop test inverted (keeps failing systems, drops chaos)",
+        "src/hyperchaos/search3d.py",
+        "res.exponents[0] + 3.0 * res.se[0] <= MID_EPS",
+        "res.exponents[0] + 3.0 * res.se[0] > MID_EPS",
+    ),
+    (
+        "6 middle filter threshold so low that nothing is dropped on exponents",
+        "src/hyperchaos/search3d.py",
+        "MID_EPS = 0.005",
+        "MID_EPS = -1e9",
+    ),
 ]
 
 FAST = ["tests/test_h2_search.py", "-k", "g5"]

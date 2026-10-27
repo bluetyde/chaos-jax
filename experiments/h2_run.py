@@ -64,12 +64,12 @@ def w_g3(args):
 
 
 def w_search(args):
-    seed, n = args
+    seed, n, mid = args
     from hyperchaos import search3d as s
 
     rng = np.random.default_rng(seed)
     t0 = time.time()
-    cnt = dict(draws=0, keep_a=0, keep_b=0, stage2=0, confirmed=0)
+    cnt = dict(draws=0, keep_a=0, keep_b=0, mid=0, stage2=0, confirmed=0)
     hits = []
     for _ in range(0, n, 20000):
         m = min(20000, n - cnt["draws"])
@@ -79,6 +79,9 @@ def w_search(args):
         cnt["keep_a"] += int(ka.sum())
         cnt["keep_b"] += int(len(idx))
         for i in idx:
+            if mid and not s.mid_filter(cs[i]):
+                continue
+            cnt["mid"] += 1
             ok, r = s.is_chaotic(cs[i], 5000.0)
             if not ok:
                 continue
@@ -190,8 +193,9 @@ def part_search(tag, workers, n_total, chunk, seed0):
         raise SystemExit("exists, delete first: " + path)
     ex = ProcessPoolExecutor(max_workers=workers)
     n_tasks = int(n_total // chunk)
-    tasks = [(seed0 + i, int(chunk)) for i in range(n_tasks)]
-    tot = dict(draws=0, keep_a=0, keep_b=0, stage2=0, confirmed=0)
+    mid = os.environ.get("H2_MID", "0") == "1"  # H2B middle filter; off by default so the old run reproduces
+    tasks = [(seed0 + i, int(chunk), mid) for i in range(n_tasks)]
+    tot = dict(draws=0, keep_a=0, keep_b=0, mid=0, stage2=0, confirmed=0)
     t0 = time.time()
     with open(path, "a") as fh:
         for r in ex.map(w_search, tasks):
