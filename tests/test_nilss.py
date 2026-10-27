@@ -67,7 +67,7 @@ def test_c_a5_3_v_perp_continuous_across_interfaces():
     rec, a = res["rec"], res["a"]
     for i in range(5):
         left = rec["Vp_end"][i] + rec["Wp_end"][i] @ a[i]                          # v_perp_i(t_{i+1})
-        right = rec["Vp_end"][i] - rec["Q"][i] @ rec["b"][i] + rec["Q"][i] @ a[i + 1]  # v_perp_{i+1}(t_{i+1})
+        right = rec["V_next"][i] + rec["Q"][i] @ a[i + 1]                              # v_perp_{i+1}(t_{i+1}), the reset the code applied
         scale = float(jnp.linalg.norm(left))
         assert float(jnp.linalg.norm(left - right)) < 1e-8 * max(scale, 1.0), (i, scale)
 

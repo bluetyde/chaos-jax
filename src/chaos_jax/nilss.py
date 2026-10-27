@@ -114,7 +114,7 @@ def nilss(f, obs, u0, p, idxs, dt, steps_per_seg, n_seg, M, key):
         b = Q.T @ Vp1                                   # eq. 35
         out = {"C": C, "d": d, "R": R, "b": b, "JW": JW, "JV": JV, "Jint": Jint, "J_end": obs(u1),
                "xi_star": (fu @ V1) / ff, "xi_W": (fu @ W1) / ff, "log_diag_R": jnp.log(jnp.abs(jnp.diag(R))),
-               "Vp_end": Vp1, "Wp_end": Wp1, "Q": Q}
+               "Vp_end": Vp1, "Wp_end": Wp1, "Q": Q, "V_next": Vp1 - Q @ b}
         return (u1, Q, Vp1 - Q @ b), out               # eq. 31 and 34
 
     fu0 = f(u0, p)
