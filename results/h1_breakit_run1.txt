@@ -1,0 +1,6 @@
+baseline exit 0 38 passed, 28 deselected, 1 warning in 9.10s
+bug 1 drop the QR re-orthonormalisation (columns only normalised) -> exit 1 CAUGHT ['FAILED tests/test_h1_controls.py::test_g1_sum_of_exponents_equals_mean_divergence[L]']
+bug 2 transposed Jacobian in the tangent equation -> exit 1 CAUGHT ['FAILED tests/test_h1_controls.py::test_g2_lorenz_values - assert np.float64(0...']
+bug 3 classifier ignores eps (positive means above 0) -> exit 0 NOT CAUGHT []
+tree clean after restore: True
+exit=0

@@ -187,3 +187,11 @@ Findings.
 ## I. Not searched
 
 Julia-side searches; arXiv 2025 to 2026 beyond the queries above; hyperchaos in maps; hyperchaotic circuits from the 1980s (Matsumoto, Chua, Kobayashi 1986 and later piecewise-linear work); delay systems; any record claim before 2023 other than Chlouverakis and Sprott; whether dysts contains any 4D hyperchaotic system with 7 or fewer terms; the Baier and Klein / Baier and Sahle papers.
+
+## H. H1 cross-check of published exponents (added 2026-10-26, evaluator results)
+
+The H1 evaluator (`docs/PREDICTIONS-H1.md`, results section) recomputed the spectra of several systems in this file at `T = 100000`:
+- **Confirmed to about 0.001:** Li and Sprott 2014 (0.0708, 0.0128, -0.0001, -1.0835 against the published 0.0704, 0.0128, 0, -1.0832), Chlouverakis and Sprott Eq. 13 (0.1319, 0.0343, 0, -1.2575 against 0.132, 0.035, 0, -1.25) and Eq. 12 (0.1427, 0.0187, 0, -0.2614 against 0.141, 0.0168, 0, -0.257), and the Sprott 1994 cases B, C, F, S.
+- **Rössler 1979:** no published exponents were found; we get (0.1126, 0.0207, 0, -25.10), hyperchaotic.
+- **NOT reproduced: Kopp 2025 (a = 0.62, b = 0.55).** Our exponents are (0.1471, 0.0001, 0, -0.7672): chaotic with two zero exponents, not the published (0.1385, 0.0201, 0.0076, -0.7864). Cause unknown (see the H1 results section). **Update 2026-10-27:** the transcription matches the paper's Eq. (1); 145 further runs (docs/PREDICTIONS-KOPP.md) never give a second exponent above 0.0004 at any a from 0.1 to 2, so the published hyperchaos does not reproduce; likely a short or noisy run in the paper (hypothesis). Until it is resolved, do not count Kopp 2025 as a known 7-term hyperchaotic flow; the "six papers with 7 terms" in the summary at the top becomes at most five.
+- **Not yet checked:** Yu 2023, PHYSCON 2015, Kopp and Samuilik 2025, Zhou 2009.
