@@ -103,3 +103,19 @@ def test_c_a5_4_formula_41_equals_formula_15_by_direct_quadrature():
     direct = (integral + xiT * Jbar - xiT * Jarr[-1]) / T       # eq. 15 with xi(0) = 0
     print("C-A5.4 relative difference (15) against (41):", abs(direct - float(res["dJds"][0])) / abs(float(res["dJds"][0])))
     np.testing.assert_allclose(direct, float(res["dJds"][0]), rtol=1e-3)
+
+
+def test_lorenz_sensitivities_agree_with_the_independent_shadowing_values():
+    """Regression against the values that nilss-jax and our LSS gave (A2, A3): rho 1.017, sigma 0.134, beta -1.659."""
+    p = lorenz_params()
+    k = jax.random.split(jax.random.PRNGKey(5), 3)
+    starts = jnp.stack([jax.random.uniform(k[0], (6,), minval=-15.0, maxval=15.0), jax.random.uniform(k[1], (6,), minval=-15.0, maxval=15.0),
+                        jax.random.uniform(k[2], (6,), minval=5.0, maxval=45.0)], axis=1)
+    vals = []
+    for i in range(6):
+        u0 = integrate_final(lorenz, starts[i], p, DT, 4000)
+        r = nilss(lorenz, _z, u0, p, (1, 0, 2), DT, 100, 500, 1, jax.random.PRNGKey(100 + i))   # T = 250
+        vals.append(np.asarray(r["dJds"]))
+    m = np.mean(vals, axis=0)
+    print("T=250 mean (rho, sigma, beta):", m)
+    assert abs(m[0] - 1.017) < 0.01 and abs(m[1] - 0.134) < 0.006 and abs(m[2] - (-1.659)) < 0.03
