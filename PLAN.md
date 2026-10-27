@@ -30,11 +30,11 @@ Working method (same as the owner's other projects): one stage per branch `claud
 - Gate: every control classified correctly, cross-checks agree within the stated standard errors, and a planted bug in the evaluator (for example, no QR re-orthogonalisation) makes at least one test fail.
 
 ### H2. Rediscover the 3D flows
-- Brute-force small 3D polynomial systems on a coarse coefficient grid, as Sprott did.
-- Gate: it re-finds Sprott's published cases (list from H0). Also report the hit rate and the size of the space, which sets the budget for H3.
+- Sample small 3D quadratic systems at random with coefficients on a grid (about -5 to 5 in steps of 0.1), as Sprott did. His search was random sampling, not exhaustive: the H0 session read that it tried about 1e8 of roughly 1e20 coefficient sets, that Sprott and Linz 2000 say it missed Rössler's 1976 system, and that Sprott 1997 found a 5-term, 1-nonlinear flow the 1994 search missed. Re-check those figures in the papers before using them (`LITERATURE.md` section B).
+- Gate: with a sample size fixed in `docs/PREDICTIONS-H2.md` (from the hit rate Sprott's own counts imply), it re-finds Sprott's published cases (Table I, A to S, in `LITERATURE.md`). Before a missed case counts against the evaluator, compute how many hits that sample size should give; a miss the sample size explains is reported as a sampling shortfall, not an evaluator failure. Also report the hit rate and the size of the space, which sets the budget for H3.
 
 ### H3. The 4D search
-- Search space, in this order: (a) 4th-order hyperjerk `x'''' = f(x, x', x'', x''')` with few terms (Chlouverakis and Sprott did this for chaos at n=4, 5 and found some hyperchaotic cases); (b) general sparse quadratic 4D systems.
+- Search space, in this order: (a) 4th-order hyperjerk `x'''' = f(x, x', x'', x''')` with few terms, **allowing monomials up to degree 5**, because the smallest known 4D hyperchaotic flow (Chlouverakis and Sprott 2006, Eq. 13: 7 terms, 1 nonlinear term, `x'''` times `x^4`, degree 5) is outside any quadratic search (they did this search for chaos at n=4, 5 and found hyperchaotic cases as a by-product); (b) general sparse quadratic 4D systems. Search (b) cannot contain Eq. 13; its benchmark is the best purely quadratic system (Li and Sprott 2014: 7 terms, 2 quadratic terms).
 - Method: MAP-Elites (library `pyribs` or a small own implementation) with axes `terms` by `nonlinear`; fitness the second Lyapunov exponent (clipped, with a penalty for non-dissipative systems). Mutations add, remove, or perturb a term. Two-stage screening: a cheap short run, then the full H1 checks on survivors. JAX `vmap` for the cheap stage.
 - Gate: it re-finds known hyperchaotic systems in the cells where the H0 table says they should be, and an empty cell is not reported as "no system exists".
 
