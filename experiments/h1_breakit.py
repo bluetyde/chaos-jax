@@ -29,6 +29,12 @@ BUGS = [
         "    pos = lam > eps_i\n",
         "    pos = lam > 0.0\n",
     ),
+    (
+        "4 classifier skips the sum check (Amendment 4)",
+        "src/hyperchaos/classify.py",
+        "    if abs(float(np.sum(res.exponents)) - res.mean_div) > SUM_TOL_REL",
+        "    if False and abs(float(np.sum(res.exponents)) - res.mean_div) > SUM_TOL_REL",
+    ),
 ]
 
 FAST = ["tests/test_h1_controls.py", "tests/test_h1_classifier.py", "-k", "(g1 or g2 or g3 or g4) and not KP and not CS12 and not CS13"]

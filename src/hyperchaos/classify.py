@@ -6,6 +6,7 @@ import numpy as np
 EPS_ABS = 0.005
 INCONSISTENT_ZERO = 0.05
 CONSERVATIVE_SUM = 0.005
+SUM_TOL_REL = 1e-3  # same tolerance as gate G1
 
 
 @dataclass
@@ -60,4 +61,8 @@ def classify(res, eps_abs=EPS_ABS, rule="v2"):
         return Classification("diverges")
     if np.all(res.late_range < 1e-6 * (1.0 + res.max_abs)):
         return Classification("fixed point")
+    # Amendment 4: the same sum check as gate G1. An orbit that fails it (e.g. a linear drift
+    # on an invariant subspace) is not a bounded attractor and its exponents mean nothing.
+    if abs(float(np.sum(res.exponents)) - res.mean_div) > SUM_TOL_REL * max(1.0, abs(res.mean_div)):
+        return Classification("inconsistent")
     return label_from_exponents(res.exponents, res.se, eps_abs, rule)

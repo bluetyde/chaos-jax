@@ -43,3 +43,31 @@ def test_g3_classifier_v2_ignores_large_se_of_a_stiff_exponent_v1_does_not():
     se = [0.003, 0.002, 0.001, 0.8]
     assert lab(lam, se, "v2").label == "hyperchaotic"
     assert lab(lam, se, "v1").label == "quasi-periodic"
+
+
+def _res(exps, mean_div, max_abs=10.0):
+    from types import SimpleNamespace
+
+    return SimpleNamespace(
+        finite=True, max_abs=max_abs, late_range=np.array([1.0] * 4),
+        exponents=np.array(exps), se=np.array([0.001] * len(exps)), mean_div=mean_div,
+    )
+
+
+def test_g3_classify_sum_mismatch_is_inconsistent_not_chaotic():
+    from hyperchaos.classify import classify
+
+    # exponents of a drifting orbit: first exponent large, sum far from the mean divergence
+    assert classify(_res([162.0, 0.0, -0.0001, -97.98], -0.62, 1e5)).label == "inconsistent"
+    # the same spectrum with a matching mean divergence is labelled by the usual rules
+    assert classify(_res([0.147, 0.0, 0.0, -0.767], -0.62)).label == "chaotic"
+
+
+def test_g3_classify_kopp_origin_start_is_not_chaotic():
+    import hyperchaos  # noqa: F401
+    from hyperchaos.classify import classify
+    from hyperchaos.spectrum import spectrum
+    from hyperchaos.systems import kopp25
+
+    r = spectrum(kopp25(), np.zeros(4), dt=0.01, T=2000.0)
+    assert classify(r).label != "chaotic"
