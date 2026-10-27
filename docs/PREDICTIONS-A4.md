@@ -130,7 +130,7 @@ For the marginal cases 2, 3, 6, 9 I measured the NILSS error against the range s
 |---|---|
 | P-A4.1 cases 1, 7 ok; case 5 caution; cases 8 to 13 unreliable | Hit. |
 | P-A4.1 cases 2, 3, 6 caution in at least 3 of 4; case 4 caution or unreliable | **Miss for cases 2, 3, 6**: unreliable in all four ensembles. Case 4 hit. |
-| P-A4.2 errors: case 1 about 1.4%, case 7 under 1%, case 5 about 10% | Hit (1.5%, 0.8% to 1.0%, 12.3%). Case 7 is just above 1% in one ensemble. |
+| P-A4.2 errors: case 1 about 1.4%, case 7 under 1%, case 5 about 10% | Hit (1.5%, 0.8% to 1.0%, 12.3%). Case 7 reaches 1.0% in one ensemble. |
 | P-A4.2 cases 2 to 4 between 2% and 20% | Mostly (0.5% to 25%, but the oracle there is not converged). |
 | P-A4.2 Lorenz-96 and Roessler errors 15% to 60% | **Miss.** 5.5% to 14717%. The 16-orbit means are far wilder than I expected. |
 | P-A4.3 A4.1 passes and 8 to 12 `ok` ensembles | Hit (8, the bottom of my range). |
@@ -144,7 +144,7 @@ For the marginal cases 2, 3, 6, 9 I measured the NILSS error against the range s
 
 - **On the four oracle-converged cases the report behaves as hoped.** `ok` came with errors of 0.8% to 1.5%, `caution` with 12.3%, `unreliable` with 38% to 2946%. It never said `ok` when the error was large. In 13 of 13 cases, four independent ensembles agreed on the verdict.
 - **This is a weak test of misses.** The only `ok` ensembles are two parameters of one system at one parameter value. Its documented blind spot (a 1.5% bias that is invisible to the report) shows here: the `ok` verdict for rho at 28 comes with 1.5% error, in the same direction in all four ensembles.
-- **Nine of 13 finite-difference oracles did not converge in h.** Seven of those because the response of the average to the parameter is rough or nonlinear at the step sizes I could afford (all of Rossler, Lorenz-63 at rho = 60, Lorenz-96 F = 6) and two marginally. For those cases I have no clean "true error". The calibration of the report against the true error is therefore only as good as the four converged cases.
+- **Nine of 13 finite-difference oracles did not converge in h.** Five of those (cases 4, 8, 11, 12, 13: all of Roessler, Lorenz-63 at rho = 60, Lorenz-96 F = 6) because the response of the average to the parameter is rough or nonlinear at the step sizes I could afford. Four (cases 2, 3, 6, 9) fail marginally, with the two steps within 1.03 to 1.8 times the limit. For those cases I have no clean "true error". The calibration of the report against the true error is therefore only as good as the four converged cases.
 - **The report is conservative at rho = 45 to 60** (my exploratory reading). NILSS means are within a few percent of the finite-difference range at rho = 45 while the verdict is `unreliable`. I did not score this, because the oracle did not pass its convergence rule.
 - **The `nus` check agreed with the main verdict in all 13 cases.** It adds no information here.
 - **Limits:** 13 cases, three systems, one parameter each, one objective each, 16 orbits per ensemble, one T per system. The oracle is a finite difference and carries the assumption of A3b. Settings per system are the ones the docs use and I did not vary them.
