@@ -309,7 +309,7 @@ Not claimed as new: that gradients blow up, that shadowing fixes it, the sigma g
 - The noise-regularised check rests on an untested assumption.
 - The `nilss-jax` code is one author's code from October 2026. Findings are about one commit.
 - Predictions in the audit tasks followed my reading of its documents. They are weak evidence.
-- Not done: Phases 5 to 9 of the plan (fitting task, double pendulum for the fixes, Julia port, Lorenz-96 4D-Var), and A6 and A7 of `TODO.md`. The double pendulum appears only in Phase 1.
+- Not done: Phases 5 to 9 of the plan (fitting task, double pendulum for the fixes, Julia port, Lorenz-96 4D-Var), and A7 of `TODO.md`. A6 was started and stopped at its first check: on the energy shell E = 23.58 one of 32 starts of the double pendulum lies in a regular island, so the long-time average depends on the start (`docs/PREDICTIONS-A6.md`). The double pendulum otherwise appears only in Phase 1.
 - The finite-difference oracle needs many start points. Its standard errors scale like 1/h.
 
 ## 11. Reproduce

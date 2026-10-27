@@ -303,3 +303,13 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Verification: `python -m pytest -q`: `76 passed, 1 xfailed in 63.80s`. The `fds` runs need the scratch environment (`fds`, `mpich`) and are not part of the test suite. The numpy wrapper test runs without `fds`.
 - `RESULTS.md`: one paragraph updated. The failed-predictions table was not changed, so A7b misses are only in `docs/PREDICTIONS-A7b.md`.
 - Next step: owner review. Open: A6, A7 (Julia), the map-scope unstable-contribution test.
+
+## 2026-10-27 Task A6 (double pendulum): stopped at the first check, by the rule in `TODO.md`
+
+- Branch `claude/phase-A6-pendulum`, stacked on `claude/phase-A7b-fds` (PR 15). Merge PR 15 first. Predictions and gates in `docs/PREDICTIONS-A6.md`, committed before the run.
+- Result: **stage 1 fails.** On the energy shell E = 23.58 (g = 9.81, unit masses and lengths, dt = 0.00125), 32 random starts, T = 1000, observable cos(theta2): gates G-A6.1 (R = 1.52) and G-A6.2 (0.67) pass, G-A6.3 fails. One start (number 22) is in a regular island (finite-time exponent 0.015, against 1.19 to 1.56 for the others). For cos(theta1) the island start gives 0.805 against about 0.05 for the others.
+- Post-hoc, not a gate: without that start the other 31 agree within noise (R 0.93, ratio 0.48).
+- Stage 2 (sensitivity) not started. The sensitivity of a Hamiltonian flow also needs a definition (fixed energy or fixed start) and shadowing theory assumes a hyperbolic flow. See the last section of `docs/PREDICTIONS-A6.md`.
+- Misses: P-A6.1 (predicted a pass at 60%), part of P-A6.3 (range 0.108 against 0.05).
+- Verification: `python -m pytest -q` was run on the A7b branch (`76 passed, 1 xfailed in 63.80s`). This task adds no test and changes no library code.
+- Next step: owner decides. Options: stop the pendulum line here, or ask for a stage 2 with a rule that drops regular starts (the rule would be a new, pre-registered choice), or A7 (Julia) or the map-scope unstable-contribution test.
