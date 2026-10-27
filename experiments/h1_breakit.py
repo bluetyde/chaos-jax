@@ -31,7 +31,7 @@ BUGS = [
     ),
 ]
 
-FAST = ["tests/test_h1_controls.py", "-k", "(g1 or g2 or g3 or g4) and not KP and not CS12 and not CS13"]
+FAST = ["tests/test_h1_controls.py", "tests/test_h1_classifier.py", "-k", "(g1 or g2 or g3 or g4) and not KP and not CS12 and not CS13"]
 
 
 def run_tests():
