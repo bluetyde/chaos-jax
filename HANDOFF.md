@@ -39,3 +39,8 @@
 - Changes: `docs/PREDICTIONS-KOPP.md`, `experiments/kopp_chase.py`, `results/kopp_chase.{json,log}`, `results/kopp_long.json`, LITERATURE.md note. Branch `claude/h1-evaluator`, not merged, not pushed.
 - Verification: `PYTHONPATH=src .venv/Scripts/python experiments/kopp_chase.py results/kopp_chase.json` (145 rows, no errors), long part separate (177 s wall). Python 3.14.6, shared machine.
 - Caveats: origin start (0,0,0,0) is an unbounded drift orbit that `classify` labels chaotic (exponent 162); needs a sum-check or boundedness condition; not fixed. Paper's code/Mathematica not run; "short noisy run in the paper" is a hypothesis. G3 for KP stays failed as registered.
+
+## 2026-10-27 classify sum-check fix and merge of H1 (hyperchaos agent)
+- Status: `classify` now rejects orbits whose exponent sum disagrees with the mean divergence (Amendment 4 in `docs/PREDICTIONS-H1.md`). `claude/h1-evaluator` merged into main, local only, not pushed.
+- Verification: `H1_T=5000 PYTHONPATH=src .venv/Scripts/python -m pytest -q tests`: 5 failed, 75 passed (the five known T = 5000 failures); `python experiments/h1_breakit.py`: baseline 48 passed, bugs 1-4 all caught, tree clean. Python 3.14.6.
+- Caveats: not re-run at `T = 100000` after the fix (the fix only changes labels of orbits that fail the sum check, none of which were controls at either length except the Kopp origin start). G3 for KP still failed as registered.
