@@ -88,7 +88,6 @@ elif mode == "link":
         u0 = integrate_final(lorenz, starts[i], p, DT, int(20.0 / DT))
         r = nilss(lorenz, z_of, u0, p, (1,), DT, STEPS, K, 1, jax.random.PRNGKey(7000 + i))
         rec, a = r["rec"], r["a"]
-        c = (rec["JV"][:, 0] + rec["JW"][:, :, None][:, :, 0] * a[:, :, 0]).reshape(K) if False else None
         seg = rec["JV"][:, 0] + jnp.einsum("km,km->k", rec["JW"], a[:, :, 0])
         contrib = (seg + (rec["xi_star"][:, 0] + jnp.einsum("km,km->k", rec["xi_W"], a[:, :, 0])) * (r["J"] - rec["J_end"])) / TSEG
         vperp = rec["Vp_end"][:, :, 0] + jnp.einsum("kab,kb->ka", rec["Wp_end"], a[:, :, 0])
