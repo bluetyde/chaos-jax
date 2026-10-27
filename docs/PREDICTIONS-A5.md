@@ -53,3 +53,7 @@ Each must be caught by a test among C-A5.1 to C-A5.4 and the comparison tests. A
 - **P-A5.5** A5.3 passes for all three.
 - **P-A5.6** the break-it bugs are all caught, bug 1 and 3 by the Lorenz comparison and bug 2 by C-A5.3.
 - **P-A5.7** the oracle differences are about +1.4% (rho), about -10% (sigma) and about 0% (beta), as for the other two shadowing codes.
+
+## Amendment, 2026-10-27: first run of control C-A5.4
+
+On its first run C-A5.4 **failed**: relative difference 1.016e-3 against the gate 1e-3. The difference fell by half each time I halved dt (1.0e-3, 5.4e-4, 2.8e-4), which is first order, not the second order of the trapezoid error I expected. I traced it with two diagnostics: the per-segment integrals of grad J . (v* + W a) agreed with the direct evaluation to 1e-16, and the quadrature piece sum xi*_i (trapz(dJ/dt) - dJ_i) / T scaled as dt^2 but was only 1.5e-4. The remaining O(dt) part was a bug in **my test**: it started the reconstructed v at zero at t = 0, while the correct start is v*(0) + W(0) a_0 = W(0) a_0 (v* starts at zero but W a_0 does not). The NILSS code was right. I fixed the test and left the gate at 1e-3. The test now gives 1.4e-4 and passes. I count this as one repaired mistake in my own control code (P-A5.1 allowed repairs of my code; I count it as a miss).
