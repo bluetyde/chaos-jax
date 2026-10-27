@@ -104,3 +104,8 @@ Plant each bug in the working tree, run the test suite, confirm a test fails, re
 ## Out of scope for H1
 
 Batched evaluation of many candidate systems, term counting, canonical forms, any search. Those are H2 to H4.
+
+## Amendment, 2026-10-26 (before any H1 run): two clauses made exact
+
+- "No zero exponent on a non-fixed bounded orbit" is implemented as: the exponent with the smallest absolute value has `|z_err| > 0.05`. The classifier forces that exponent to be the flow direction, so without this rule the label "inconsistent" could never occur.
+- V4 uses `T = 2000` per start point (10 blocks of 200) to save time. V1 to V3 use the times stated above.
