@@ -83,3 +83,15 @@ def test_hyperbolicity_numbers():
     scan = load("phaseA5b_scan.json")
     for k in ("26", "28", "30", "33", "36", "40"):
         assert f"{100 * scan[k]['gap_rel']:+.2f}%" in TEXT, k
+
+
+def test_a5c_solenoid_numbers():
+    r = load("phaseA5c_report.json")["points"]
+    a, b = r["(1.0, 0.0)"], r["(1.0, 0.5)"]
+    _check(a["s1"]["S3_total"]["mean"], 4)
+    _check(a["s2"]["S3_total"]["mean"], 4)
+    _check(a["s2"]["oracle"], 4)
+    _check(a["s2"]["shadow"]["mean"], 5)
+    _check(b["s2"]["S3_total"]["mean"], 4)
+    _check(b["s2"]["oracle"], 4)
+    _check(b["s2"]["shadow"]["mean"], 5)

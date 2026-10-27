@@ -93,3 +93,44 @@ I will recommend trying a flow version only if all three hold: (a) G-M2 and G-M3
 
 While building the oracle I checked gate G-M0 (a). With the two-point central difference of step 1e-4 that I wrote in the oracle section, the s2 derivative at s = (1, 0.5) differs by 1.2e-7 between basis 48 and basis 96. That **fails** the 1e-9 in G-M0 (a). The cause is roundoff of about 1e-11 in the expected value, divided by the small step. The expected value itself agrees between the two bases to 2e-12.
 Change (a choice of method, made before any S3 result exists): the s2 derivative of the oracle uses the four-point central stencil (-f(x+2h) + 8 f(x+h) - 8 f(x-h) + f(x-2h)) / (12 h) with h = 0.02. The s1 derivative uses the exact formula 2 s1 + (4/3) E[cos theta]. The gate stays at 1e-9 for the expected value. For the derivatives, the check with the new stencil gives a difference between the two bases of 2.2e-10 at s2 = 0 and 5.7e-10 at s2 = 0.5, so the 1e-9 holds and I do not change it. At s2 = 0 the value is -0.383333... to the digits I checked (it looks like -23/60, which I did not prove). The stencil gives -0.38333329, which is 4e-8 away (truncation of the stencil). The oracle precision only needs to be far below the standard error of S3 (about 1e-3).
+
+## Results (written after the run; the gates above did not change)
+
+Files: `results/phaseA5c_s3.json`, `results/phaseA5c_report.json`. Code: `src/chaos_jax/solenoid.py`, `src/chaos_jax/s3.py`. Experiment: `experiments/phaseA5c_solenoid.py`. Tests: `tests/test_s3.py` (C-M1, C-M2, C-M4) and `tests/test_s3_numbers.py`. Run time of the main run: 14 s for 512 orbits of 20 200 steps, both points and both parameters.
+
+**Controls.** C-M1 (derivatives against finite differences), C-M2 (orthogonality identities, to 1e-12) and C-M4 (the shadowing solution solves the tangent equation to 1e-12 and stays bounded) pass. G-M0: (a) basis 48 against 96 agree to 2e-12 for E[J] and to 5.7e-10 for the derivatives (after the Amendment on the stencil), pass. (b) The s1 derivative is 2 to 7e-16, pass. (c) The orbit means of J agree with the oracle: 1.13316 +- 0.00031 against 1.13333 (z = -0.56) and 0.99332 +- 0.00027 against 0.99340 (z = -0.29), pass. (d) The finite difference of orbit means over s2 = 0.45 and 0.55 gives -0.1869 +- 0.0039 against the oracle -0.1906 (z = 0.95), pass.
+
+**Gates and values.** Mean +- standard error over 512 orbits.
+
+| Point | Parameter | Oracle | S3 total | Relative difference | S3 stable | S3 unstable | Shadowing contribution |
+|---|---|---|---|---|---|---|---|
+| (1, 0) | s1 | 2.000000 | 1.99983 +- 0.00030 | -0.01% | 1.93960 | 0.06023 | 1.99983 +- 0.00027 |
+| (1, 0) | s2 | -0.383333 | -0.38072 +- 0.00307 | +0.68% | -0.00004 | -0.38068 | 0.00004 +- 0.00003 |
+| (1, 0.5) | s1 | 1.877699 | 1.87764 +- 0.00027 | -0.00% | 1.81282 | 0.06482 | 1.87764 +- 0.00024 |
+| (1, 0.5) | s2 | -0.190641 | -0.18953 +- 0.00171 | +0.58% | -0.00078 | -0.18875 | -0.00075 +- 0.00002 |
+
+G-M1 (s1 total within 3 SE of 2 and within 1%): pass (z = -0.58). G-M2 (s2 total at (1, 0), within 3 SE and 2%): pass (z = 0.85, 0.68%). G-M3 (the same at (1, 0.5)): pass (z = 0.65, 0.58%). G-M4 (shadowing for s1 within 1% of 2): pass (-0.01%).
+
+**What the shadowing contribution shows.** For s1 (a stable perturbation) the shadowing contribution equals the full response. For s2 it is about zero: 0.00004 at (1, 0) and -0.00075 at (1, 0.5), against responses of -0.383 and -0.191. So on this uniformly hyperbolic map, with unstable dimension 1 of 3, the target of a shadowing code misses about 100% of the response to s2 for the objective J = r squared. The S3 split is a different split: its "unstable" part is almost all of the s2 response, and it is also 3% of the s1 response, although the s1 perturbation is purely stable. The S3 paper warns that its two parts are not the stable and unstable parts of the perturbation.
+
+**Break-it.** Bug 1 (drop the d chi term): caught by `tests/test_s3_numbers.py` only. Bug 2 (flip the sign of the unstable contribution): caught by `tests/test_s3_numbers.py` only. Bug 3 (drop the a p term in y): caught by C-M2 (the unit tests with the y identity). Bug 4 (wrong sign in the shadowing recursion): caught by C-M4 and by `tests/test_s3_numbers.py`. All four were caught. Bugs 1 and 2 are caught only by the small-sample comparison with the oracle.
+
+**Predictions against results.**
+
+| Prediction | Outcome |
+|---|---|
+| P-M1 controls pass at the first run, repairs count as misses | **Miss, in two places.** My first oracle derivative stencil failed G-M0 (a) (see the Amendment, fixed before any S3 run), and a typo in the einsum of my own C-M2 test failed once before it ran correctly. The algorithm code needed no repair. |
+| P-M2 G-M0 to G-M3 pass, S3 s2 within 1% (70%) | **Hit.** 0.68% and 0.58%. |
+| P-M3 shadowing differs from the response by more than 5% for s2 (60%) | **Hit, by far.** The difference is about 100% at both points. |
+| P-M4 shadowing equals the response for s1 within 1% | **Hit.** |
+| P-M5 run time 2 to 10 minutes | **Miss.** 14 s. |
+
+**Decision on a flow version (the rule written before the run).**
+(a) G-M2 and G-M3 pass: yes. (b) The shadowing contribution differs from the response by more than 1% for s2: yes. (c) A source in the library gives a flow algorithm that does not need hyperbolicity: **no**. The owner reports, and `reference/LEDGER.md` records, that the continuous-time papers (arXiv 2207.06648 and 2312.12171) are theory papers with no numerical example. Ni and Tong call theirs a building block, and say that Lorenz systems are not hyperbolic, that linear response might not exist, and that the algorithm can explode. So the rule gives: **I do not recommend implementing a flow version now.**
+What a flow version would need: (1) a continuous-time algorithm from the sources above that has been run on an example, which I have not found in the library, (2) a treatment of the neutral (flow) direction, (3) a flow with a response that is known independently, so that a gap could be judged. The Lorenz-63 oracle (finite differences) is the thing in dispute, so it cannot judge. (4) For Lorenz-63 itself, uniform hyperbolicity fails, so no theorem says the response exists.
+
+**What this does and does not show.**
+- It shows the mechanism: a shadowing target can miss the whole response of a uniformly hyperbolic map for some perturbations, even at unstable dimension 1 of 3. A small unstable-dimension ratio alone does not protect.
+- It does not show that the +1.4% (rho) and -10% (sigma) gaps on Lorenz-63 come from this. The Lorenz perturbation directions and the objective z differ from the Solenoid case, and the flow is not hyperbolic.
+- Limits: one map, one objective, two perturbations, two parameter points, one seed. The perturbation s2 acts along the angle direction, which is close to the unstable direction. I did not test an objective that depends on the angle.
+- I did not test Ni's two conditions for a small unstable contribution. This is consistent with them (s2 is aligned with the unstable direction) but it does not test them.
