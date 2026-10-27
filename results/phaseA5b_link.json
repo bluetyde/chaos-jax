@@ -1,0 +1,43 @@
+{
+  "n_segments": 54400,
+  "est_all": 1.016909256511836,
+  "gap_prereg": 0.01384,
+  "null_95": [
+    -0.00043706942742004483,
+    0.00040717773713536126
+  ],
+  "criteria": {
+    "th1": {
+      "delta": -5.683084378271808e-05,
+      "outside_null": false,
+      "toward_oracle_half_gap": false,
+      "explains": false,
+      "spearman_log_crit_vs_abs_c": 0.007127530382536366,
+      "spearman_log_crit_vs_log_vnorm": 0.005213540145626283
+    },
+    "th2": {
+      "delta": -8.322562290441482e-07,
+      "outside_null": false,
+      "toward_oracle_half_gap": false,
+      "explains": false,
+      "spearman_log_crit_vs_abs_c": 0.0032539772174074518,
+      "spearman_log_crit_vs_log_vnorm": 0.0018534846263015378
+    },
+    "th3": {
+      "delta": 7.528003602708111e-07,
+      "outside_null": false,
+      "toward_oracle_half_gap": false,
+      "explains": false,
+      "spearman_log_crit_vs_abs_c": 0.008549811127492327,
+      "spearman_log_crit_vs_log_vnorm": 0.007929434998436673
+    },
+    "fmin": {
+      "delta": -0.00019797131022225578,
+      "outside_null": false,
+      "toward_oracle_half_gap": false,
+      "explains": false,
+      "spearman_log_crit_vs_abs_c": 0.0035928346504039057,
+      "spearman_log_crit_vs_log_vnorm": 0.0020359590237736475
+    }
+  }
+}

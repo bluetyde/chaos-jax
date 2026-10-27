@@ -15,7 +15,7 @@ Almost all of this was known in outline before this work. The prior art is named
 2. **Of the fixes tried, only least squares shadowing (LSS) worked at every horizon from 5 to 80 time units.** Truncation was biased 12% to 15% low and noisy. Ensembles of plain gradients failed. Ensembles of truncated gradients passed the gate, with a median 9% to 16% too low.
 3. **A finite-difference oracle gives d<z>/d(rho) = 1.003, d<z>/d(sigma) = 0.149 and d<z>/d(beta) = -1.658 at the standard parameters.** It is stable against its step, averaging window, dt and spin-up for rho and sigma. One check on beta is not stable for a short spin-up.
 4. **Three shadowing codes agree with each other and differ from the oracle.** The codes are `nilss-jax` 0.1.0, my own LSS and my own NILSS (written from the papers). They agree within 0.5% for all three parameters. They sit about 1.4% above the oracle for rho and about 10% below it for sigma. For beta all agree. A noise-regularised finite-difference check sided with the oracle, under an assumption I did not test.
-5. **These two gaps are not new findings.** The `nilss-jax` README already states the sigma gap (+0.133 against +0.150) and a rho difference of about 1.5%. A published paper (arXiv 1806.02077) reports a reproducible 2% rho bias between finite differences and all shadowing methods it tried, with the same observable and parameters. This repository replicates both on its own oracle. I did not find the cause.
+5. **These two gaps are not new findings.** The `nilss-jax` README already states the sigma gap (+0.133 against +0.150) and a rho difference of about 1.5%. A published paper (arXiv 1806.02077) reports a reproducible 2% rho bias between finite differences and all shadowing methods it tried, with the same observable and parameters. This repository replicates both on its own oracle. I did not find the cause. A hyperbolicity test (section 4.10) found that at rho = 28 the unstable and stable directions stay at least 0.12 rad apart, so a near-tangency between them does not explain the gap there. Another candidate, a missing unstable contribution, was not tested.
 6. **`nilss-jax` is stable against its settings** (dt, segment length, number of tangents, trajectory length) and an independent NILSS written from the papers reproduces it to 0.11% or better.
 7. **Its reliability report ordered its verdicts by error on the cases I could score, and I could score few.** On the 4 scored cases, `ok` came with errors of 0.8% to 1.5%, `caution` with 12.3% and `unreliable` with 38% or more. Only 4 of 13 finite-difference oracles converged in my calibration. All 8 `ok` verdicts that could be scored come from one system and one parameter point.
 
@@ -39,7 +39,7 @@ Almost all of this was known in outline before this work. The prior art is named
 | Gradient methods: naive, truncated, block-tridiagonal LSS | `fixes.py`, `controls.py` | LSS discretised from the continuous problem. See section 4.5. |
 | Noisy integrator | `noisy.py` | for the noise-regularised check |
 | NILSS from the papers | `nilss.py` | |
-| Tests | `tests/` | 61 pass and 1 is an expected failure (`xfail`) |
+| Tests | `tests/` | 67 pass and 1 is an expected failure (`xfail`) |
 | Experiments | `experiments/` | results in `results/` |
 
 The last full test run is quoted in section 11.
@@ -169,6 +169,20 @@ Written from arXiv 1611.00880 and 1711.06633, with no `nilss-jax` source read. T
 
 A5.1a, A5.1b, A5.2 and A5.3 pass. Planted bugs (drop the xi term, wrong continuity sign, skip the reset) were all caught. The continuity control missed the third one at first. It was fixed.
 
+### 4.10 A5b: hyperbolicity test
+
+I computed covariant Lyapunov vectors with the algorithm of Ginelli et al. (arXiv 1212.3961), written by me. The controls pass after repairs: a linear flow with known eigenvectors (1e-8), the neutral vector against the flow direction (1e-6 at dt = 0.005), exponents from the vectors (0.9085, -0.0002, -14.575), independence of the backward start, and covariance under the true tangent flow. Two controls failed at first, one from a test that was too short and one because the RK4 map's neutral direction differs from the flow at fourth order in dt. A third problem was a precision floor in my angle function. Details are in `docs/PREDICTIONS-A5b.md`.
+
+| At rho = 28, two orbits of T = 10000 | Smallest angle | Verdict |
+|---|---|---|
+| unstable against stable (theta1) | 0.123, 0.134 rad | bounded away from zero |
+| stable against the centre-unstable plane (theta2) | 0.120, 0.131 rad | bounded away from zero |
+| unstable against the flow (theta3) | 0.007, 0.008 rad (1.1% of samples below 0.05) | near-tangency recurrences |
+
+- **Segments near a tangency or near the equilibrium do not carry the gap.** Removing the 5% of segments with the smallest angle, or the smallest |f|, changes the estimate by at most 0.0002. The gap is 0.0138. All shifts lie inside the null of random removals.
+- **Across rho** (26, 28, 30, 33, 36, 40) the gap of my NILSS against finite differences is +4.47% (oracle not converged), +1.34%, +0.87%, -0.40%, +1.00% and -1.02%. It is smallest in size at rho = 33, as in arXiv 1806.02077. Near-tangencies between stable and unstable directions appear from rho = 33 (P below 0.1 rad up to 0.4%). By the rule fixed in advance, the correlation of the gap with the angle statistics is an association (magnitude 0.81 to 0.83). It is the same as the correlation with rho itself (-0.83), and without the rho = 26 point it falls to 0.70. I read it as a trend with rho, not as evidence for the hyperbolicity explanation.
+- **Result:** the gap exists at rho = 28 and 30, where no near-tangency between the stable and unstable directions was seen. The test removes that explanation for rho = 28. It does not remove the other candidate (below).
+
 ## 5. The central result: shadowing against finite differences
 
 d<z>/d(parameter) at rho = 28, sigma = 10, beta = 8/3:
@@ -183,7 +197,11 @@ d<z>/d(parameter) at rho = 28, sigma = 10, beta = 8/3:
 
 The three shadowing codes use two formulations (LSS and NILSS). I wrote two of them and the `nilss-jax` author wrote the third. They agree within 0.5%. They all use RK4 with a trapezoid-style quadrature, so a shared numerical effect is not excluded. The `fds` check that would test this (A7b) was not done.
 The published paper arXiv 1806.02077 reports the same pattern for rho with the same observable, sigma, beta and step (Delta rho = 0.5). In its sections 5.3 and 5.4 it finds shadowing-type methods converge to about 1.017 and finite differences stay lower. It states the bias does not depend on the integration step or on the finite-difference step. It attributes the bias to the lack of uniform hyperbolicity in Lorenz-63, and it says linear shadowing-based methods are "questionable" there. It also reports that a method on unstable periodic orbits converges to the shadowing value.
-**What this repository does not settle:** which number is closer to the true derivative. The noise check and the reading of that paper point to the finite-difference side. Neither is a proof. The hyperbolicity test (A5b) was not done, and it could explain a gap but could not say which side is true.
+**What this repository does not settle:** which number is closer to the true derivative. The noise check and the reading of that paper point to the finite-difference side. Neither is a proof.
+**Two candidate causes of the gap remain.** The hyperbolicity test (section 4.10) did not support the first. The second was not tested.
+1. *A lack of uniform hyperbolicity*, the reading in arXiv 1806.02077. At rho = 28 the unstable and stable directions stay at least 0.12 rad apart in my samples. Near-tangencies appear only from rho = 33. The unstable direction does approach the flow direction (as it must near the equilibrium), but removing those segments does not change the estimate.
+2. *A missing unstable contribution.* Ni (arXiv 2009.00595, abstract and sections 1.1 to 1.3, which I read) writes the linear response of a hyperbolic system as a shadowing contribution plus an unstable contribution, and NILSS computes only the first. He says the shadowing part alone is a reasonable approximation when the unstable dimension is much smaller than the dimension. For Lorenz-63 it is 1 out of 3. That could give a gap even for a uniformly hyperbolic system. I did not implement the unstable part, so I cannot test this. **Corrections reported to me by the owner, which I have not checked in the sources:** the claim comes from Ni's arXiv 2003.09801, which I did not read, and it carries two further conditions (fast decay of correlations, and an objective gradient and a perturbation that are not particularly aligned with the unstable direction). A5b tested neither. The owner also reports that the papers with the continuous-time version call themselves a building block, say that Lorenz systems are not hyperbolic and that the linear response might not rigorously exist, and say the algorithm can explode. The papers in the library on the unstable contribution (2002.04117, 2103.08816, 2111.07692) cover maps only. So this candidate explanation may have no meaningful test for Lorenz-63, and I did not run one.
+The hyperbolicity test could have explained a gap. It could not say which side is true.
 
 ## 6. Every failed prediction
 
@@ -224,7 +242,14 @@ The published paper arXiv 1806.02077 reports the same pattern for rho with the s
 | A5 | A5.1a fails for at least two parameters | passes for all three |
 | A5 | compute 1 to 5 minutes | 4 s |
 
-In all, 32 rows. Several predictions in the audit tasks were made after I had read `nilss-jax` numbers. Hits there are weak evidence.
+| A5b | controls pass at the first run | C-B1 and C-B2 failed at first, and my angle function had a precision floor (repaired, no gate changed) |
+| A5b | smallest unstable-stable angle above 0.3 rad | 0.123 and 0.134 rad |
+| A5b | correlation of the smallest \|f\| per segment with the contribution is -0.1 to -0.5 | +0.004 |
+| A5b | gap above 1.5% at rho = 28 | 1.34% |
+| A5b | no association between the gap and the angle statistic | association by the rule (+0.83), but it is a trend with rho |
+| A5b | compute 10 minutes | about 1.6 minutes |
+
+In all, 38 rows. Several predictions in the audit tasks were made after I had read `nilss-jax` numbers. Hits there are weak evidence.
 
 ## 7. Compute used
 
@@ -243,8 +268,9 @@ CPU only. One process at a time on a machine with 4 cores. Approximate wall time
 | A3b | 27 minutes |
 | A4 | about 24 minutes |
 | A5 | 4 s |
+| A5b | about 1.6 minutes |
 
-The total is about 70 minutes of measurement, apart from development and testing.
+The total is about 72 minutes of measurement, apart from development and testing.
 
 ## 8. Prior art, named plainly
 
@@ -258,6 +284,8 @@ What I read is stated for each item. I did not describe any paper I did not open
 - **Lasagna et al., arXiv 1806.02077.** I read the abstract, sections 5.3 and 5.4 and the conclusion. It reports the rho bias described in section 5.
 - **Wang, Hu and Blonigan 2014 (LSS, arXiv 1204.0159); Ni and Wang 2017 (NILSS, arXiv 1611.00880); Ni et al. (FD-NILSS, arXiv 1711.06633).** I read the parts needed to implement the methods, as logged.
 - **Metz et al. 2021 (arXiv 2111.05803); Chandramoorthy, Magri and Wang 2020 (arXiv 2011.08794); Hückelheim et al. (arXiv 2305.07546); Mikhaeil et al. (arXiv 2110.07238).** I read the abstracts only. Metz et al. describe a chaos-based failure of gradients traced to the Jacobian spectrum. Chandramoorthy et al. use automatic differentiation to build a shadowing sensitivity for a time-delayed system. Hückelheim et al. list AD pitfalls, chaos among them. Mikhaeil et al. treat diverging gradients for chaotic recurrent networks.
+- **Ni 2020, arXiv 2009.00595 (fast differentiation of hyperbolic chaos).** I read the abstract, sections 1.1 to 1.3, the hyperbolicity assumptions in section 2.1 and the discussion of non-hyperbolic systems. It splits the linear response of hyperbolic systems into a shadowing and an unstable contribution, and says the shadowing code for Lorenz-96 converges with a large systematic error from the missing unstable part. I did not read the proofs or the algorithm.
+- **Ginelli et al., arXiv 1212.3961; Kuptsov and Parlitz, arXiv 1105.5228; Morriss, arXiv 1202.1571.** I read the algorithm sections of the first (equations checked on a page image), the hyperbolicity-test passage of the second and the tangency section of the third, which concerns a hard-disk system only.
 - **Truncation and warm-up.** The planning notes say they are standard practice. I did not trace specific papers.
 - **`lyapax`** (JAX): reported by the planning notes to warn about gradients through chaotic trajectories. I did not open it.
 
@@ -277,24 +305,24 @@ Not claimed as new: that gradients blow up, that shadowing fixes it, the sigma g
 - One chaotic system with a published use as a benchmark (Lorenz-63), one parameter point (rho = 28). Other systems appear only in the A4 calibration, where most oracles did not converge.
 - One observable (z). One integrator family (RK4).
 - Three shadowing codes of one family. A shared effect of that family is not excluded. `fds` and the Julia code were not run.
-- I do not know which of shadowing and finite differences is closer to the true derivative. The hyperbolicity test (A5b) was not done.
+- I do not know which of shadowing and finite differences is closer to the true derivative. The hyperbolicity test (A5b) did not support the hyperbolicity explanation at rho = 28. The missing-unstable-contribution explanation was not tested. The angles were sampled every 0.1 time units over about 2e5 samples, so short dips could be missed.
 - The noise-regularised check rests on an untested assumption.
 - The `nilss-jax` code is one author's code from October 2026. Findings are about one commit.
 - Predictions in the audit tasks followed my reading of its documents. They are weak evidence.
-- Not done: Phases 5 to 9 of the plan (fitting task, double pendulum for the fixes, Julia port, Lorenz-96 4D-Var), and A5b, A6, A7 and A7b of `TODO.md`. The double pendulum appears only in Phase 1.
+- Not done: Phases 5 to 9 of the plan (fitting task, double pendulum for the fixes, Julia port, Lorenz-96 4D-Var), and A6, A7 and A7b of `TODO.md`. The double pendulum appears only in Phase 1.
 - The finite-difference oracle needs many start points. Its standard errors scale like 1/h.
 
 ## 11. Reproduce
 
 ```bash
 pip install -e ".[dev]"
-pytest -q                                   # 61 passed, 1 xfailed
+pytest -q                                   # 67 passed, 1 xfailed
 python experiments/phase2_oracle.py         # about 2 s
 python experiments/phaseA1_oracle_v2.py run rho    # about 90 s per parameter, then `report`
 ```
 
 Each task has its own script in `experiments/`, listed in its `docs/PREDICTIONS-*.md`. The `nilss-jax` runs need that package installed at the pinned commit. Large raw arrays are not committed. The `run` commands regenerate them.
-Last full test run on the final tree: `61 passed, 1 xfailed in 63.16s`.
+Last full test run on the final tree: `67 passed, 1 xfailed in 66.20s`.
 Software of the runs: Python 3.13, JAX 0.12.0.1, NumPy 2.5.3, SciPy 1.18.1.
 
 ## Appendix: where each headline number is
@@ -313,3 +341,4 @@ Software of the runs: Python 3.13, JAX 0.12.0.1, NumPy 2.5.3, SciPy 1.18.1.
 | Noise-regularised check | `results/phaseA3b_noise.json` |
 | Calibration | `results/phaseA4_calibration.json` and the per-case files |
 | My NILSS | `results/phaseA5_own.json`, `results/phaseA5_report.json` |
+| Hyperbolicity test | `results/phaseA5b_angles.json`, `results/phaseA5b_link.json`, `results/phaseA5b_scan.json` |

@@ -71,3 +71,15 @@ def test_calibration_counts():
     assert f"{a4['oracle_converged_cases']} of 13" in TEXT
     assert f"{a4['ok_ensembles_in_converged_cases']} `ok`" in TEXT
     assert a4["A4.1_pass"] and a4["cases_with_stable_verdict"] == 13
+
+
+def test_hyperbolicity_numbers():
+    a = load("phaseA5b_angles.json")
+    _check(a["orbit0"]["theta1"]["min"], 3)
+    _check(a["orbit1"]["theta1"]["min"], 3)
+    _check(a["orbit0"]["theta3"]["min"], 3)
+    link = load("phaseA5b_link.json")
+    assert all(not v["explains"] for v in link["criteria"].values())
+    scan = load("phaseA5b_scan.json")
+    for k in ("26", "28", "30", "33", "36", "40"):
+        assert f"{100 * scan[k]['gap_rel']:+.2f}%" in TEXT, k

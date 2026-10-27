@@ -266,3 +266,29 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - `RESULTS.md` has 32 failed predictions listed. Several audit predictions followed my reading of nilss-jax documents.
   - I did not edit `TODO.md`. Its order (A5b first) was overruled by the owner.
 - Next step: owner review. Then, if wanted: A5b (the only open question that could explain the headline result), A6, A7b. Decide whether anything goes upstream.
+
+## 2026-10-27 Task A5b session: hyperbolicity test
+
+- Status: A5b done. Controls pass after repairs. **At rho = 28 the unstable and stable directions stay at least 0.12 rad apart. No criterion explains the shadowing-against-finite-difference gap.** The across-rho association flagged by my rule is a trend with rho. A6, A7 and A7b not started. Branch is stacked on the A8 branch (PR #13), because it amends `RESULTS.md`.
+- Changes: `docs/PREDICTIONS-A5b.md` (reading, limits of the test, decision rules, predictions committed before any code, an Amendment, results appended), `src/chaos_jax/clv.py`, `tests/test_clv.py`, `experiments/phaseA5b_clv.py`, `results/phaseA5b_*.json`, `READING-LOG.md` rows for four papers, `RESULTS.md` (new section 4.10, section 5 rewritten, 6 rows added, limits and prior art updated), `tests/test_results_doc.py`.
+- Verification:
+  - `python -m pytest -q` gave: `67 passed, 1 xfailed in 66.20s`.
+  - Controls: linear flow with known eigenvectors (1e-8), neutral vector against the flow (2.4e-7 at dt = 0.005), exponents from the vectors (0.9085, -0.0002, -14.575), backward-start independence (1e-8), covariance under the true tangent flow.
+  - rho = 28, two orbits of T = 10000: smallest unstable-stable angle 0.123 and 0.134 rad. Smallest unstable-flow angle 0.007 and 0.008 rad, with 1.1% of samples below 0.05.
+  - Per-segment test, 54400 segments: removing the 5% with the smallest angle or the smallest |f| shifts the estimate by at most 0.0002 (gap 0.0138). All inside the random-removal null.
+  - rho scan: gap +4.47% (oracle not converged), +1.34%, +0.87%, -0.40%, +1.00%, -1.02% at rho = 26, 28, 30, 33, 36, 40.
+  - Compute: about 1.6 minutes.
+- Predictions against results: see `docs/PREDICTIONS-A5b.md`. Misses: controls at the first run, the size of the smallest unstable-stable angle (0.12 against my 0.3), the sign and size of one correlation, gap at rho = 28 (1.34% against above 1.5%), the association rule, compute (1.6 minutes against 10).
+- Findings worth a decision:
+  - **Ni (arXiv 2009.00595) says NILSS computes only the shadowing part of the linear response, and that the unstable part is small only when the unstable dimension is much smaller than the dimension.** For Lorenz-63 it is 1 out of 3. This is a second candidate for the gap and it was not tested. Implementing the unstable contribution needs his second-order tangent algorithm.
+  - The planning note's claim that A5b "could explain the headline result" is not borne out for rho = 28.
+- Caveats: angles sampled every 0.1 time units can miss short dips. Six rho points, one oracle not converged. Both orbits agreed on every verdict. The angle function of the first controls had a precision floor and was repaired.
+- Next step: owner review. Options: test the unstable-contribution explanation (needs Ni's algorithm and the library has the paper), A7b (`fds` as a black box), or A6. Merge PR #13 before this one.
+
+## 2026-10-27 Task A5c (unstable-contribution test): stopped before any code
+
+- Status: **not started in earnest.** I looked for a way to test the "missing unstable contribution" explanation and found that the library papers on the unstable contribution cover maps only. The flow theory is in Ni's references 45 and 53 (arXiv 2207.06648 and 2312.12171). Nothing was implemented and no experiment ran.
+- Corrections after the owner checked the report: see the Amendment at the end of `docs/PREDICTIONS-A5b.md` and the changed paragraph in `RESULTS.md` section 5. In particular I had called arXiv 2103.08816 the Lorenz case (it is maps only), and I had quoted the "unstable dimension much smaller" condition without its two further conditions.
+- The owner added five papers to `chaos-reference` (commit `53a6c1b`, not pushed). I cannot see them until the repository is pushed and the `reference/` pointer here is updated.
+- Verification: documentation only. `python -m pytest -q tests/test_results_doc.py` passes.
+- Next step: owner decides. Options: (a) a map algorithm of Ni's fast response, validated on the Solenoid map, then decide whether a flow version is feasible; (b) A7b (`fds` as a black box); (c) A6 (double pendulum).
