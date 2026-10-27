@@ -284,3 +284,11 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - The planning note's claim that A5b "could explain the headline result" is not borne out for rho = 28.
 - Caveats: angles sampled every 0.1 time units can miss short dips. Six rho points, one oracle not converged. Both orbits agreed on every verdict. The angle function of the first controls had a precision floor and was repaired.
 - Next step: owner review. Options: test the unstable-contribution explanation (needs Ni's algorithm and the library has the paper), A7b (`fds` as a black box), or A6. Merge PR #13 before this one.
+
+## 2026-10-27 Task A5c (unstable-contribution test): stopped before any code
+
+- Status: **not started in earnest.** I looked for a way to test the "missing unstable contribution" explanation and found that the library papers on the unstable contribution cover maps only. The flow theory is in Ni's references 45 and 53 (arXiv 2207.06648 and 2312.12171). Nothing was implemented and no experiment ran.
+- Corrections after the owner checked the report: see the Amendment at the end of `docs/PREDICTIONS-A5b.md` and the changed paragraph in `RESULTS.md` section 5. In particular I had called arXiv 2103.08816 the Lorenz case (it is maps only), and I had quoted the "unstable dimension much smaller" condition without its two further conditions.
+- The owner added five papers to `chaos-reference` (commit `53a6c1b`, not pushed). I cannot see them until the repository is pushed and the `reference/` pointer here is updated.
+- Verification: documentation only. `python -m pytest -q tests/test_results_doc.py` passes.
+- Next step: owner decides. Options: (a) a map algorithm of Ni's fast response, validated on the Solenoid map, then decide whether a flow version is feasible; (b) A7b (`fds` as a black box); (c) A6 (double pendulum).
