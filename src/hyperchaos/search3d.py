@@ -295,3 +295,51 @@ def mid_filter(c, tiers=MID_TIERS):
         if mid_drop(r):
             return False
     return True
+
+
+# ---------- long-horizon boundedness test (H2C, docs/PREDICTIONS-H2C.md) ----------
+BOUND_LIMIT = 1e4  # same limit as stage 1a and 1b
+
+
+@lru_cache(maxsize=None)
+def _bound(dt=0.02, steps=250000):
+    """State-only RK4 over `steps`; returns, per system, the time of the first excursion past BOUND_LIMIT
+    (or a non-finite state), -1 if none, and the range of each coordinate over the last tenth of the run."""
+    n_b = steps // 10
+    n_a = steps - n_b
+
+    def one(c):
+        f = lambda x: flow(x, c)  # noqa: E731
+
+        def step_a(carry, i):
+            x, tf = carry
+            x = _rk4(f, x, dt)
+            bad = ~jnp.all(jnp.isfinite(x)) | (jnp.max(jnp.abs(x)) > BOUND_LIMIT)
+            return (x, jnp.where((tf < 0) & bad, (i + 1) * dt, tf)), None
+
+        def step_b(carry, i):
+            x, tf, lo, hi = carry
+            x = _rk4(f, x, dt)
+            bad = ~jnp.all(jnp.isfinite(x)) | (jnp.max(jnp.abs(x)) > BOUND_LIMIT)
+            return (x, jnp.where((tf < 0) & bad, (n_a + i + 1) * dt, tf), jnp.minimum(lo, x), jnp.maximum(hi, x)), None
+
+        (x, tf), _ = lax.scan(step_a, (jnp.asarray(START), -1.0), jnp.arange(n_a))
+        (x, tf, lo, hi), _ = lax.scan(step_b, (x, tf, x, x), jnp.arange(n_b))
+        return tf, jnp.max(hi - lo)
+
+    return jax.jit(jax.vmap(one))
+
+
+def bound_stats(cs, T=5000.0, dt=0.02, batch=64):
+    cs = np.asarray(cs)
+    tf = np.empty(len(cs))
+    rg = np.empty(len(cs))
+    run = _bound(dt, int(round(T / dt)))
+    for i in range(0, len(cs), batch):
+        part = cs[i : i + batch]
+        pad = np.zeros((batch, 30))
+        pad[: len(part)] = part
+        a, b = run(jnp.asarray(pad))
+        tf[i : i + len(part)] = np.asarray(a)[: len(part)]
+        rg[i : i + len(part)] = np.asarray(b)[: len(part)]
+    return tf, rg
