@@ -68,3 +68,43 @@ Machine timing so far: stage 1 about 2300 draws per second in one process (compi
 **What I did.** The wider-grid files are kept unchanged in `results/h2_wide_grid/` and are reported as a separate, labelled dataset ("wide grid"; `H2_GRID_MAX=10` reproduces it). The sampler now uses the registered grid (`N_MAG` in `search3d.py`, default 5.0), a test fails if the grid changes (`tests/test_h2_search.py`, which is new), and the planted-bug script `experiments/h2_breakit.py` includes the old grid as bug 4. G3, the calibration, the pilot and the main run are repeated with the registered grid. G1 (published coefficients) and G4 (planted systems) did not use the sampler and are unaffected. No gate or prediction is changed; the predictions are judged on the registered-grid runs, with the wide-grid numbers shown beside them. The size of the registered space is the number in the definitions above (6.0e17 for k up to 6); the wide grid has `C(30,k) * 200^k` = 3.8e19 for k = 6.
 
 **Observation to keep honest about.** The wide grid's space size for k = 6 (3.8e19, 4.0e19 with k = 5 added) is close to the "about 1e20" in the plan, so Sprott's 1e20 may have come from a wider grid or from counting differently than I did. This is a guess; I have not re-read his paper.
+
+## Results (registered grid, written 2026-10-27 after the runs; no gate or prediction above was changed)
+
+Run: `calib 6 5000`, `search pilot 5 100000`, `search main 6 1e7` (chunk 20000, seeds 1000-1499), `g3 6`; CPU only, 6 worker processes, branch `claude/h2-search` at the commit that holds `search3d.py` with `N_MAG` = 50. Files: `results/h2_calib.*`, `h2_pilot.*`, `h2_main.jsonl/log/_summary.json`, `h2_g3.*`. The wide-grid run is separate (`results/h2_wide_grid/`) and is not used for any gate.
+
+**Totals (main, 1e7 draws).** Stage 1a kept 2,327,312; stage 1b kept 27,355; stage 2 (T = 5000) labelled 610 chaotic; **472 confirmed** (T = 20000 from two starts). Hit rate 4.72e-5 per draw. By term count: k = 5 gave 124 hits, k = 6 gave 348 (2.5e-5 and 7.0e-5 per draw, 5e6 draws each). Distinct support classes with a confirmed hit: **266**; 3 of them are published classes, **263 are not in Table I**. Space size (registered grid, up to 6 terms) about 6.0e17; the 1e7 draws cover about 1.7e-11 of it.
+
+**Expected hits per published class** (N x p_support x f_chaotic from `h2_calib.json`, N = 1e7):
+
+| class | expected | found (hits) |
+|---|---|---|
+| B | 10.9 | 8 |
+| C | 10.0 | 15 |
+| D | 2.9 | 2 |
+| E | 1.5 | 0 |
+| A | 0 (rejected at stage 1b by design) | 0 |
+| F to S (14 classes, k = 6) | 0.01 to 0.19 each, 1.3 in total | 0 |
+
+**Gates.**
+- G1: passed earlier (18 of 18 dissipative cases match the published exponents, A flagged conservative).
+- G2: **pass.** The only classes with expected hits of 3 or more are B and C, and both were found. D (2.9) was found twice, E (1.5) is inconclusive by the rule above, and the 14 k = 6 classes with expected hits below 1 not found are sampling shortfalls, not evaluator failures.
+- G3: **pass.** Pooled over F, B, C, S, K, Q at 2000 draws each: 245 evaluator-chaotic sets, stage 1 kept 245 (recall 100%; the pooled count is above the 30 required).
+- G4: passed earlier (0 of 10 planted systems confirmed chaotic). G5: all 4 planted bugs caught on the first run, tree clean after.
+- G6: written here. Wall time: 8751 s for 1e7 draws with 6 workers, about 87 s per 1e5 draws. Not a clean timing: other agents were running on this machine during the run, and I did not check for idle CPU, so treat it as an upper bound.
+
+**Predictions judged.**
+- P-H2.1 true (18 of 18). P-H2.2 true (pilot: 1 confirmed in 1e5 draws; main rate 4.7e-5 is inside 2e-6 to 1e-3).
+- P-H2.3 **missed on its wording.** Stage 1 alone ran at about 2300 draws per second in one process (Amendment 1 timing), but averaged over the whole pipeline the run did about 1140 draws per second across 6 workers, because stage 2 dominates. The prediction said "averaged over a run", so I count it as a miss.
+- P-H2.4 true. P-H2.5 true. P-H2.9 true.
+- P-H2.6: at least 1 of 19 re-found: true (3). At least 6 of 19: **missed** (3 found). All 19: false, as predicted (3%).
+- P-H2.7 true (B and C found; D, expected 2.9, was also found).
+- P-H2.8 true: 263 classes with 5 or 6 terms are not in Table I. This is "not in Table I", not "new"; H5 does the novelty check.
+- P-H2.10 true (two misses above).
+
+**Wide grid, for comparison.** The same 1e7 draws on the unregistered grid (magnitudes up to 10) gave a different hit rate and class mix; numbers are in `results/h2_wide_grid/h2_main_summary.json`. The two sets are different samples of different spaces and are not pooled.
+
+**Caveats before anyone calls any hit a finding.**
+1. The 263 other classes are support classes that the evaluator labels chaotic at T = 20000 from two starts. None has been checked for being a linear-change-of-variables or time-rescaling copy of a known flow (a shift of origin changes the support, so two supports can describe one flow). H5 does that.
+2. The strongest hits have large coefficients (up to 5) and very negative third exponents; these are dissipative and bounded in the runs, but only two starts were tried.
+3. The three published classes found are the ones with the highest on-support chaos fraction (B, C, D); the k = 6 published classes are at expected hits near 0.1 each, so 1e7 draws cannot test whether the search finds them. A run 100 times larger (1e9, about 10 days at this speed on 6 CPU workers, or a GPU stage 2) would be needed, and I have not started either.
