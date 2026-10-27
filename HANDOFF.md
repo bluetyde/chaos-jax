@@ -292,3 +292,14 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - The owner added five papers to `chaos-reference` (commit `53a6c1b`, not pushed). I cannot see them until the repository is pushed and the `reference/` pointer here is updated.
 - Verification: documentation only. `python -m pytest -q tests/test_results_doc.py` passes.
 - Next step: owner decides. Options: (a) a map algorithm of Ni's fast response, validated on the Solenoid map, then decide whether a flow version is feasible; (b) A7b (`fds` as a black box); (c) A6 (double pendulum).
+
+## 2026-10-27 Task A7b (`fds` as a black box on Lorenz-63): done
+
+- Branch `claude/phase-A7b-fds`. Predictions and gates in `docs/PREDICTIONS-A7b.md`, committed before any `fds` run. Results are in the same file and in `results/phaseA7b_*.json`.
+- Result: `fds` 0.1.0.dev1 (2016 pre-release, GPL-3.0, no source copied or read) runs on Python 3.13 with `mpich` from PyPI. With the RK4 wrapper: rho 1.01709 +- 0.00024, sigma 0.13362 +- 0.00021, beta -1.65926 +- 0.00239 (8 orbits, T = 1000). That is within 0.1% of nilss-jax and on the shadowing side of the oracle gaps (+1.39% rho, -10.2% sigma). With DOP853 (rtol = atol = 1e-12, T = 500) it agrees with the RK4 run within 2 SE for all three. A shared RK4 effect is not the cause of the gaps. Which side is nearer to the truth is still open.
+- Controls: C-F1 (9 tests), C-F2 (Van der Pol, 1.6%), C-F3 (mean z 23.55) pass. Three planted bugs caught.
+- Misses: P-F2 (my first control call used a lambda, which `fds` cannot send to worker processes), P-F4 (spread much smaller than predicted), P-F6 (time out of range for three parameters).
+- Deviations: the main run used 8 orbits instead of 16 by the fallback rule written in advance. The algorithm page of the `fds` documentation is empty on the site, so I could not log which formulation it implements. I printed `inspect.signature(fds.shadowing)` (names only). The owner added `fds.readthedocs.io` to the allowed hosts for this.
+- Verification: `python -m pytest -q`: `76 passed, 1 xfailed in 63.80s`. The `fds` runs need the scratch environment (`fds`, `mpich`) and are not part of the test suite. The numpy wrapper test runs without `fds`.
+- `RESULTS.md`: one paragraph updated. The failed-predictions table was not changed, so A7b misses are only in `docs/PREDICTIONS-A7b.md`.
+- Next step: owner review. Open: A6, A7 (Julia), the map-scope unstable-contribution test.

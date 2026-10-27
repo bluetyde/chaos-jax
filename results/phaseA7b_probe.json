@@ -1,0 +1,7 @@
+{
+ "probe": {"orbit": 0, "parameter": "sigma", "T": 100, "segments": 200, "integrator": "rk4", "G": 0.1337314702256323, "J": 23.434598431386586, "seconds": 22.19},
+ "note": "One orbit, one parameter, T = 100. Seen before the main run. It is not a gate input and it is not in the ensemble means.",
+ "projection": "T = 1000 is about 220 s per orbit and parameter. 16 orbits and three parameters would take about 2.9 hours, above the 60-minute limit written in docs/PREDICTIONS-A7b.md. The fallback rule gives 8 orbits (the first 8 start points), about 8 x 3 x 220 s = 90 minutes.",
+ "choice": {"n_orbits": 8, "T": 1000, "num_segments": 2000, "steps_per_segment": 100, "runup_steps": 4000, "integrator": "rk4"},
+ "control_C-F2": "results/phaseA7b_control.json: G = 0.11355 against central difference 0.11175, relative difference 1.6%, pass (gate 10%)"
+}
