@@ -164,3 +164,16 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - My LSS for rho (1.014 to 1.016) agrees with nilss-jax (1.017) and not with the oracle (1.003). I do not know which is right. The oracle has one window and one dt.
   - Its per-orbit scatter (0.0004 for rho) is far smaller than the gaps, so the gaps are not noise.
 - Next step: owner review. Then A3 (vary `dt`, `T_seg`, `nus`, `T` and extend our own LSS to sigma and beta). A3 can use larger ensembles since a T = 1000 orbit takes 0.7 s. Consider an oracle window-length check (averaging window, dt, spin-up) before A4, since the disagreement is between shadowing and finite differences.
+
+## 2026-10-27 Task A1b session: oracle window, dt and spin-up check
+
+- Status: A1b done. Control passes. **The oracle does not depend on the averaging window, dt or spin-up for rho and sigma** at the resolution of this check (shifts under about 0.004). The A2 gap is therefore not explained by these three settings. Beta depends on spin-up (spin-up 10 shifts it by 5 SE). A3 not started.
+- Changes: `docs/PREDICTIONS-A1b.md` (design and gates committed before any code ran, results appended), `experiments/phaseA1b_windows.py`, `results/phaseA1b_windows.json`, `.gitignore`. Branch is stacked on `claude/phase-A2-nilss-run` (which is stacked on A1).
+- Verification:
+  - `python -m pytest -q` gave: `42 passed, 1 xfailed` (no new test, run time 36 s to 42 s).
+  - Control C-W: baseline matches the A1 rung within 1.25, 0.39 and 1.09 SE for rho, sigma, beta.
+  - rho by variant: 0.9976 to 1.0033 (baseline 1.0004 +- 0.0015). sigma: 0.1456 to 0.1514 (baseline 0.1497 +- 0.0015). A2 shadowing values: 1.017 and 0.134.
+  - Compute: 72 s on CPU.
+- Predictions against results: control hit, rho and sigma stability hit, "no variant reaches shadowing values" hit. Misses: beta spin-up 10 (5.1 SE, I predicted none beyond 3 SE and beta within 0.02), compute time (72 s against 4 min).
+- Caveats: one step h per parameter, one factor at a time, box start points. The check removes three possible biases in the oracle. It does not say which method is closer to the true derivative.
+- Next step: owner review, then A3 (vary `dt`, `T_seg`, `nus`, `T` for nilss-jax and extend our own LSS to sigma and beta). With the oracle stable, A3's LSS for sigma and beta is the most informative next step: it can show whether an independent shadowing code also gives sigma near 0.134.
