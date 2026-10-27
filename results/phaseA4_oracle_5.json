@@ -1,0 +1,23 @@
+{
+  "case": 5,
+  "spec": {
+    "sys": "L63",
+    "name": "sigma",
+    "rho": 28.0,
+    "hs": [
+      1.0,
+      0.5
+    ]
+  },
+  "N": 4000,
+  "slope": 0.1525644966734241,
+  "se": 0.0020353653663658525,
+  "slope_big_h": 0.1518789058231551,
+  "se_big_h": 0.0009656312755243928,
+  "h_pair_diff": 0.00068559085026898,
+  "h_pair_limit": 0.004505621348880736,
+  "h_converged": true,
+  "se_rule_met": true,
+  "oracle_converged": true,
+  "wall_seconds": 4.268218278884888
+}

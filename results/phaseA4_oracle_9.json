@@ -1,0 +1,25 @@
+{
+  "case": 9,
+  "spec": {
+    "sys": "L96",
+    "name": "F",
+    "N": 8,
+    "F": 10.0,
+    "nus": 2,
+    "hs": [
+      0.5,
+      0.25
+    ]
+  },
+  "N": 4000,
+  "slope": 3.6790917450614984,
+  "se": 0.023697258922718924,
+  "slope_big_h": 3.6241969000692222,
+  "se_big_h": 0.012054607282255016,
+  "h_pair_diff": 0.05489484499227615,
+  "h_pair_limit": 0.053174190625895845,
+  "h_converged": false,
+  "se_rule_met": true,
+  "oracle_converged": false,
+  "wall_seconds": 59.53620624542236
+}

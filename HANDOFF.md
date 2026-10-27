@@ -209,3 +209,20 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
   - One noise type, one dt, first-order noise scheme, rho and sigma only.
   - The nilss-jax README names "sigma about 11% off" as a known issue. This task sides with the README's own finite differences on that point. The rho difference of 1.4% is not mentioned there as a failure.
 - Next step: owner review. Then A4 (calibrate the reliability report). Now that three lines of evidence favour the finite-difference oracle, A4 can use finite differences as the reference for the true error. Read `docs/reliability.md` of nilss-jax first and log it. Say what is dropped for the larger systems. A5 (our own NILSS) is optional.
+
+## 2026-10-27 Task A4 session: calibrate the reliability report
+
+- Status: A4 done. Controls pass. **A4.1 passes** (no `ok` verdict with error above 25%) and A4.2 is met (8 `ok` ensembles), but **only 4 of 13 oracles converged** (prediction: at least 10), so the test is weak. A5 not started.
+- Changes: `docs/PREDICTIONS-A4.md` (design, gates, disclosure and predictions committed before any ensemble or oracle ran, results appended), `src/chaos_jax/systems.py` (Lorenz-96, Roessler), `tests/test_systems_a4.py`, `experiments/phaseA4_calibration.py`, `results/phaseA4_*.json`, a `READING-LOG.md` row for `docs/reliability.md`. Branch is stacked on A3b, A3, A1b, A2, A1.
+- Verification:
+  - `python -m pytest -q` gave: `50 passed, 1 xfailed in 52.01s`.
+  - Controls first: case 1 exponent 0.9058 and mean z 23.549; fixed points of the new fields; oracle for case 1 1.0020 +- 0.0020.
+  - Verdict against error (converged cases): ok 0.8% to 1.5% (8 ensembles), caution 12.3% (4), unreliable 38% to 2946% (4). Verdict stable across four ensembles in 13 of 13 cases. No misses, no false alarms among converged cases.
+  - Compute: about 24 minutes on CPU.
+- Predictions against results: see `docs/PREDICTIONS-A4.md`. Misses: oracle convergence (4 of 13), the verdicts at rho = 45, 50 and sigma at rho = 45 (unreliable, I predicted caution), the size of Lorenz-96 and Roessler errors.
+- Caveats:
+  - The `ok` ensembles all come from Lorenz-63 at rho = 28 (parameters rho and beta). A4.1 passing says little about other systems.
+  - Nine finite-difference oracles did not meet the convergence rule, most because the response is rough or nonlinear at my step sizes. I have no clean true error for those cases.
+  - The exploratory reading that the report is conservative at rho = 45 is post hoc and not scored.
+  - I read `docs/reliability.md` before predicting; it names the blind spots that show up here.
+- Next step: owner review. Then A5 (optional: our own NILSS from the papers) or A6 (double pendulum). Before A6, check that the long-time average does not depend on the start point. If the owner wants A4 to be a stronger test, add cases where the oracle converges and the report says `ok`, for example other parameter values near rho = 28 to 35 and more parameters of Lorenz-96 with small F. A4's oracle rule (SE below 5% and two steps agree) is the bottleneck.

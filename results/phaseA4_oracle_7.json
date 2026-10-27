@@ -1,0 +1,23 @@
+{
+  "case": 7,
+  "spec": {
+    "sys": "L63",
+    "name": "beta",
+    "rho": 28.0,
+    "hs": [
+      0.25,
+      0.125
+    ]
+  },
+  "N": 4000,
+  "slope": -1.6454067898730216,
+  "se": 0.008271435133877025,
+  "slope_big_h": -1.6439667603557453,
+  "se_big_h": 0.004161329989215492,
+  "h_pair_diff": 0.0014400295172762867,
+  "h_pair_limit": 0.018518456356087506,
+  "h_converged": true,
+  "se_rule_met": true,
+  "oracle_converged": true,
+  "wall_seconds": 4.076042175292969
+}
