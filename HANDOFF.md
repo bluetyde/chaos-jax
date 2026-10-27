@@ -44,3 +44,6 @@
 - Status: `classify` now rejects orbits whose exponent sum disagrees with the mean divergence (Amendment 4 in `docs/PREDICTIONS-H1.md`). `claude/h1-evaluator` merged into main, local only, not pushed.
 - Verification: `H1_T=5000 PYTHONPATH=src .venv/Scripts/python -m pytest -q tests`: 5 failed, 75 passed (the five known T = 5000 failures); `python experiments/h1_breakit.py`: baseline 48 passed, bugs 1-4 all caught, tree clean. Python 3.14.6.
 - Caveats: not re-run at `T = 100000` after the fix (the fix only changes labels of orbits that fail the sum check, none of which were controls at either length except the Kopp origin start). G3 for KP still failed as registered.
+
+## H2 result (2026-10-27, branch claude/h2-search, not merged)
+Registered-grid main run done (1e7 draws, 472 confirmed, 266 classes, 3 of 19 published re-found). G2 and G3 pass; misses: P-H2.3 (pipeline throughput) and P-H2.6 "6 of 19". Details and caveats in docs/PREDICTIONS-H2.md (Results). Wide-grid run kept apart in results/h2_wide_grid/. Next: merge decision (owner), then H3 or a 1e9 run (about 10 days CPU, or GPU stage 2: ask first). 263 non-Table-I classes need the H5 equivalence check before any claim.
