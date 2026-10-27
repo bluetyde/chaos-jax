@@ -30,3 +30,41 @@ Question: does the published hyperchaos of Kopp and Samuilik, Mathematics 13(17)
 ## What would change my mind
 
 If P-S2 fails badly (average `|x4|` far from 18), I will say the first thing to suspect is my transcription of the equations, not the paper, and I will not call the result a failure to reproduce. If any start gives rule-v2 hyperchaos with the second exponent above 0.02 at T >= 100000, I report "reproduces from that start, at that a".
+
+## Results (2026-10-27)
+
+Command: `PYTHONPATH=src python experiments/kopp_samuilik.py results/kopp_samuilik.json` (12 starts at a = 3 and a = 5, dt check, short runs, scan a = 1 to 8; 61 rows, no errors; log in `results/kopp_samuilik.log`). Python 3.14.6, jax 0.12.0.1, RK4, QR every 0.1, spin-up 500, T = 100000 unless stated.
+
+**Summary: the system as I transcribed it is not the paper's system, so this run says nothing about whether the paper's hyperchaos is real.**
+
+| Check | Paper | My runs |
+|---|---|---|
+| a = 3 exponents | (1.0087, 0.0328, -0.0049, -7.79) | largest exponent 0.12 to 0.35, smallest -31 to -41; second exponent 0.003 to 0.006 |
+| implied average of `|x4|` at a = 3 | 18.05 | 180 to 250 |
+| a = 5 exponents | (0.8859, 0.0556, -0.0071, -10.85) | largest 0.01 to 0.36, smallest -29 to -55 |
+| implied average of `|x4|` at a = 5 | 25.65 | 150 to 324 |
+| scale of the state | not known | largest |x| about 300 to 1500 |
+
+The implied average of `|x4|` is off by a factor of about ten, and the exponents are far from the published ones (the smallest is -31 to -41 against -7.8). By the rule written before the runs, this means the first suspect is my transcription of the equations or parameters (the equations come from a partial read, I cannot fetch the PDF, and `b = 90` in particular gives states of order a thousand), not the paper. I do not call this a failure to reproduce.
+
+What the runs do show, for this transcribed system only:
+- No start at a = 3 or 5, and no a in the scan from 1 to 8, is labelled hyperchaotic by rule v2. The largest second exponent is 0.026 (a = 5, start 1) with a standard error of 0.016, and that run is labelled "inconsistent".
+- Most runs are labelled "inconsistent": the exponent sum does not match the average divergence within the G1 tolerance, so these exponents are not trustworthy either. The orbit also changes label with the step size (a = 3: quasi-periodic at dt 0.01 and 0.0025, chaotic at 0.005; first exponent 0.025, 0.231, 0.010), which points at a non-smooth, sensitive system (the `|x4|` term) or a poorly resolved one.
+- The start (0, 0, 1, 0) diverges (x1 = x2 = x4 = 0 is invariant), as the origin does for Kopp 2025.
+
+### Predictions against results
+
+| Prediction | Result |
+|---|---|
+| P-S1 (65%) first exponent within 0.05 of 1.0087 | **Miss.** |
+| P-S2 (55%) implied `|x4|` within 5% of 18.05 | **Miss**, by a factor of ten. |
+| P-S3 (60%) second exponent below 0.005 on every start that reaches the attractor | **Miss on the strict wording**: three of the a = 3 starts give 0.0051, 0.0056, 0.0059 (all within about one to two standard errors of zero). |
+| P-S4 (30%) some start gives rule-v2 hyperchaos | No. |
+| P-S5 (30%) the scan finds hyperchaos | No. |
+| P-S6 (40%) more than one attractor at a = 3 | **Unresolved**: exponent sets vary a lot between starts, but the "inconsistent" labels and the dt dependence mean I cannot tell attractors from poor convergence. |
+| P-S7 (80%) dt changes exponents by less than 0.005 | **Miss** (first exponent 0.010 to 0.231). |
+| P-S8 (15%) the paper's attractor is not found / my equations are wrong | **Hit in effect**: nothing like the published spectrum appears. |
+
+### What is needed to settle it
+
+The paper's Eq. (3) with its parameter values and initial conditions, as printed. Either paste Section 2 and the exponent table, or download the PDF from MDPI (https://www.mdpi.com/2227-7390/13/17/2838) into the folder `refs-owner` here (not committed, per `NEEDED-FROM-OWNER.md`). Then re-run with the paper's start and settings before any statement about the paper.
