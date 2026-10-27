@@ -1,0 +1,15 @@
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+seed 7000 {'draws': 20000, 'keep_a': 3460, 'keep_b': 45, 'stage2': 0, 'confirmed': 0, 'secs': 64.30233764648438} | total {'draws': 20000, 'keep_a': 3460, 'keep_b': 45, 'stage2': 0, 'confirmed': 0} | wall 65s
+seed 7001 {'draws': 20000, 'keep_a': 3528, 'keep_b': 38, 'stage2': 1, 'confirmed': 1, 'secs': 65.53357148170471} | total {'draws': 40000, 'keep_a': 6988, 'keep_b': 83, 'stage2': 1, 'confirmed': 1} | wall 66s
+seed 7002 {'draws': 20000, 'keep_a': 3515, 'keep_b': 41, 'stage2': 0, 'confirmed': 0, 'secs': 60.388028383255005} | total {'draws': 60000, 'keep_a': 10503, 'keep_b': 124, 'stage2': 1, 'confirmed': 1} | wall 66s
+seed 7003 {'draws': 20000, 'keep_a': 3475, 'keep_b': 42, 'stage2': 0, 'confirmed': 0, 'secs': 61.60781931877136} | total {'draws': 80000, 'keep_a': 13978, 'keep_b': 166, 'stage2': 1, 'confirmed': 1} | wall 66s
+seed 7004 {'draws': 20000, 'keep_a': 3406, 'keep_b': 36, 'stage2': 0, 'confirmed': 0, 'secs': 54.540414810180664} | total {'draws': 100000, 'keep_a': 17384, 'keep_b': 202, 'stage2': 1, 'confirmed': 1} | wall 66s
