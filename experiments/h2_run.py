@@ -69,7 +69,7 @@ def w_search(args):
 
     rng = np.random.default_rng(seed)
     t0 = time.time()
-    cnt = dict(draws=0, keep_a=0, keep_b=0, mid=0, bound=0, stage2=0, confirmed=0)
+    cnt = dict(draws=0, keep_a=0, keep_b=0, mid=0, bound=0, f32=0, stage2=0, confirmed=0)
     hits = []
     for _ in range(0, n, 20000):
         m = min(20000, n - cnt["draws"])
@@ -78,9 +78,12 @@ def w_search(args):
         cnt["draws"] += m
         cnt["keep_a"] += int(ka.sum())
         cnt["keep_b"] += int(len(idx))
-        if mode == "bound" and len(idx):
+        if mode in ("bound", "f32") and len(idx):
             idx = idx[s.bound_keep(cs[idx])]
         cnt["bound"] += int(len(idx))
+        if mode == "f32" and len(idx):
+            idx = idx[s.f32_keep(cs[idx])]
+        cnt["f32"] += int(len(idx))
         for i in idx:
             if mode == "mid" and not s.mid_filter(cs[i]):
                 continue
@@ -198,7 +201,7 @@ def part_search(tag, workers, n_total, chunk, seed0):
     n_tasks = int(n_total // chunk)
     mode = os.environ.get("H2_FILTER", "")  # "" = old pipeline, "mid" = H2B, "bound" = H2C
     tasks = [(seed0 + i, int(chunk), mode) for i in range(n_tasks)]
-    tot = dict(draws=0, keep_a=0, keep_b=0, mid=0, bound=0, stage2=0, confirmed=0)
+    tot = dict(draws=0, keep_a=0, keep_b=0, mid=0, bound=0, f32=0, stage2=0, confirmed=0)
     t0 = time.time()
     with open(path, "a") as fh:
         for r in ex.map(w_search, tasks):

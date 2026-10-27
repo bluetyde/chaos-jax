@@ -352,3 +352,23 @@ def bound_keep(cs, T=5000.0, dt=0.02):
     """True for systems that stay inside BOUND_LIMIT for the whole run and are still moving at the end."""
     tf, rg = bound_stats(cs, T, dt)
     return (tf < 0) & (rg >= BOUND_STUCK)
+
+
+# ---------- float32 coarse spectrum screen (H2D, docs/PREDICTIONS-H2D.md) ----------
+F32_LIMIT = 1e8
+F32_SUM_TOL = 0.05
+F32_EPS_L1 = 0.005
+F32_ZERO = 0.05
+
+
+def f32_keep(cs, T=5000.0, dt=0.01, batch=32):
+    """True for systems that the lenient float32 spectrum does not rule out (stage 2 still decides in float64)."""
+    from hyperchaos.spectrum32 import spectrum32_batch
+
+    e, dv, mx = spectrum32_batch(flow, cs, START, dt=dt, T=T, batch=batch)
+    with np.errstate(invalid="ignore"):
+        ok = np.isfinite(e).all(1) & np.isfinite(dv) & np.isfinite(mx) & (mx <= F32_LIMIT)
+        ok &= np.abs(e.sum(1) - dv) <= F32_SUM_TOL * np.maximum(1.0, np.abs(dv))
+        ok &= e[:, 0] > F32_EPS_L1
+        ok &= np.abs(e).min(1) <= F32_ZERO
+    return ok

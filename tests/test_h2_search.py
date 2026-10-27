@@ -97,3 +97,26 @@ def test_g5_bound_keep_drops_escape_blowup_and_sink():
     blow = _lin([(0, "1", 1), (0, "xx", 1), (1, "y", -1), (2, "z", -1)])
     sink = _lin([(0, "x", -1), (1, "y", -1), (2, "z", -1)])
     assert s.bound_keep(np.array([grow, blow, sink])).tolist() == [False, False, False]
+
+
+STIFF = [0.0] * 5 + [1.6, 0.0, 0.0, 0.0, 3.4, -4.5, 0.0, 0.0, 0.0, 2.5, 1.1, 0.0, 0.0, 4.5] + [0.0] * 11  # float64 label "inconsistent": exponent sum far from the divergence
+NOZERO = [0.0, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 1.1, 0.0, 0.0, 1.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.1, 0.0, 0.0, -0.2, 0.0, 0.0, 3.9, 0.0, 0.0, 0.0]  # lambda_1 0.37, no exponent near zero
+
+
+def test_g5_f32_keep_keeps_chaos():
+    cs = np.array([s.case_coefficients("B"), s.case_coefficients("S")])
+    assert s.f32_keep(cs).tolist() == [True, True]
+
+
+def test_g5_f32_keep_drops_sink_centre_and_sum_mismatch():
+    sink = _lin([(0, "x", -1), (1, "y", -1), (2, "z", -1)])
+    centre = _lin([(0, "y", 1), (1, "x", -1), (2, "z", -1)])
+    assert s.f32_keep(np.array([sink, centre])).tolist() == [False, False]
+
+
+def test_g5_f32_sum_check_drops_stiff_system():
+    assert s.f32_keep(np.array([STIFF])).tolist() == [False]
+
+
+def test_g5_f32_zero_exponent_rule_drops_system_without_zero_exponent():
+    assert s.f32_keep(np.array([NOZERO])).tolist() == [False]
