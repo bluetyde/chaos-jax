@@ -76,3 +76,8 @@ Verification: experiments/h2g_threshold.py 6 60 1000 (469 s, Windows, Python 3.1
 Status: done, branch claude/h2-night1-results (off main e5ce607), committed, nothing merged or pushed. 4,673 confirmed hits in 7.2 h on 8 workers, exit 0, all distinct under the 48-group (3,570 k=6, 1,103 k=5), zero overlap with the 472 main-run classes.
 Verification: results/h2_night1.log, summary json, experiments/h2_night_analyze.py (Windows, Python 3.14.6); funnel and phase split in docs/RESULTS-H2-NIGHT1.md.
 Caveats: predictions were chat-only, not committed beforehand; 13 hits have lambda1 above 10 (stiff, not re-integrated at smaller dt); filter loss not measured by this run; 4-term search never run.
+
+## 2026-10-28 hyperchaos agent: stiff-hit check, false positives found
+Status: branch claude/h2-stiff-check (off main 8c8f47d), committed, nothing merged or pushed. 10 of 13 stiff hits stable at smaller dt; 12 of 13 have positive exponent sum (volume expansion), 39 of 4,673 hits overall (5 of 472 in the earlier run): false positives, orbits settled on an invariant line. Amendment proposed, not applied.
+Verification: experiments/h2_stiff_check.py night1 (about 17 min, float64, Windows, CPU); predictions committed before the run; P-S3 missed.
+Caveats: 22 hits with sum in (-0.01, 0] unexamined; classifier not changed; counts in earlier docs unchanged.

@@ -21,3 +21,6 @@ Funnel: stage 1a 23,268,280, stage 1b 270,033, boundedness 110,356, float32 13,1
 ## Flags (not resolved)
 - 13 hits have a first exponent above 10 (44 above 5), and 5 have a second exponent above 0.01. A 3-D flow cannot have two positive exponents, so the five with lambda2 > 0.01 are estimate noise (standard errors of the same size). The 13 with lambda1 above 10 (most with lambda2 near zero) look stiff, and RK4 at dt 0.01 may be unreliable for them. The classifier's sum check passed, but I have not re-integrated these at a smaller step. Treat them as unverified until that is done.
 - Hit counts are raw confirmations at the classifier rule v2, not a published-quality catalogue.
+
+## Addendum 2026-10-28: stiff-hit check and false positives
+The 13 hits with first exponent above 10 were re-run at dt 0.005 and 0.0025 (`docs/PREDICTIONS-H2-STIFF.md`). 10 hold; 3 do not. More important: 12 of the 13 (and 39 of all 4,673) have a positive exponent sum, which is not a valid attractor. Treat the 4,673 as "4,634 plus 39 false positives" until the owner decides on the amendment; the 61 hits with a sum above -0.01 are the ones to look at first.
