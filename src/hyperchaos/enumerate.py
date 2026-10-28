@@ -37,14 +37,30 @@ def null_directions(slots):
     return u[:, r:], r
 
 
-def reps(slots, t_grid, signs=True):
-    """All coefficient vectors (length 30) for this support: invariants on t_grid (full product), all sign patterns."""
+def flip_factors(slots):
+    """(8, k) array: the factor each of the 8 variable sign flips applies to the coefficient of each slot (s_i times the product of s_j^e_j)."""
+    out = []
+    for flip in itertools.product((1.0, -1.0), repeat=3):
+        row = []
+        for sl in slots:
+            i, m = divmod(int(sl), 10)
+            row.append(flip[i] * float(np.prod(np.asarray(flip) ** np.asarray(MONOS[m]))))
+        out.append(row)
+    return np.array(out)
+
+
+def reps(slots, t_grid, signs=True, dedupe_flips=False):
+    """All coefficient vectors (length 30) for this support: invariants on t_grid (full product), all sign patterns.
+    With dedupe_flips only one sign pattern per orbit of the 8 sign flips is kept (the lexicographically smallest)."""
     slots = sorted(int(x) for x in slots)
     k = len(slots)
     w, r = null_directions(slots)
     d = w.shape[1]
     ts = list(itertools.product(t_grid, repeat=d)) if d else [()]
     sg = list(itertools.product((-1.0, 1.0), repeat=k)) if signs else [(1.0,) * k]
+    if dedupe_flips:
+        F = flip_factors(slots)
+        sg = [p for p in sg if tuple(p) == min(tuple(row) for row in F * np.asarray(p))]
     out = np.zeros((len(ts) * len(sg), 30))
     n = 0
     for t in ts:
@@ -69,3 +85,16 @@ def supports(k=4, all_equations=True):
             continue
         out.append(sup)
     return out
+
+
+def support_classes(k=5, all_equations=True):
+    """One representative term-set per renaming class of k-slot supports (every equation nonempty)."""
+    from hyperchaos import search3d as s3
+
+    perms = list(itertools.permutations(range(3)))
+    seen = {}
+    for sup in itertools.combinations(range(30), k):
+        if all_equations and len({sl // 10 for sl in sup}) < 3:
+            continue
+        seen.setdefault(s3.canonical_support(sup, perms), None)
+    return sorted(seen)
