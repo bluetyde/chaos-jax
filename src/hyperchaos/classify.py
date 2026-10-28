@@ -65,4 +65,7 @@ def classify(res, eps_abs=EPS_ABS, rule="v2"):
     # on an invariant subspace) is not a bounded attractor and its exponents mean nothing.
     if abs(float(np.sum(res.exponents)) - res.mean_div) > SUM_TOL_REL * max(1.0, abs(res.mean_div)):
         return Classification("inconsistent")
+    # Amendment 5: positive volume expansion on average: the orbit is not on an attractor (docs/PREDICTIONS-H2-AMEND5.md).
+    if float(np.sum(res.exponents)) > CONSERVATIVE_SUM:
+        return Classification("expanding")
     return label_from_exponents(res.exponents, res.se, eps_abs, rule)
