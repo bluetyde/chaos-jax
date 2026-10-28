@@ -35,6 +35,12 @@ BUGS = [
         "    if abs(float(np.sum(res.exponents)) - res.mean_div) > SUM_TOL_REL",
         "    if False and abs(float(np.sum(res.exponents)) - res.mean_div) > SUM_TOL_REL",
     ),
+    (
+        "5 classifier accepts expanding orbits (Amendment 5)",
+        "src/hyperchaos/classify.py",
+        "    if float(np.sum(res.exponents)) > CONSERVATIVE_SUM:\n",
+        "    if False and float(np.sum(res.exponents)) > CONSERVATIVE_SUM:\n",
+    ),
 ]
 
 FAST = ["tests/test_h1_controls.py", "tests/test_h1_classifier.py", "-k", "(g1 or g2 or g3 or g4) and not KP and not CS12 and not CS13"]

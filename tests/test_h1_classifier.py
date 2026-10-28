@@ -71,3 +71,12 @@ def test_g3_classify_kopp_origin_start_is_not_chaotic():
 
     r = spectrum(kopp25(), np.zeros(4), dt=0.01, T=2000.0)
     assert classify(r).label != "chaotic"
+
+
+def test_g3_amendment5_expanding_orbit_is_not_chaotic():
+    from hyperchaos.classify import classify
+
+    # positive exponent sum equal to the mean divergence: the sum check passes, the orbit is still not an attractor
+    assert classify(_res([12.0, 0.0, -0.2], 11.8)).label == "expanding"
+    # the same first exponent with a negative sum is labelled by the usual rules
+    assert classify(_res([1.0, 0.0, -4.0], -3.0)).label == "chaotic"
