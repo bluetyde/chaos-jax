@@ -1,0 +1,17 @@
+theta  0.010  float64 keepers kept 2658 of 3258 (0.816)  float32 keepers  3270 (x1.00)  hits kept 464 of 472
+theta  0.005  float64 keepers kept 2750 of 3258 (0.844)  float32 keepers 12741 (x3.91)  hits kept 466 of 472
+theta  0.000  float64 keepers kept 2820 of 3258 (0.866)  float32 keepers 107562 (x33.01)  hits kept 467 of 472
+theta -0.010  float64 keepers kept 2965 of 3258 (0.910)  float32 keepers 203244 (x62.38)  hits kept 470 of 472
+theta -0.020  float64 keepers kept 2976 of 3258 (0.913)  float32 keepers 204177 (x62.67)  hits kept 470 of 472
+theta -0.050  float64 keepers kept 2989 of 3258 (0.917)  float32 keepers 204557 (x62.79)  hits kept 470 of 472
+theta -0.100  float64 keepers kept 2997 of 3258 (0.920)  float32 keepers 205055 (x62.94)  hits kept 470 of 472
+lost hits (float32 stage-1a flag, boundedness flag, float32 exponent, float64 exponent):
+   {'i': 51, 'k': 6, 'lam64': 5.4809951707081845, 'ka32': True, 'ok32': True, 'lam32': 0.0}
+   {'i': 133, 'k': 6, 'lam64': 3.0987026424114825, 'ka32': False, 'ok32': None, 'lam32': None}
+   {'i': 150, 'k': 6, 'lam64': 0.09882771752780473, 'ka32': True, 'ok32': True, 'lam32': 0.0}
+   {'i': 159, 'k': 6, 'lam64': 0.01624264244356678, 'ka32': True, 'ok32': True, 'lam32': 0.009377406910061836}
+   {'i': 168, 'k': 6, 'lam64': 1.2344353991649555, 'ka32': True, 'ok32': False, 'lam32': nan}
+   {'i': 309, 'k': 6, 'lam64': 0.027110880074389953, 'ka32': True, 'ok32': True, 'lam32': 0.004977223929017782}
+   {'i': 402, 'k': 5, 'lam64': 0.013380087070433108, 'ka32': True, 'ok32': True, 'lam32': 0.009815046563744545}
+   {'i': 426, 'k': 6, 'lam64': 0.9954628422523235, 'ka32': True, 'ok32': True, 'lam32': -0.007390422280877829}
+wall 469 s
