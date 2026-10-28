@@ -1,0 +1,171 @@
+{
+ "theta=-inf checkpoints=[300, 400, 500, 600, 700, 800, 900, 1000, 1100]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.231380628888392,
+  "speedup_with_exit_on_escape": 1.2757162914530882,
+  "share_fired_by_600": 0.2480171489817792
+ },
+ "theta=-inf checkpoints=[400, 800]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.1931624417415028,
+  "speedup_with_exit_on_escape": 1.2701382215024555,
+  "share_fired_by_600": 0.21982851018220792
+ },
+ "theta=-inf checkpoints=[600]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.1415636853052735,
+  "speedup_with_exit_on_escape": 1.258074498775973,
+  "share_fired_by_600": 0.2480171489817792
+ },
+ "theta=-inf checkpoints=[300, 600, 900]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.2179759146241964,
+  "speedup_with_exit_on_escape": 1.272980002677245,
+  "share_fired_by_600": 0.2480171489817792
+ },
+ "theta=-0.3 checkpoints=[300, 400, 500, 600, 700, 800, 900, 1000, 1100]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.2322525259195667,
+  "speedup_with_exit_on_escape": 1.2766504778203074,
+  "share_fired_by_600": 0.2487674169346195
+ },
+ "theta=-0.3 checkpoints=[400, 800]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.1938749395740325,
+  "speedup_with_exit_on_escape": 1.2709295857786658,
+  "share_fired_by_600": 0.2205430510896749
+ },
+ "theta=-0.3 checkpoints=[600]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.1420527572066834,
+  "speedup_with_exit_on_escape": 1.2586685229666534,
+  "share_fired_by_600": 0.2487674169346195
+ },
+ "theta=-0.3 checkpoints=[300, 600, 900]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.2188245027705504,
+  "speedup_with_exit_on_escape": 1.2739005212190455,
+  "share_fired_by_600": 0.2487674169346195
+ },
+ "theta=-0.1 checkpoints=[300, 400, 500, 600, 700, 800, 900, 1000, 1100]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.2369676100686835,
+  "speedup_with_exit_on_escape": 1.2817093609926324,
+  "share_fired_by_600": 0.2528760271525545
+ },
+ "theta=-0.1 checkpoints=[400, 800]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.1973648561935861,
+  "speedup_with_exit_on_escape": 1.2748852762668954,
+  "share_fired_by_600": 0.224151482672383
+ },
+ "theta=-0.1 checkpoints=[600]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.1444342226310948,
+  "speedup_with_exit_on_escape": 1.261561781033169,
+  "share_fired_by_600": 0.25241157556270094
+ },
+ "theta=-0.1 checkpoints=[300, 600, 900]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.223312427613033,
+  "speedup_with_exit_on_escape": 1.2787963810686813,
+  "share_fired_by_600": 0.2528403001071811
+ },
+ "theta=-0.05 checkpoints=[300, 400, 500, 600, 700, 800, 900, 1000, 1100]": {
+  "keepers_lost": 3,
+  "speedup_rounds": 1.2422286739279176,
+  "speedup_with_exit_on_escape": 1.2873443107913165,
+  "share_fired_by_600": 0.2576277241872097
+ },
+ "theta=-0.05 checkpoints=[400, 800]": {
+  "keepers_lost": 1,
+  "speedup_rounds": 1.1996571183655975,
+  "speedup_with_exit_on_escape": 1.277481512973523,
+  "share_fired_by_600": 0.22650946766702393
+ },
+ "theta=-0.05 checkpoints=[600]": {
+  "keepers_lost": 0,
+  "speedup_rounds": 1.145605238923565,
+  "speedup_with_exit_on_escape": 1.262984908480973,
+  "share_fired_by_600": 0.25419792783136835
+ },
+ "theta=-0.05 checkpoints=[300, 600, 900]": {
+  "keepers_lost": 2,
+  "speedup_rounds": 1.2282915162751917,
+  "speedup_with_exit_on_escape": 1.2841742008225474,
+  "share_fired_by_600": 0.25734190782422295
+ },
+ "theta=-0.02 checkpoints=[300, 400, 500, 600, 700, 800, 900, 1000, 1100]": {
+  "keepers_lost": 7,
+  "speedup_rounds": 1.2623935414521208,
+  "speedup_with_exit_on_escape": 1.308976375252365,
+  "share_fired_by_600": 0.2751697034655234
+ },
+ "theta=-0.02 checkpoints=[400, 800]": {
+  "keepers_lost": 4,
+  "speedup_rounds": 1.2086883924458776,
+  "speedup_with_exit_on_escape": 1.2876505920171797,
+  "share_fired_by_600": 0.23586995355484103
+ },
+ "theta=-0.02 checkpoints=[600]": {
+  "keepers_lost": 1,
+  "speedup_rounds": 1.1480957361717836,
+  "speedup_with_exit_on_escape": 1.2660125827810076,
+  "share_fired_by_600": 0.2579849946409432
+ },
+ "theta=-0.02 checkpoints=[300, 600, 900]": {
+  "keepers_lost": 5,
+  "speedup_rounds": 1.2454114663285056,
+  "speedup_with_exit_on_escape": 1.3028423436639613,
+  "share_fired_by_600": 0.27256162915326904
+ },
+ "theta=0.0 checkpoints=[300, 400, 500, 600, 700, 800, 900, 1000, 1100]": {
+  "keepers_lost": 44,
+  "speedup_rounds": 1.6950794852384556,
+  "speedup_with_exit_on_escape": 1.7786955925175103,
+  "share_fired_by_600": 0.5466952483029653
+ },
+ "theta=0.0 checkpoints=[400, 800]": {
+  "keepers_lost": 28,
+  "speedup_rounds": 1.5275326990595042,
+  "speedup_with_exit_on_escape": 1.6535544479127888,
+  "share_fired_by_600": 0.49060378706680957
+ },
+ "theta=0.0 checkpoints=[600]": {
+  "keepers_lost": 16,
+  "speedup_rounds": 1.3461261001298515,
+  "speedup_with_exit_on_escape": 1.5111526466631953,
+  "share_fired_by_600": 0.5142550911039657
+ },
+ "theta=0.0 checkpoints=[300, 600, 900]": {
+  "keepers_lost": 35,
+  "speedup_rounds": 1.6500618994281673,
+  "speedup_with_exit_on_escape": 1.7486604172065936,
+  "share_fired_by_600": 0.5381564844587353
+ },
+ "theta=0.005 checkpoints=[300, 400, 500, 600, 700, 800, 900, 1000, 1100]": {
+  "keepers_lost": 102,
+  "speedup_rounds": 2.722828862569615,
+  "speedup_with_exit_on_escape": 2.9390234021094677,
+  "share_fired_by_600": 0.7797784923186852
+ },
+ "theta=0.005 checkpoints=[400, 800]": {
+  "keepers_lost": 80,
+  "speedup_rounds": 2.19701726844584,
+  "speedup_with_exit_on_escape": 2.4602338013183216,
+  "share_fired_by_600": 0.7130046445158985
+ },
+ "theta=0.005 checkpoints=[600]": {
+  "keepers_lost": 36,
+  "speedup_rounds": 1.6096845616355637,
+  "speedup_with_exit_on_escape": 1.8514617055342433,
+  "share_fired_by_600": 0.7575205430510896
+ },
+ "theta=0.005 checkpoints=[300, 600, 900]": {
+  "keepers_lost": 89,
+  "speedup_rounds": 2.4996651038178164,
+  "speedup_with_exit_on_escape": 2.7221218351321963,
+  "share_fired_by_600": 0.7715969989281887
+ },
+ "share_steps_on_systems_decided_by_600": 0.5466952483029653
+}
