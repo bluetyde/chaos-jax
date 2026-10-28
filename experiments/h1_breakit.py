@@ -14,8 +14,8 @@ BUGS = [
     (
         "1 drop the QR re-orthonormalisation (columns only normalised)",
         "src/hyperchaos/spectrum.py",
-        "        q, r = jnp.linalg.qr(q)\n        ssum = ssum + jnp.log(jnp.abs(jnp.diag(r)))\n",
-        "        nrm = jnp.linalg.norm(q, axis=0)\n        q = q / nrm\n        ssum = ssum + jnp.log(nrm)\n",
+        "            q, r = jnp.linalg.qr(q)\n            ssum = ssum + jnp.log(jnp.abs(jnp.diag(r)))\n",
+        "            nrm = jnp.linalg.norm(q, axis=0)\n            q = q / nrm\n            ssum = ssum + jnp.log(nrm)\n",
     ),
     (
         "2 transposed Jacobian in the tangent equation",
