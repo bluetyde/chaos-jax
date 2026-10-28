@@ -53,9 +53,15 @@ BUGS = [
         "np.prod(s ** np.asarray(MONOS4[m])) / s[i]",
         "np.prod(s ** np.asarray(MONOS4[m])) * s[i]",
     ),
+    (
+        "8 structure key built from renamings only, no sign flips (keys)",
+        "src/hyperchaos/keys.py",
+        "    imgs = images(np.asarray(c, dtype=float))\n",
+        "    imgs = images(np.asarray(c, dtype=float))[::8]\n",
+    ),
 ]
 
-FAST = ["tests/test_h1_controls.py", "tests/test_h1_classifier.py", "tests/test_enumerate.py", "tests/test_enum4.py", "-k", "(g1 or g2 or g3 or g4) and not KP and not CS12 and not CS13"]
+FAST = ["tests/test_h1_controls.py", "tests/test_h1_classifier.py", "tests/test_enumerate.py", "tests/test_enum4.py", "tests/test_keys.py", "-k", "(g1 or g2 or g3 or g4) and not KP and not CS12 and not CS13"]
 
 
 def run_tests():
