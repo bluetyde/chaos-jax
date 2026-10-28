@@ -20,3 +20,15 @@ Conservative candidates are screened for a quadratic first integral a^2 - b^2 (d
 
 ## Not claimed
 Anything about the 273 rank-2 supports (two invariants; a fine pass would need about 16 million systems and is not run here), or about invariants outside ln t in [-3, 3].
+
+## Results (2026-10-28, written after the run; no gate or prediction above was changed)
+
+Files: `experiments/h2_fine3.py`, `h2_fine3_analyze.py`, `results/h2_fine3/` (489 chunk files), `results/h2_fine3_summary.json`, `results/h2_fine3.log`, `results/h2_fine3_analysis.{log,json}`. float64, 6 workers, Windows, CPU. Wall time 2,708 s (45 min).
+
+**Headline: no dissipative chaotic 4-term flow among the rank-3 supports at invariant step 0.1.** 4,763,856 systems screened; stage 1a survivors 1,768,902; stage 1b 32,237; boundedness 2,909; stage 2 (dissipative, chaotic, T = 5000): **0**. 35 conservative candidates, on 2 distinct supports.
+**GN1** passes (489 of 489 chunk files; the exact count is 4,881 x 61 x 16 = 4,763,856, the 4,764,000 in the method section was rounded). **GN2** not triggered (no dissipative hit). **GN3**: the prediction was mis-specified. Only the 3 rank-3 candidates of the coarse pass can reappear (the other 2 of the 5 are rank 4, outside this pass); all 3 of 3 reappear in the fine pass, same coefficients. The check holds in its corrected form.
+**All 35 conservative candidates have a quadratic first integral** (a^2 - b^2 of two coordinates, derivative below 1e-9 at 200 random points each): none can be chaotic.
+
+**Predictions.** P-N1 hit (no dissipative hit). P-N2 **missed as worded** ("the same 5"): the correct count is 3 and it holds. P-N3 hit (35 of 35). P-N4 **missed**: 45 minutes, not 90 to 150 (my per-system cost estimate was about 2.3 times too high; the early chunks and most 4-term systems are cheap). P-N5 hit.
+
+**What this changes.** The rank-3 half of the earlier caveat is closed: for rank-3 supports the grid is now step 0.1 in the invariant over ln t in [-3, 3], the grid on which the controls B-E were all found. Left open: the 273 rank-2 supports (two invariants, coarse grid 0.5 only) and anything outside ln t in [-3, 3] or outside the START and START2 starting points. From this run's rate (4.76M systems in 45 min) the rank-2 fine pass (273 x 61 x 61 x 16 = 16,253,808 systems) would take about 2.6 hours, not "many hours".

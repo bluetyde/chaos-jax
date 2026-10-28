@@ -91,3 +91,8 @@ Caveats: planted bug 5 first slipped through because of the fast-suite name sele
 Status: branch claude/h2-four-term (off main 42ff1a8), committed, nothing merged or pushed. No dissipative 4-term chaotic flow in 1,886,976 systems (rank-4 supports exact, rank-3/2 on a coarse invariant grid); 5 conservative candidates all have a first integral x^2-z^2 type and are not chaotic. Also fixed breakit bug 1 text; new enumerator src/hyperchaos/enumerate.py.
 Verification: pytest tests/test_enumerate.py (4 passed); experiments/h1_breakit.py bugs 1-6 caught; experiments/h2_fourterm.py control/search (search 43 min, 6 workers); h2_fourterm_verify.py and h2_fourterm_checks.py.
 Caveats: coarse-grid control misses Sprott case E, so rank-3 and rank-2 supports are weakly covered; classifier can label a conservative flow with a first integral chaotic; predictions missed P-F2 (strict), P-F3, P-F4. A stray accidental merge into main (04a7417) was undone with branch -f main 42ff1a8 before any push.
+
+## 2026-10-28 hyperchaos agent: four-term fine pass, rank-3 supports
+Status: done, branch claude/h2-four-term, committed, nothing merged or pushed. 4,763,856 rank-3 systems at invariant step 0.1: no dissipative chaotic flow; 35 conservative candidates, all with a first integral a^2-b^2. Rank-3 coverage gap closed; rank-2 supports (273, two invariants) still coarse.
+Verification: experiments/h2_fine3.py 6 (45 min, 489 chunk files, resumable) and h2_fine3_analyze.py; predictions committed before the run.
+Caveats: P-N2 mis-specified (only 3 of the 5 coarse candidates are rank 3; all 3 reappear), P-N4 missed (45 min vs 90-150); rank-2 fine pass would be about 2.6 h, 16.25M systems, not run; coverage limited to ln t in [-3,3] and two starts.
