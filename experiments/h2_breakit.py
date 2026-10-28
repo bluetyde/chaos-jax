@@ -83,9 +83,21 @@ BUGS = [
         "F32_ZERO = 0.05",
         "F32_ZERO = 1e9",
     ),
+    (
+        "13 orbit transform drops the monomial sign factor",
+        "src/hyperchaos/orbits.py",
+        "                    sign *= s[inv[j]]  # x_j = s_inv[j] * y_inv[j]",
+        "                    pass",
+    ),
+    (
+        "14 orbit transform leaves the equations in place (renames variables only)",
+        "src/hyperchaos/orbits.py",
+        "new_e = inv[e]  # equation e",
+        "new_e = e  # equation e",
+    ),
 ]
 
-FAST = ["tests/test_h2_search.py", "-k", "g5"]
+FAST = ["tests/test_h2_search.py", "tests/test_orbits.py", "-k", "g5"]
 
 
 def run_tests():
