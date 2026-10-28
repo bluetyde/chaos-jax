@@ -35,3 +35,21 @@ A "no 4-term 4D chaotic flow exists" statement. Covered: quadratic monomials onl
 
 C1 (tests/test_enum4.py), C2 (max difference from the published Li-Sprott exponents 0.0022) and C3 pass. **C5 half-fails**: Li-Sprott passes stage 0 and tier 1 and is labelled hyperchaotic (0.069, 0.011, -0.0001, -1.080), but Rossler 1979 is dropped at stage 0. Diagnosis (`results/h3_c5.log` and a short run): from both near-origin starts it diverges at dt 0.01 and 0.002 (z' = 3 + xz escapes unless the start is in the basin); from its published start (-10, -6, 0, 10) it is "inconsistent" at dt 0.01 and "chaotic" at dt 0.002. So the pipeline as written has two limits: it only follows orbits reached from points near the origin, and dt 0.01 is too coarse for stiff 4D systems. P-H4 is therefore missed (predicted both pass).
 Change before the search: stage 0 and tier 1 try 4 fixed starts, chosen now and not tuned to Rossler: (0.05, 0.05, 0.05, 0.05), (0.1, -0.05, 0.07, 0.03), (1, 1, 1, 1), (-1, 0.5, -0.5, 1). A system continues from the first start that passes stage 0 and tier 1. Confirmation uses that start and a second start (the first scaled by 1.1 plus 0.01 times (1, -1, 1, -1)); both must give the same label. dt stays 0.01 (the amplitude of normalised 4-term flows is about 1, where stiffness is milder than in Rossler; any hit is re-run at dt 0.005 and 0.0025). GH1 is not fully met (C5 for Rossler); the search runs anyway with that limit stated: the result covers only attractors reached from these four starts at dt 0.01. The Rossler published start (-10, -6, 0, 10) is not added, since that would tune the pipeline to the control.
+
+## Amendment A2 (2026-10-28, after the first run was stopped, before the replacement is coded or run; gates and predictions above are NOT changed)
+
+The first run (A1 pipeline) was stopped by the owner after about 25 minutes: 11 of 234 chunks done (4,832 systems, 1,600 passed stage 0, 946 passed tier 1, 0 reached a confirmed hit, 8 conservative candidates), projecting 6 to 7 hours. Cause: tier 1 (spectrum T = 300, keep if first exponent + 3 se > 0.005) is the H2B middle-filter rule, which H2B measured as removing almost nothing; 59% of stage-0 survivors passed it, and each then cost a T = 5000 spectrum. P-H5 (under 30 minutes) is missed.
+Change: tier 1 is replaced by a batched one-vector exponent test, the 4D analogue of the 3D stage 1b: jvp-based tangent vector, dt 0.02, 1200 chunks of 25 steps (spin 200 chunks), keep if max |x| <= 1e4 and the exponent estimate > 0.01 (no standard-error allowance). It runs for each start that passed stage 0; the first such start in the A1 order that also passes it is used for stage 2 and the confirmation, unchanged. The runner now writes one result file per chunk (resumable) and stops all workers if no chunk finishes for 30 minutes.
+**Lossiness is a known cost and is measured, not assumed:** the one-vector test has a known loss in 3D (the rule is the H2 stage 1b). Positive-control gates below.
+
+### Added gates
+- **GA2-1 (recall on controls).** Li-Sprott (7 terms) and the four 4D embeddings of Sprott cases B, C, D, E (the 3D flow plus `w' = -w`, 6 or 7 terms, one extra negative exponent) all pass stage 0 and the new test from at least one of the four starts at their normal coefficients. Any control lost is reported as a recall hole.
+- **GA2-2 (selectivity).** On the systems of the first 20 chunks, the new test keeps at most 5% of all systems (the old tier 1 kept 20%).
+- **GA2-3 (time).** Measured on those 20 chunks before the full run: projected full-run time at most 90 minutes; if it is longer the full run is not started and I report.
+
+### Predictions
+- P-A2-1: GA2-1 passes for all 5 controls: 70% (the 3D stage 1b lost about 2% of hits; the embeddings add a stiff negative exponent).
+- P-A2-2: GA2-2 passes (at most 5%): 80%.
+- P-A2-3: projected time at most 90 minutes: 75%; at most 30 minutes: 40%.
+- P-A2-4: the full run again finds no confirmed hyperchaotic hit: 97%; no confirmed chaotic hit either: 80% (as P-H1, P-H2).
+- P-A2-5: at least one of these is missed: 60%.
