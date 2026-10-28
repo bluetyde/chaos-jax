@@ -68,3 +68,6 @@ Caveats: bug-15 hang cost about 20 minutes; the full 15-bug script was not rerun
 
 ## 2026-10-27 hyperchaos agent: H2G float32 threshold sweep
 Status: branch claude/h2-f32-threshold (off main 96f0cb4), committed, nothing merged or pushed. No float32 stage-1 threshold passes: threshold 0 recovers 467 of 472 hits but gives 33x survivors; the float64 keeper share never exceeds 92
+## 2026-10-27 hyperchaos agent: H2G float32 threshold sweep
+Status: branch claude/h2-f32-threshold (off main 96f0cb4), committed, nothing merged or pushed. No float32 stage-1 threshold passes: threshold 0 recovers 467 of 472 hits but gives 33x survivors; the float64 keeper share never exceeds 92 percent. Two lost hits (133 stage 1a, 168 non-finite) never come back. Float32 GPU screening stays cancelled. Details: docs/PREDICTIONS-H2G.md.
+Verification: experiments/h2g_threshold.py 6 60 1000 (469 s, Windows, Python 3.14.6, CPU only, low background load).
