@@ -38,10 +38,8 @@ BUGS = [
     (
         "5 classifier accepts expanding orbits (Amendment 5)",
         "src/hyperchaos/classify.py",
-        "    if float(np.sum(res.exponents)) > CONSERVATIVE_SUM:
-",
-        "    if False and float(np.sum(res.exponents)) > CONSERVATIVE_SUM:
-",
+        "    if float(np.sum(res.exponents)) > CONSERVATIVE_SUM:\n",
+        "    if False and float(np.sum(res.exponents)) > CONSERVATIVE_SUM:\n",
     ),
 ]
 
