@@ -73,7 +73,7 @@ def test_g3_classify_kopp_origin_start_is_not_chaotic():
     assert classify(r).label != "chaotic"
 
 
-def test_amendment5_expanding_orbit_is_not_chaotic():
+def test_g3_amendment5_expanding_orbit_is_not_chaotic():
     from hyperchaos.classify import classify
 
     # positive exponent sum equal to the mean divergence: the sum check passes, the orbit is still not an attractor
