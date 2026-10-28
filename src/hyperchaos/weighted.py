@@ -38,8 +38,11 @@ def sample_weighted(rng, n, wts):
         need = int((ks == k).sum())
         if need == 0:
             continue
-        got, have = [], 0
+        got, have, tries = [], 0, 0
         while have < need:
+            tries += 1
+            if tries > 500:
+                raise RuntimeError("weighted sampler accepts almost nothing (broken weights?)")
             X = uniform_supports(rng, k, max(4096, need * 10))
             acc = rng.random(len(X)) < wts[k].eff(X) / wts[k].cap
             got.append(X[acc])
