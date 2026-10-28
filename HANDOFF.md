@@ -81,3 +81,8 @@ Caveats: predictions were chat-only, not committed beforehand; 13 hits have lamb
 Status: branch claude/h2-stiff-check (off main 8c8f47d), committed, nothing merged or pushed. 10 of 13 stiff hits stable at smaller dt; 12 of 13 have positive exponent sum (volume expansion), 39 of 4,673 hits overall (5 of 472 in the earlier run): false positives, orbits settled on an invariant line. Amendment proposed, not applied.
 Verification: experiments/h2_stiff_check.py night1 (about 17 min, float64, Windows, CPU); predictions committed before the run; P-S3 missed.
 Caveats: 22 hits with sum in (-0.01, 0] unexamined; classifier not changed; counts in earlier docs unchanged.
+
+## 2026-10-28 hyperchaos agent: H1 Amendment 5 (expanding orbits)
+Status: branch claude/h2-stiff-check, committed. classify labels an orbit with exponent sum above 0.005 as expanding. Night run 4,673 to 4,634; main run 472 to 467.
+Verification: H1_T=5000 pytest tests/test_h1_controls.py tests/test_h1_classifier.py: 5 failed, 72 passed (same 5 as main, 71 passed); experiments/h1_breakit.py bugs 2-5 caught, bug 1 text not found (old harness defect); experiments/h2_rescore_amend5.py (all 44 removed hits fail confirm).
+Caveats: planted bug 5 first slipped through because of the fast-suite name selector (fixed by renaming the test); 22 weakly dissipative hits unexamined; earlier docs keep raw counts.
