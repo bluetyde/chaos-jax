@@ -14,7 +14,14 @@ RES = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
 def w_phase1(seed):
     from hyperchaos import search3d as s
 
-    cs = s.sample(np.random.default_rng(seed), 20000)
+    rng = np.random.default_rng(seed)
+    wf = os.environ.get("H2_WEIGHTS", "")
+    if wf:  # frozen-weight sampler (docs/PREDICTIONS-H2F.md, W1b)
+        from hyperchaos import weighted
+
+        cs = weighted.sample_weighted(rng, 20000, weighted.load(wf))
+    else:
+        cs = s.sample(rng, 20000)
     idx, lam, ka = s.screen(cs)
     n_b = len(idx)
     if len(idx):
