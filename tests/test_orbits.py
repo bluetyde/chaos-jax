@@ -44,3 +44,29 @@ def test_g5_generic_vector_has_48_distinct_images_and_a_changed_vector_a_differe
     d = c.copy()
     d[np.flatnonzero(d)[0]] += 0.1
     assert orbits.canonical(c) != orbits.canonical(d)
+
+
+def test_g5_weighted_sampler_with_zero_theta_is_the_uniform_sampler():
+    from hyperchaos import weighted
+
+    wts = {5: weighted.Weights(np.zeros(30), 1.0, 0.1, 5), 6: weighted.Weights(np.zeros(30), 1.0, 0.1, 6)}
+    cs = weighted.sample_weighted(np.random.default_rng(5), 20000, wts)
+    k = (cs != 0).sum(1)
+    assert set(np.unique(k)) == {5, 6} and abs((k == 5).mean() - 0.5) < 0.02
+    used = (cs != 0).mean(0)
+    assert used.min() > 0.15 and used.max() < 0.22
+    assert len(np.unique(np.abs(cs[cs != 0]))) == 50
+
+
+def test_g5_weighted_sampler_prefers_slots_with_positive_theta_and_keeps_the_term_mix():
+    from hyperchaos import weighted
+
+    th = np.zeros(30)
+    th[3] = 2.0
+    th[17] = -2.0
+    wts = {5: weighted.Weights(th, 8.0, 0.1, 5), 6: weighted.Weights(th, 8.0, 0.1, 6)}
+    cs = weighted.sample_weighted(np.random.default_rng(6), 20000, wts)
+    used = (cs != 0).mean(0)
+    base = np.median(used)
+    assert used[3] > 1.5 * base and used[17] < 0.7 * base
+    assert abs(((cs != 0).sum(1) == 5).mean() - 0.5) < 0.02

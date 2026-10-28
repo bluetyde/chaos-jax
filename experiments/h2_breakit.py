@@ -95,6 +95,12 @@ BUGS = [
         "new_e = inv[e]  # equation e",
         "new_e = e  # equation e",
     ),
+    (
+        "15 weighted sampler acceptance inverted (prefers the low-weight supports)",
+        "src/hyperchaos/weighted.py",
+        "acc = rng.random(len(X)) < wts[k].eff(X) / wts[k].cap",
+        "acc = rng.random(len(X)) > wts[k].eff(X) / wts[k].cap",
+    ),
 ]
 
 FAST = ["tests/test_h2_search.py", "tests/test_orbits.py", "-k", "g5"]
