@@ -16,6 +16,9 @@ MONOS4 = [tuple([0] * N)] + [tuple(1 if j == i else 0 for j in range(N)) for i i
 NM = len(MONOS4)
 START4 = np.array([0.05, 0.05, 0.05, 0.05])
 START4B = np.array([0.1, -0.05, 0.07, 0.03])
+START4U = np.array([1.0, 1.0, 1.0, 1.0])
+START4C = np.array([-1.0, 0.5, -0.5, 1.0])
+STARTS4 = [START4, START4B, START4U, START4C]  # Amendment A1 of docs/PREDICTIONS-H3-FOURTERM-4D.md
 
 
 def flow4(x, c):

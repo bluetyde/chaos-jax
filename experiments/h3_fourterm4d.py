@@ -17,7 +17,7 @@ G2 = [round(-3.0 + 0.5 * i, 1) for i in range(13)]
 
 
 @lru_cache(maxsize=None)
-def _stage0(dt=0.02, steps_a=1600, steps_b=400):
+def _stage0(start, dt=0.02, steps_a=1600, steps_b=400):
     import jax
     import jax.numpy as jnp
     from jax import lax
@@ -44,7 +44,7 @@ def _stage0(dt=0.02, steps_a=1600, steps_b=400):
             x = rk4(f, x)
             return (x, jnp.maximum(m, jnp.max(jnp.abs(x))), jnp.minimum(lo, x), jnp.maximum(hi, x)), None
 
-        x0 = jnp.asarray(e4.START4)
+        x0 = jnp.asarray(np.array(start))
         (x, m), _ = lax.scan(sa, (x0, jnp.zeros(())), None, length=steps_a)
         (x, m, lo, hi), _ = lax.scan(sb, (x, m, x, x), None, length=steps_b)
         return (m <= 1e4) & (jnp.max(hi - lo) > 1e-3)
@@ -52,14 +52,14 @@ def _stage0(dt=0.02, steps_a=1600, steps_b=400):
     return jax.jit(jax.vmap(one))
 
 
-def stage0(cs, batch=1024):
+def stage0(cs, start=None, batch=1024):
     cs = np.asarray(cs)
     keep = np.zeros(len(cs), dtype=bool)
     for i in range(0, len(cs), batch):
         part = cs[i : i + batch]
         pad = np.zeros((batch, cs.shape[1]))
         pad[: len(part)] = part
-        keep[i : i + len(part)] = np.asarray(_stage0()(pad))[: len(part)]
+        keep[i : i + len(part)] = np.asarray(_stage0(tuple(float(v) for v in (start if start is not None else __import__('hyperchaos').enum4.START4)))(pad))[: len(part)]
     return keep
 
 
@@ -83,17 +83,32 @@ def evaluate4(c, x0, T, dt=0.01):
     return r, classify(r, rule="v2")
 
 
-def confirm4(c, T=20000.0):
-    """Label (chaotic or hyperchaotic, not conservative) agreed by both starts, and the first start's spectrum; label None if not confirmed."""
+def second_start(x0):
+    return np.asarray(x0) * 1.1 + 0.01 * np.array([1.0, -1.0, 1.0, -1.0])
+
+
+def confirm4(c, x0=None, T=20000.0):
+    """Label (chaotic or hyperchaotic, not conservative) agreed from x0 and from a second start, and the first start's spectrum; label None if not confirmed (Amendment A1)."""
     from hyperchaos import enum4 as e4
 
-    r1, k1 = evaluate4(c, e4.START4, T)
+    x0 = e4.START4 if x0 is None else x0
+    r1, k1 = evaluate4(c, x0, T)
     if k1.label not in ("chaotic", "hyperchaotic") or k1.conservative:
         return None, r1
-    r2, k2 = evaluate4(c, e4.START4B, T)
+    r2, k2 = evaluate4(c, second_start(x0), T)
     if k2.label == k1.label and not k2.conservative:
         return k1.label, r1
     return None, r1
+
+
+def pick_start(c, keeps, j):
+    """First start (in e4.STARTS4 order) that passed stage 0 for system j and also passes tier 1; None if there is none."""
+    from hyperchaos import enum4 as e4
+
+    for si, x0 in enumerate(e4.STARTS4):
+        if keeps[si][j] and tier1_keep(c, x0):
+            return x0
+    return None
 
 
 def w_chunk(args):
@@ -109,22 +124,24 @@ def w_chunk(args):
         cs = e4.reps(sup, grid_by_d[d] if d else [0.0])
         n += len(cs)
         by_rank[r] = by_rank.get(r, 0) + len(cs)
-        keep = stage0(cs)
+        keeps = [stage0(cs, x0) for x0 in e4.STARTS4]
+        keep = np.any(keeps, axis=0)
         s0 += int(keep.sum())
         for j in np.flatnonzero(keep):
-            if not tier1_keep(cs[j]):
+            x0 = pick_start(cs[j], keeps, j)
+            if x0 is None:
                 continue
             t1 += 1
-            rr, kk = evaluate4(cs[j], e4.START4, 5000.0)
+            rr, kk = evaluate4(cs[j], x0, 5000.0)
             if kk.label in ("chaotic", "hyperchaotic") and kk.conservative:
                 cons.append(dict(c=cs[j].tolist(), rank=r, label=kk.label, exps=rr.exponents.tolist(), se=rr.se.tolist(), support=list(sup)))
                 continue
             if kk.label not in ("chaotic", "hyperchaotic"):
                 continue
             st2 += 1
-            lab, r5 = confirm4(cs[j])
+            lab, r5 = confirm4(cs[j], x0)
             if lab is not None:
-                hits.append(dict(c=cs[j].tolist(), rank=r, label=lab, exps=r5.exponents.tolist(), se=r5.se.tolist(), support=list(sup)))
+                hits.append(dict(c=cs[j].tolist(), rank=r, label=lab, exps=r5.exponents.tolist(), se=r5.se.tolist(), support=list(sup), start=np.asarray(x0).tolist()))
     return dict(n=n, stage0=s0, tier1=t1, stage2=st2, hits=hits, cons=cons, by_rank=by_rank)
 
 
@@ -177,10 +194,11 @@ if __name__ == "__main__":
         out = {}
         for name in ("LS", "R79"):
             c = c_from_system(name)
-            s0 = bool(stage0(np.array([c]))[0])
-            t1 = tier1_keep(c) if s0 else False
-            lab, r = confirm4(c, 20000.0) if t1 else (None, None)
-            out[name] = dict(stage0=s0, tier1=t1, label=lab, exps=None if r is None else r.exponents.tolist())
+            keeps = [stage0(np.array([c]), x0) for x0 in e4.STARTS4]
+            s0 = bool(np.any(keeps))
+            x0 = pick_start(c, keeps, 0) if s0 else None
+            lab, r = confirm4(c, x0, 20000.0) if x0 is not None else (None, None)
+            out[name] = dict(stage0=s0, tier1=x0 is not None, start=None if x0 is None else np.asarray(x0).tolist(), label=lab, exps=None if r is None else r.exponents.tolist())
             print(name, out[name], flush=True)
         json.dump(out, open(os.path.join(RES, "h3_c5.json"), "w"), indent=1)
     else:
