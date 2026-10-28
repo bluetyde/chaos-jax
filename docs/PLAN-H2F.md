@@ -75,3 +75,15 @@ Without D1 or W1b a 1e9 run is not overnight, because phase 3 stays above a day.
 - The GPU also drives your displays: the 2026-10-26 incident rules apply to every GPU run (memory cap, watchdog, foreground tiny run first, stop on out-of-memory or on a slow tiny run).
 - Speed gains of different items do not multiply cleanly; I will measure the combined pipeline, not add up the pieces.
 - Targeted sampling and lazy confirmation both change what a "count" means; the tables must say which run produced them.
+
+## Decisions and amendments (2026-10-27, later the same day)
+
+- **D2:** wait until W2a has passed, then install `cupy-cuda12x` in a new venv (owner: "wait until W2a, then yes").
+- **D4:** 8 workers are allowed at night; the owner will not be using the computer and the other agents are not running heavy jobs then. W6a still measures the gain first.
+- **D1 (amendment A1, dated 2026-10-27, to take effect only for the large run, before it is started):** confirmation may be done in two tiers. Tier 1: one hit per support class (the first found in the run) is confirmed at T = 20000 from two starts, as now. Tier 2: all other hits stay in the list marked "stage 2 passed, not yet confirmed" and are confirmed afterwards or not at all. Every table of the run reports three numbers: found, confirmed, not yet confirmed. Facts that go with this amendment: stage 2 hits fail confirmation in 14% (60 of 70, 1.2e6-draw run) to 23% (472 of 610, main run) of the cases, so unconfirmed candidates are not hits and must never be counted as such; a confirmed class member says little about its classmates (a class is a pattern of terms, not a set of coefficient values); and the saving is probably 2-5x on phase 3, not the 5-10x I first guessed (472 hits fell in 266 classes at 1e7 draws, a ratio of 1.8). The amendment does not lower recall: no candidate is dropped, only the confirmation is postponed. It is implemented as W6c, after W6a and W6b, with its own gates.
+- **D3:** the frozen-weights version is to be tested (owner). The adaptive version is not. See W1b results in `docs/PREDICTIONS-H2F.md`.
+
+## What makes a speedup safe or unsafe (working rule)
+1. **Lossless**: same inputs give the same decisions, only the computation is organised differently (batching, pooling, more workers, early exit that cannot change the decision). Safe if a test on the known hits and on seeds 1000-1059 shows identical decisions.
+2. **Lossy and measured**: it can drop candidates (the boundedness filter lost 2 of 472 known hits; the float32 spectrum pass lost 9). Acceptable only if the loss is measured on known hits, stated in every count that depends on it, and small. A blind spot remains: every recall test uses hits that the old pipeline found, so true hits that both pipelines miss are invisible.
+3. **Changes what a number means**: sampling weights, confirmation tiers. Allowed with a dated amendment and labels on every table; never mixed with uniform, fully confirmed data.
