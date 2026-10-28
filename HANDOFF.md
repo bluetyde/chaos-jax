@@ -76,3 +76,8 @@ Verification: experiments/h2g_threshold.py 6 60 1000 (469 s, Windows, Python 3.1
 Status: done, branch claude/h2-night1-results (off main e5ce607), committed, nothing merged or pushed. 4,673 confirmed hits in 7.2 h on 8 workers, exit 0, all distinct under the 48-group (3,570 k=6, 1,103 k=5), zero overlap with the 472 main-run classes.
 Verification: results/h2_night1.log, summary json, experiments/h2_night_analyze.py (Windows, Python 3.14.6); funnel and phase split in docs/RESULTS-H2-NIGHT1.md.
 Caveats: predictions were chat-only, not committed beforehand; 13 hits have lambda1 above 10 (stiff, not re-integrated at smaller dt); filter loss not measured by this run; 4-term search never run.
+
+## 2026-10-28 hyperchaos agent: Benkouider 2024 paper read and reproduced
+Status: branch claude/benkouider-2024 (off main 8c8f47d), committed, nothing merged or pushed. Paper read, added to LITERATURE.md (9 terms, not a record). First/fourth exponents match; the second exponent (published 0.010) is not reproduced (0.005 or less, falling with dt). RK4 dt 0.01 diverges on this stiff system.
+Verification: experiments/benkouider_check.py and benkouider_dt.py (float64, Windows, CPU, about 5 min total); predictions committed before the run (docs/PREDICTIONS-BENKOUIDER.md; missed P-B3).
+Caveats: standard errors from 10 blocks are likely too small; H2/H3 step sizes (0.01, 0.02) are unsafe for stiff 4D candidates.
