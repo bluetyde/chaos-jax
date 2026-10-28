@@ -1,0 +1,27 @@
+{
+ "night_hits": 4634,
+ "structure_keys": 1209,
+ "keys_5": 38,
+ "keys_6": 1171,
+ "term_sets": 1093,
+ "sprott_in_night": [
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "M",
+  "N"
+ ],
+ "sprott_in_main": [
+  "B",
+  "C",
+  "D"
+ ],
+ "main_keys": 268,
+ "shared": 217
+}

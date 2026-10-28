@@ -41,3 +41,16 @@ def test_g4_enumerate_support_counts():
     for sup in sups:
         ranks[en.null_directions(sup)[1]] = ranks.get(en.null_directions(sup)[1], 0) + 1
     assert len(sups) == 13500 and ranks == {4: 8346, 3: 4881, 2: 273}
+
+
+def test_g4_enumerate_flip_dedupe_keeps_one_per_orbit():
+    import itertools
+
+    slots = (3, 6, 12, 25, 28)
+    full = en.reps(slots, [0.0], dedupe_flips=False)
+    ded = en.reps(slots, [0.0], dedupe_flips=True)
+    assert len(full) == 32 and 4 <= len(ded) < 32
+    F = en.flip_factors(sorted(slots))
+    orbit = {tuple(min(tuple(row) for row in F * np.asarray(p))) for p in itertools.product((-1.0, 1.0), repeat=5)}
+    assert len(orbit) == len(ded)
+

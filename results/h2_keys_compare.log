@@ -1,0 +1,8 @@
+night hits 4634 main hits 467
+structure keys (term-set + signs, up to renaming/flips): all 1209, 5-term 38, 6-term 1171
+hits per structure key: max 217, median 1
+term-sets only (signs ignored): 1093
+Sprott cases A-S found by structure key in the night run: ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'M', 'N']
+Sprott cases A-S found in the 1e7 main run: ['B', 'C', 'D']
+main-run structure keys 268; shared with night run: 217
+distinct (structure, parameter) pairs after rounding to 3 decimals: 4558

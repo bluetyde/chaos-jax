@@ -1,0 +1,6 @@
+A {'n': 104, 'stage2': 0, 'hits': 0, 'cons': 1}
+B {'n': 104, 'stage2': 2, 'hits': 2, 'cons': 0}
+C {'n': 104, 'stage2': 2, 'hits': 1, 'cons': 0}
+D {'n': 52, 'stage2': 1, 'hits': 1, 'cons': 0}
+E {'n': 52, 'stage2': 0, 'hits': 0, 'cons': 0}
+wall 47 s
