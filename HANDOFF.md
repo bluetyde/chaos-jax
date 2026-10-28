@@ -71,3 +71,8 @@ Status: branch claude/h2-f32-threshold (off main 96f0cb4), committed, nothing me
 ## 2026-10-27 hyperchaos agent: H2G float32 threshold sweep
 Status: branch claude/h2-f32-threshold (off main 96f0cb4), committed, nothing merged or pushed. No float32 stage-1 threshold passes: threshold 0 recovers 467 of 472 hits but gives 33x survivors; the float64 keeper share never exceeds 92 percent. Two lost hits (133 stage 1a, 168 non-finite) never come back. Float32 GPU screening stays cancelled. Details: docs/PREDICTIONS-H2G.md.
 Verification: experiments/h2g_threshold.py 6 60 1000 (469 s, Windows, Python 3.14.6, CPU only, low background load).
+
+## 2026-10-28 hyperchaos agent: H2 night run 1 (1e8 draws)
+Status: done, branch claude/h2-night1-results (off main e5ce607), committed, nothing merged or pushed. 4,673 confirmed hits in 7.2 h on 8 workers, exit 0, all distinct under the 48-group (3,570 k=6, 1,103 k=5), zero overlap with the 472 main-run classes.
+Verification: results/h2_night1.log, summary json, experiments/h2_night_analyze.py (Windows, Python 3.14.6); funnel and phase split in docs/RESULTS-H2-NIGHT1.md.
+Caveats: predictions were chat-only, not committed beforehand; 13 hits have lambda1 above 10 (stiff, not re-integrated at smaller dt); filter loss not measured by this run; 4-term search never run.
