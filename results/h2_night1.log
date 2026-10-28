@@ -1,0 +1,25 @@
+Started Tue 10/27/2026 22:20:07.88 
+2026-10-27 22:20:08 run night1: 20 blocks of 250 seeds (5.00e+06 draws each), 8 workers, seeds from 10000, weights=none, phase limit 5400 s
+2026-10-27 22:42:03 block 0 done: 244 hits, wall 1315 s (phases 518/219/578), elapsed 0.4 h, estimated finish in 6.9 h
+2026-10-27 23:02:56 block 1 done: 226 hits, wall 1253 s (phases 516/212/525), elapsed 0.7 h, estimated finish in 6.4 h
+2026-10-27 23:24:21 block 2 done: 240 hits, wall 1284 s (phases 518/213/554), elapsed 1.1 h, estimated finish in 6.1 h
+2026-10-27 23:45:40 block 3 done: 226 hits, wall 1279 s (phases 516/213/550), elapsed 1.4 h, estimated finish in 5.7 h
+2026-10-28 00:06:43 block 4 done: 235 hits, wall 1263 s (phases 516/213/534), elapsed 1.8 h, estimated finish in 5.3 h
+2026-10-28 00:28:28 block 5 done: 240 hits, wall 1305 s (phases 520/214/571), elapsed 2.1 h, estimated finish in 5.0 h
+2026-10-28 00:50:33 block 6 done: 247 hits, wall 1325 s (phases 519/215/591), elapsed 2.5 h, estimated finish in 4.7 h
+2026-10-28 01:11:59 block 7 done: 229 hits, wall 1286 s (phases 519/216/550), elapsed 2.9 h, estimated finish in 4.3 h
+2026-10-28 01:33:32 block 8 done: 228 hits, wall 1293 s (phases 524/215/554), elapsed 3.2 h, estimated finish in 3.9 h
+2026-10-28 01:54:50 block 9 done: 223 hits, wall 1278 s (phases 522/215/541), elapsed 3.6 h, estimated finish in 3.6 h
+2026-10-28 02:16:45 block 10 done: 238 hits, wall 1315 s (phases 521/215/579), elapsed 3.9 h, estimated finish in 3.2 h
+2026-10-28 02:39:05 block 11 done: 270 hits, wall 1340 s (phases 522/215/603), elapsed 4.3 h, estimated finish in 2.9 h
+2026-10-28 03:01:05 block 12 done: 256 hits, wall 1320 s (phases 522/215/584), elapsed 4.7 h, estimated finish in 2.5 h
+2026-10-28 03:22:14 block 13 done: 212 hits, wall 1269 s (phases 521/215/533), elapsed 5.0 h, estimated finish in 2.2 h
+2026-10-28 03:43:15 block 14 done: 210 hits, wall 1261 s (phases 523/215/522), elapsed 5.4 h, estimated finish in 1.8 h
+2026-10-28 04:05:22 block 15 done: 259 hits, wall 1327 s (phases 521/215/591), elapsed 5.8 h, estimated finish in 1.4 h
+2026-10-28 04:26:51 block 16 done: 236 hits, wall 1289 s (phases 519/215/556), elapsed 6.1 h, estimated finish in 1.1 h
+2026-10-28 04:47:30 block 17 done: 203 hits, wall 1239 s (phases 523/216/501), elapsed 6.5 h, estimated finish in 0.7 h
+2026-10-28 05:08:48 block 18 done: 216 hits, wall 1277 s (phases 521/216/540), elapsed 6.8 h, estimated finish in 0.4 h
+2026-10-28 05:30:45 block 19 done: 235 hits, wall 1317 s (phases 522/215/580), elapsed 7.2 h, estimated finish in 0.0 h
+2026-10-28 05:30:45 all 20 blocks done: 100000000 draws, 4673 confirmed hits
+2026-10-28 05:30:45 summary written to results/h2_night1_summary.json
+Finished Wed 10/28/2026  5:30:45.95 exit code 0 
