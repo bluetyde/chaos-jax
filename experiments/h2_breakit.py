@@ -108,13 +108,17 @@ FAST = ["tests/test_h2_search.py", "tests/test_orbits.py", "-k", "g5"]
 
 def run_tests():
     env = dict(os.environ, PYTHONPATH="src", H1_T="5000")
-    p = subprocess.run(
-        [PY, "-m", "pytest", "-q", "-p", "no:cacheprovider", "-x", *FAST],
-        cwd=ROOT,
-        env=env,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        p = subprocess.run(
+            [PY, "-m", "pytest", "-q", "-p", "no:cacheprovider", "-x", *FAST],
+            cwd=ROOT,
+            env=env,
+            capture_output=True,
+            text=True,
+            timeout=float(os.environ.get("H1_TEST_TIMEOUT", "300")),
+        )
+    except subprocess.TimeoutExpired:  # a mutated file can make a test loop forever (planted bug 15 did)
+        return 124, "TIMED OUT (treated as caught: the test did not finish)"
     return p.returncode, p.stdout
 
 
