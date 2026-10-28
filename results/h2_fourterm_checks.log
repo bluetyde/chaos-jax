@@ -1,0 +1,9 @@
+candidate 0 d/dt(y^2-z^2) max over 200 random points = 8.53e-14
+candidate 1 d/dt(y^2-z^2) max over 200 random points = 2.84e-14
+candidate 2 d/dt(x^2-z^2) max over 200 random points = 7.11e-15
+candidate 3 d/dt(x^2-z^2) max over 200 random points = 1.42e-14
+candidate 4 d/dt(x^2-y^2) max over 200 random points = 2.84e-14
+coarse grid, case B {'n': 416, 'stage2': 8, 'hits': 8, 'cons': 0}
+coarse grid, case C {'n': 416, 'stage2': 6, 'hits': 4, 'cons': 0}
+coarse grid, case D {'n': 416, 'stage2': 6, 'hits': 6, 'cons': 0}
+coarse grid, case E {'n': 416, 'stage2': 0, 'hits': 0, 'cons': 0}
