@@ -101,14 +101,74 @@ def confirm4(c, x0=None, T=20000.0):
     return None, r1
 
 
-def pick_start(c, keeps, j):
-    """First start (in e4.STARTS4 order) that passed stage 0 for system j and also passes tier 1; None if there is none."""
+@lru_cache(maxsize=None)
+def _stage1b4(start, dt=0.02, inner=25, outer=1200, spin=200):
+    """4D analogue of the 3D stage 1b (Amendment A2): one tangent vector by jvp, exponent estimate and boundedness flag."""
+    import jax
+    import jax.numpy as jnp
+    from jax import lax
+
     from hyperchaos import enum4 as e4
 
+    def one(c):
+        f = lambda x: e4.flow4(x, c)  # noqa: E731
+
+        def aug(x, w):
+            return jax.jvp(f, (x,), (w,))
+
+        def step(carry, _):
+            x, w = carry
+            k1x, k1w = aug(x, w)
+            k2x, k2w = aug(x + 0.5 * dt * k1x, w + 0.5 * dt * k1w)
+            k3x, k3w = aug(x + 0.5 * dt * k2x, w + 0.5 * dt * k2w)
+            k4x, k4w = aug(x + dt * k3x, w + dt * k3w)
+            return (x + dt / 6.0 * (k1x + 2 * k2x + 2 * k3x + k4x), w + dt / 6.0 * (k1w + 2 * k2w + 2 * k3w + k4w)), None
+
+        def chunk(carry, i):
+            x, w, acc, m = carry
+            (x, w), _ = lax.scan(step, (x, w), None, length=inner)
+            nrm = jnp.linalg.norm(w)
+            acc = acc + jnp.where(i >= spin, jnp.log(nrm), 0.0)
+            return (x, w / nrm, acc, jnp.maximum(m, jnp.max(jnp.abs(x)))), None
+
+        w0 = jnp.ones(4) / 2.0
+        x0 = jnp.asarray(np.array(start))
+        (x, w, acc, m), _ = lax.scan(chunk, (x0, w0, jnp.zeros(()), jnp.zeros(())), jnp.arange(outer))
+        return acc / ((outer - spin) * inner * dt), m <= 1e4
+
+    return jax.jit(jax.vmap(one))
+
+
+LAMBDA_KEEP = 0.01
+
+
+def stage1b4(cs, start, batch=256):
+    cs = np.asarray(cs)
+    out = np.zeros(len(cs), dtype=bool)
+    for i in range(0, len(cs), batch):
+        part = cs[i : i + batch]
+        pad = np.zeros((batch, cs.shape[1]))
+        pad[: len(part)] = part
+        lam, ok = _stage1b4(tuple(float(v) for v in start))(pad)
+        out[i : i + len(part)] = (np.asarray(ok) & (np.asarray(lam) > LAMBDA_KEEP) & np.isfinite(np.asarray(lam)))[: len(part)]
+    return out
+
+
+def screen4(cs):
+    """Stages 0 and 1b4 over the four starts. Returns (passed stage 0 from any start, index into e4.STARTS4 of the first start passing both, or -1)."""
+    from hyperchaos import enum4 as e4
+
+    cs = np.asarray(cs)
+    any0 = np.zeros(len(cs), dtype=bool)
+    pick = np.full(len(cs), -1)
     for si, x0 in enumerate(e4.STARTS4):
-        if keeps[si][j] and tier1_keep(c, x0):
-            return x0
-    return None
+        k0 = stage0(cs, x0)
+        any0 |= k0
+        idx = np.flatnonzero(k0 & (pick < 0))
+        if len(idx):
+            ok = stage1b4(cs[idx], x0)
+            pick[idx[ok]] = si
+    return any0, pick
 
 
 def w_chunk(args):
@@ -124,13 +184,10 @@ def w_chunk(args):
         cs = e4.reps(sup, grid_by_d[d] if d else [0.0])
         n += len(cs)
         by_rank[r] = by_rank.get(r, 0) + len(cs)
-        keeps = [stage0(cs, x0) for x0 in e4.STARTS4]
-        keep = np.any(keeps, axis=0)
-        s0 += int(keep.sum())
-        for j in np.flatnonzero(keep):
-            x0 = pick_start(cs[j], keeps, j)
-            if x0 is None:
-                continue
+        any0, pick = screen4(cs)
+        s0 += int(any0.sum())
+        for j in np.flatnonzero(pick >= 0):
+            x0 = e4.STARTS4[pick[j]]
             t1 += 1
             rr, kk = evaluate4(cs[j], x0, 5000.0)
             if kk.label in ("chaotic", "hyperchaotic") and kk.conservative:
@@ -194,27 +251,60 @@ if __name__ == "__main__":
         out = {}
         for name in ("LS", "R79"):
             c = c_from_system(name)
-            keeps = [stage0(np.array([c]), x0) for x0 in e4.STARTS4]
-            s0 = bool(np.any(keeps))
-            x0 = pick_start(c, keeps, 0) if s0 else None
+            any0, pick = screen4(np.array([c]))
+            s0 = bool(any0[0])
+            x0 = e4.STARTS4[pick[0]] if pick[0] >= 0 else None
             lab, r = confirm4(c, x0, 20000.0) if x0 is not None else (None, None)
             out[name] = dict(stage0=s0, tier1=x0 is not None, start=None if x0 is None else np.asarray(x0).tolist(), label=lab, exps=None if r is None else r.exponents.tolist())
             print(name, out[name], flush=True)
         json.dump(out, open(os.path.join(RES, "h3_c5.json"), "w"), indent=1)
     else:
+        from concurrent.futures import FIRST_COMPLETED, wait
+
         workers = int(sys.argv[2])
+        limit = int(sys.argv[3]) if len(sys.argv) > 3 else None  # only the first `limit` chunks (the sample of gates GA2-2 and GA2-3)
+        stall = float(os.environ.get("H2_STALL_S", "1800"))
+        d = os.path.join(RES, "h3_4d")
+        os.makedirs(d, exist_ok=True)
         sups = e4.supports4(4)
         chunks = [(sups[i : i + 10], {1: G1, 2: G2, 3: G2}) for i in range(0, len(sups), 10)]
-        print("support classes", len(sups), "chunks", len(chunks), flush=True)
+        cap = len(chunks) if limit is None else min(limit, len(chunks))
+        path = lambda i: os.path.join(d, "chunk_%03d.json" % i)  # noqa: E731
+        todo = [i for i in range(cap) if not os.path.exists(path(i))]
+        print("support classes", len(sups), "chunks", len(chunks), "to run", len(todo), "of", cap, flush=True)
         with ProcessPoolExecutor(max_workers=workers) as ex:
-            parts = []
-            for i, p in enumerate(ex.map(w_chunk, chunks)):
-                parts.append(p)
-                if i % 10 == 0:
-                    m = merge(parts)
-                    print(i, "/", len(chunks), {k: v for k, v in m.items() if k not in ("hits", "cons")}, "hits", len(m["hits"]), "cons", len(m["cons"]), "elapsed %.0f s" % (time.time() - t0), flush=True)
+            it = iter(todo)
+            pending = {}
+            for _ in range(workers * 2):
+                i = next(it, None)
+                if i is not None:
+                    pending[ex.submit(w_chunk, chunks[i])] = i
+            last = time.time()
+            done_n = 0
+            while pending:
+                fin, _ = wait(list(pending), timeout=60, return_when=FIRST_COMPLETED)
+                if not fin and time.time() - last > stall:
+                    print("STOP: no chunk finished for %.0f s; killing the worker processes" % stall, flush=True)
+                    for p in list(ex._processes.values()):
+                        p.terminate()
+                    ex.shutdown(wait=False, cancel_futures=True)
+                    sys.exit(2)
+                for f in fin:
+                    i = pending.pop(f)
+                    json.dump(f.result(), open(path(i) + ".tmp", "w"))
+                    os.replace(path(i) + ".tmp", path(i))
+                    last = time.time()
+                    done_n += 1
+                    if done_n % 10 == 0:
+                        print("%d/%d chunks this run, elapsed %.0f s" % (done_n, len(todo), time.time() - t0), flush=True)
+                    j = next(it, None)
+                    if j is not None:
+                        pending[ex.submit(w_chunk, chunks[j])] = j
+        parts = [json.load(open(path(i))) for i in range(cap)]
         out = merge(parts)
-        out["wall"] = time.time() - t0
-        json.dump(out, open(os.path.join(RES, "h3_fourterm4d_search.json"), "w"))
-        print({k: v for k, v in out.items() if k not in ("hits", "cons")}, "hits", len(out["hits"]), "cons", len(out["cons"]))
+        out["chunks"] = cap
+        out["wall_this_run_s"] = time.time() - t0
+        name = "h3_fourterm4d_search.json" if cap == len(chunks) else "h3_fourterm4d_sample_%d.json" % cap
+        json.dump(out, open(os.path.join(RES, name), "w"))
+        print({k: v for k, v in out.items() if k not in ("hits", "cons")}, "hits", len(out["hits"]), "cons", len(out["cons"]), flush=True)
     print("wall %.0f s" % (time.time() - t0))
