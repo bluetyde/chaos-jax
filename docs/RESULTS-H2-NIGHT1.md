@@ -26,3 +26,6 @@ Funnel: stage 1a 23,268,280, stage 1b 270,033, boundedness 110,356, float32 13,1
 The 13 hits with first exponent above 10 were re-run at dt 0.005 and 0.0025 (`docs/PREDICTIONS-H2-STIFF.md`). 10 hold; 3 do not. More important: 12 of the 13 (and 39 of all 4,673) have a positive exponent sum, which is not a valid attractor. Treat the 4,673 as "4,634 plus 39 false positives" until the owner decides on the amendment; the 61 hits with a sum above -0.01 are the ones to look at first.
 
 After H1 Amendment 5 (`docs/PREDICTIONS-H2-AMEND5.md`): **4,634** hits (3,538 with k = 6, 1,096 with k = 5); 39 expanding orbits removed. The counts in the table above are raw, before the amendment.
+
+Addendum (keys): by structure key (term-set plus signs, up to renaming and sign flips) the 4,634 hits form 1,209 families (38 with 5 terms, 1,171 with 6), median 1 hit per family and up to 217. Eleven of Sprott's 19 cases are among them. 217 of the 268 families of the 1e7 run reappear. See `docs/PREDICTIONS-H2-ENUM5.md`.
+

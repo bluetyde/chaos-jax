@@ -26,3 +26,17 @@ Enabled only if GE1-GE4 all hold. If not: the code stays, the default stays rand
 
 ## Not claimed
 That enumeration finds every 5-term chaotic flow: windows narrower than the grid, other starting points, and orbits needing a smaller step are not covered. Nothing about 6 terms: the same counts say a 6-term pass is not cheaper than sampling.
+
+## Results (2026-10-28, written after the runs; no gate or prediction above was changed)
+
+Files: `src/hyperchaos/keys.py`, `tests/test_keys.py`, `experiments/h2_enum5.py`, `h2_keys_compare.py`, `results/h2_enum5_controls.*`, `h2_keys_compare.*`, `h1_breakit_keys.log`. float64, Windows, CPU.
+
+**Decision: the exhaustive 5-term pass is NOT enabled.** It failed gate GE3 before the full pass was run, so the 45-minute pass and the random-search baseline timing were not run (GE1, GE2 untested; no number for the speedup).
+- **GE3 failed.** Through the pass's own worker (flip-reduced signs, 13-point invariant grid) Sprott A is found (as conservative), B, C, D are found, **E is not**. A follow-up on E alone: with the flip-reduced signs E is not found at any grid step tried (0.5, 0.25, 0.2, 0.125, 0.1), while the earlier all-signs control (`results/h2_fourterm_control_*`, step 0.1) found it with 36 systems. So the loss comes from keeping one sign representative per flip orbit, not only from the grid: the pipeline uses fixed start points that are not symmetric under sign flips, so a flipped copy can reach a different attractor basin. The reduction by flips is therefore not lossless here, and a full-sign, step-0.1 enumeration is, by my arithmetic, about 600 million systems (13,750 one-invariant classes x 61 x 32, plus 2,507 two-invariant x 61^2 x 32, plus 38 three-invariant x 61^3 x 32), about 12 times the roughly 5e7 five-term random draws it would replace. Not cheaper.
+- **GE4 passed.** Keys unchanged by random rescaling, renaming and sign flip on Sprott A-E (3 tests), distinct for A-E; planted bug 8 (renamings only, no sign flips) is caught (bugs 1-8 all caught, 62 baseline tests).
+- Keys are not a speedup and do not need the gate; they are enabled as an analysis tool.
+
+**Predictions.** P-E1, P-E2, P-E3, P-E5: not tested (no full pass). P-E4 **missed** (75%: E not found). P-E6 hit.
+
+**What the keys show (`results/h2_keys_compare.log`).** Night run, 4,634 hits after Amendment 5: **1,209 structure keys** (term-set plus signs, up to renaming and flips): 38 with 5 terms, 1,171 with 6; 1,093 term-sets when signs are ignored. Hits per structure key: median 1, maximum 217. 4,558 distinct (structure, parameter) pairs after rounding to 3 decimals. Sprott's cases A-S found by structure key in the night run: B, C, D, E, F, G, H, I, J, M, N (11 of 19; A is conservative and excluded by design; K, L, O, P, Q, R, S not found). In the 1e7 main run: B, C, D (3 of 19). **Correction to the night-run write-up:** I said none of the 472 earlier classes reappears; that was at the level of exact coefficient vectors. At the level of structure keys, 217 of the main run's 268 keys (81%) are found again in the night run.
+Not compared: the 38 five-term families have not been checked against later literature beyond Sprott's table A-E; four of them are Sprott's B-E. No claim that any is new.
