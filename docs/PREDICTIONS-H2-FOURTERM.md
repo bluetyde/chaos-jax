@@ -31,3 +31,6 @@ There are 27,405 supports of 4 slots, times 100 nonzero grid values per slot (0.
 
 ## Not claimed
 A "no 4-term chaotic flow exists" statement. A negative result covers: quadratic 3D flows with these monomials, rank-4 supports up to scaling exactly, rank-3 and rank-2 supports only on the 13-point invariant grid, start points START and START2 only, classifier rule v2 with Amendment 5, dt 0.01 for the confirmation. Bounded solutions that need other starting points are not searched.
+
+## Erratum (2026-10-28, before any run)
+The support total above says 13,476; the three rank counts it lists (8,346 + 4,881 + 273) sum to 13,500, which is what the code enumerates. The rank counts are unchanged; only the total was mis-added. No gate or prediction depends on it.
