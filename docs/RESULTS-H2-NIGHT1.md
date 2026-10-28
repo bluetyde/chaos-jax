@@ -19,5 +19,5 @@ Funnel: stage 1a 23,268,280, stage 1b 270,033, boundedness 110,356, float32 13,1
 - The 2.3% hit loss is not measured by this run (it records no dropped systems); it comes from the earlier recall tests on seeds 1000-1059.
 
 ## Flags (not resolved)
-- 17 hits have a stored second exponent above 0.01 or a first exponent above 10. A 3-D flow cannot have two positive exponents, so the five with lambda2 > 0.01 are estimate noise (standard errors of the same size). About 5 hits with lambda1 above 10 and lambda2, lambda3 near zero or -0.5 look stiff, and RK4 at dt 0.01 may be unreliable for them. The classifier's sum check passed, but I have not re-integrated these at a smaller step. Treat them as unverified until that is done.
+- 13 hits have a first exponent above 10 (44 above 5), and 5 have a second exponent above 0.01. A 3-D flow cannot have two positive exponents, so the five with lambda2 > 0.01 are estimate noise (standard errors of the same size). The 13 with lambda1 above 10 (most with lambda2 near zero) look stiff, and RK4 at dt 0.01 may be unreliable for them. The classifier's sum check passed, but I have not re-integrated these at a smaller step. Treat them as unverified until that is done.
 - Hit counts are raw confirmations at the classifier rule v2, not a published-quality catalogue.
