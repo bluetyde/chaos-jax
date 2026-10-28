@@ -1,0 +1,55 @@
+{
+ "first_integrals": [
+  {
+   "i": 0,
+   "max_abs_derivative": 8.526512829121202e-14,
+   "pair": "y^2-z^2"
+  },
+  {
+   "i": 1,
+   "max_abs_derivative": 2.842170943040401e-14,
+   "pair": "y^2-z^2"
+  },
+  {
+   "i": 2,
+   "max_abs_derivative": 7.105427357601002e-15,
+   "pair": "x^2-z^2"
+  },
+  {
+   "i": 3,
+   "max_abs_derivative": 1.4210854715202004e-14,
+   "pair": "x^2-z^2"
+  },
+  {
+   "i": 4,
+   "max_abs_derivative": 2.842170943040401e-14,
+   "pair": "x^2-y^2"
+  }
+ ],
+ "coarse_control": {
+  "B": {
+   "n": 416,
+   "stage2": 8,
+   "hits": 8,
+   "cons": 0
+  },
+  "C": {
+   "n": 416,
+   "stage2": 6,
+   "hits": 4,
+   "cons": 0
+  },
+  "D": {
+   "n": 416,
+   "stage2": 6,
+   "hits": 6,
+   "cons": 0
+  },
+  "E": {
+   "n": 416,
+   "stage2": 0,
+   "hits": 0,
+   "cons": 0
+  }
+ }
+}

@@ -1,0 +1,52 @@
+2026-10-28 11:56:19 rank-3 supports 4881, chunks 489, already done 0
+2026-10-28 11:56:48 10/489 chunks this run, hits 0, cons 0, elapsed 0 min
+2026-10-28 11:57:12 20/489 chunks this run, hits 0, cons 0, elapsed 1 min
+2026-10-28 11:57:45 30/489 chunks this run, hits 0, cons 0, elapsed 1 min
+2026-10-28 11:58:07 40/489 chunks this run, hits 0, cons 0, elapsed 2 min
+2026-10-28 11:58:34 50/489 chunks this run, hits 0, cons 0, elapsed 2 min
+2026-10-28 11:58:56 60/489 chunks this run, hits 0, cons 0, elapsed 3 min
+2026-10-28 11:59:12 70/489 chunks this run, hits 0, cons 0, elapsed 3 min
+2026-10-28 11:59:34 80/489 chunks this run, hits 0, cons 0, elapsed 3 min
+2026-10-28 11:59:49 90/489 chunks this run, hits 0, cons 0, elapsed 4 min
+2026-10-28 12:00:06 100/489 chunks this run, hits 0, cons 0, elapsed 4 min
+2026-10-28 12:00:33 110/489 chunks this run, hits 0, cons 0, elapsed 4 min
+2026-10-28 12:00:57 120/489 chunks this run, hits 0, cons 0, elapsed 5 min
+2026-10-28 12:01:35 130/489 chunks this run, hits 0, cons 0, elapsed 5 min
+2026-10-28 12:02:36 140/489 chunks this run, hits 0, cons 0, elapsed 6 min
+2026-10-28 12:03:07 150/489 chunks this run, hits 0, cons 0, elapsed 7 min
+2026-10-28 12:03:38 160/489 chunks this run, hits 0, cons 0, elapsed 7 min
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+2026-10-28 12:04:46 170/489 chunks this run, hits 0, cons 0, elapsed 8 min
+2026-10-28 12:05:20 180/489 chunks this run, hits 0, cons 0, elapsed 9 min
+2026-10-28 12:06:00 190/489 chunks this run, hits 0, cons 0, elapsed 10 min
+2026-10-28 12:06:42 200/489 chunks this run, hits 0, cons 0, elapsed 10 min
+2026-10-28 12:07:19 210/489 chunks this run, hits 0, cons 0, elapsed 11 min
+2026-10-28 12:08:06 220/489 chunks this run, hits 0, cons 0, elapsed 12 min
+2026-10-28 12:08:37 230/489 chunks this run, hits 0, cons 0, elapsed 12 min
+2026-10-28 12:09:17 240/489 chunks this run, hits 0, cons 0, elapsed 13 min
+2026-10-28 12:09:51 250/489 chunks this run, hits 0, cons 0, elapsed 14 min
+2026-10-28 12:10:10 260/489 chunks this run, hits 0, cons 0, elapsed 14 min
+2026-10-28 12:10:44 270/489 chunks this run, hits 0, cons 0, elapsed 14 min
+2026-10-28 12:11:52 280/489 chunks this run, hits 0, cons 0, elapsed 16 min
+2026-10-28 12:13:45 290/489 chunks this run, hits 0, cons 0, elapsed 17 min
+2026-10-28 12:14:42 300/489 chunks this run, hits 0, cons 0, elapsed 18 min
+2026-10-28 12:15:31 310/489 chunks this run, hits 0, cons 0, elapsed 19 min
+2026-10-28 12:16:42 320/489 chunks this run, hits 0, cons 0, elapsed 20 min
+2026-10-28 12:17:25 330/489 chunks this run, hits 0, cons 0, elapsed 21 min
+2026-10-28 12:18:18 340/489 chunks this run, hits 0, cons 0, elapsed 22 min
+2026-10-28 12:19:10 350/489 chunks this run, hits 0, cons 0, elapsed 23 min
+2026-10-28 12:19:53 360/489 chunks this run, hits 0, cons 0, elapsed 24 min
+2026-10-28 12:20:36 370/489 chunks this run, hits 0, cons 0, elapsed 24 min
+2026-10-28 12:21:26 380/489 chunks this run, hits 0, cons 0, elapsed 25 min
+2026-10-28 12:23:07 390/489 chunks this run, hits 0, cons 0, elapsed 27 min
+2026-10-28 12:23:54 400/489 chunks this run, hits 0, cons 0, elapsed 28 min
+2026-10-28 12:24:36 410/489 chunks this run, hits 0, cons 0, elapsed 28 min
+2026-10-28 12:25:38 420/489 chunks this run, hits 0, cons 0, elapsed 29 min
+2026-10-28 12:26:56 430/489 chunks this run, hits 0, cons 0, elapsed 31 min
+2026-10-28 12:29:07 440/489 chunks this run, hits 0, cons 0, elapsed 33 min
+2026-10-28 12:31:31 450/489 chunks this run, hits 0, cons 0, elapsed 35 min
+2026-10-28 12:33:13 460/489 chunks this run, hits 0, cons 0, elapsed 37 min
+2026-10-28 12:34:56 470/489 chunks this run, hits 0, cons 0, elapsed 39 min
+2026-10-28 12:36:29 480/489 chunks this run, hits 0, cons 0, elapsed 40 min
+2026-10-28 12:41:27 done: {'n': 4763856, 'keep_a': 1768902, 'keep_b': 32237, 'bound': 2909, 'stage2': 0, 'by_rank': {'3': 4763856}, 'wall_this_run_s': 2707.9010558128357} hits 0 cons 35

@@ -1,0 +1,12 @@
+case A support (2, 11, 18, 20, 27) rank 4 invariant(s) [0.0] in range
+case B support (8, 11, 12, 20, 25) rank 4 invariant(s) [0.0] in range
+case C support (8, 11, 12, 20, 24) rank 4 invariant(s) [0.0] in range
+case D support (2, 11, 13, 26, 27) rank 4 invariant(s) [0.549] in range
+case E support (8, 12, 14, 20, 21) rank 4 invariant(s) [-0.347] in range
+A {'found': False, 'n': 1952, 'keep_a': 1086, 'stage2': 0, 'hits': 0}
+B {'found': True, 'n': 1952, 'keep_a': 955, 'stage2': 36, 'hits': 36}
+C {'found': True, 'n': 1952, 'keep_a': 1050, 'stage2': 40, 'hits': 32}
+D {'found': True, 'n': 1952, 'keep_a': 337, 'stage2': 18, 'hits': 18}
+E {'found': True, 'n': 1952, 'keep_a': 519, 'stage2': 4, 'hits': 4}
+found 4 of 5
+wall 494 s
