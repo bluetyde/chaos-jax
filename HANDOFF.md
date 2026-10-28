@@ -96,3 +96,13 @@ Caveats: coarse-grid control misses Sprott case E, so rank-3 and rank-2 supports
 Status: done, branch claude/h2-four-term, committed, nothing merged or pushed. 4,763,856 rank-3 systems at invariant step 0.1: no dissipative chaotic flow; 35 conservative candidates, all with a first integral a^2-b^2. Rank-3 coverage gap closed; rank-2 supports (273, two invariants) still coarse.
 Verification: experiments/h2_fine3.py 6 (45 min, 489 chunk files, resumable) and h2_fine3_analyze.py; predictions committed before the run.
 Caveats: P-N2 mis-specified (only 3 of the 5 coarse candidates are rank 3; all 3 reappear), P-N4 missed (45 min vs 90-150); rank-2 fine pass would be about 2.6 h, 16.25M systems, not run; coverage limited to ln t in [-3,3] and two starts.
+
+## 2026-10-28 hyperchaos agent: H3 4D four-term search RUNNING (started about 13:00)
+Status: branch claude/h3-four-term-4d, committed, nothing merged or pushed. 6 background workers (experiments/h3_fourterm4d.py search 6) running; log results/h3_fourterm4d_search.log; ETA about 6 to 7 hours (11 of 234 chunks in 19 min; predicted under 30 min, missed). NOT resumable and no stall timeout: if killed, rerun from the start. Do not start other heavy jobs; do not switch this clone's branch while it runs.
+Done before it: 4D enumerator src/hyperchaos/enum4.py (4 tests); controls C1-C4 pass, C2 max diff 0.0022 from the published Li-Sprott exponents; C5: Li-Sprott kept and hyperchaotic, Rossler 1979 dropped at stage 0 (diverges from every start tried, basin and dt limits); Amendment A1 (4 starts) written after C5 and before the search.
+Caveats: result will cover only attractors reached from the 4 fixed starts at dt 0.01; GH1 not fully met (C5 R79); the run cost is about 13 times my estimate because about 20 percent of systems pass tier 1 and each then costs a T = 5000 spectrum.
+
+## 2026-10-28 hyperchaos agent: H3 4D four-term search, finished
+Status: branch claude/h3-four-term-4d, committed, nothing merged or pushed. 369,600 systems, 0 verified chaotic or hyperchaotic; 15 pipeline hits were one saddle family caused by my symmetric starts (Amendment A3), 0 of 15 verify from generic starts; 71 conservative candidates (66 with a first integral, 5 drift or blow-up). Nothing running.
+Verification: experiments/h3_fourterm4d.py search 6 (123 min, resumable chunk files in results/h3_4d), h3_verify_hits.py, h3_cons_check.py, h3_a2_controls.py; planted bugs 1-7 caught; pytest tests/test_enum4.py (4 passed).
+Caveats: Rossler 1979 not recovered (C5 half-fail); step 0.25/0.5 invariant grids untested against a control; I killed the first A1 run after 25 minutes (tier 1 too weak); estimates were wrong three times (P-H5, P-A2-3, first 55-minute claim).

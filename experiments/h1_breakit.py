@@ -47,9 +47,15 @@ BUGS = [
         "np.prod(s ** np.asarray(MONOS[m])) / s[i]",
         "np.prod(s ** np.asarray(MONOS[m])) * s[i]",
     ),
+    (
+        "7 4D enumerator scales by s_i instead of dividing (H3 four-term 4D)",
+        "src/hyperchaos/enum4.py",
+        "np.prod(s ** np.asarray(MONOS4[m])) / s[i]",
+        "np.prod(s ** np.asarray(MONOS4[m])) * s[i]",
+    ),
 ]
 
-FAST = ["tests/test_h1_controls.py", "tests/test_h1_classifier.py", "tests/test_enumerate.py", "-k", "(g1 or g2 or g3 or g4) and not KP and not CS12 and not CS13"]
+FAST = ["tests/test_h1_controls.py", "tests/test_h1_classifier.py", "tests/test_enumerate.py", "tests/test_enum4.py", "-k", "(g1 or g2 or g3 or g4) and not KP and not CS12 and not CS13"]
 
 
 def run_tests():

@@ -1,0 +1,26 @@
+{
+ "LS": {
+  "stage0": true,
+  "tier1": true,
+  "start": [
+   0.05,
+   0.05,
+   0.05,
+   0.05
+  ],
+  "label": "hyperchaotic",
+  "exps": [
+   0.0690232915469592,
+   0.010626525682879955,
+   -5.708371683750945e-05,
+   -1.079592735857448
+  ]
+ },
+ "R79": {
+  "stage0": false,
+  "tier1": false,
+  "start": null,
+  "label": null,
+  "exps": null
+ }
+}

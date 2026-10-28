@@ -1,0 +1,1082 @@
+[
+ {
+  "i": 0,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 1,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 2,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 3,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 4,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 5,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 6,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 7,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 8,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 9,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 10,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 11,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 12,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 13,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ },
+ {
+  "i": 14,
+  "rank": 3,
+  "label": "chaotic",
+  "support": [
+   1,
+   18,
+   32,
+   59
+  ],
+  "orig_start": [
+   -1.0,
+   0.5,
+   -0.5,
+   1.0
+  ],
+  "runs": {
+   "G0_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G0_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.01": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   },
+   "G1_0.005": {
+    "label": "diverges",
+    "conservative": false,
+    "settled": false,
+    "exps": [
+     NaN,
+     NaN,
+     NaN,
+     NaN
+    ],
+    "max_abs": Infinity,
+    "late_range": NaN
+   }
+  },
+  "verified": false
+ }
+]
