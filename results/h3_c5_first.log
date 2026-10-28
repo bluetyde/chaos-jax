@@ -1,0 +1,3 @@
+LS {'stage0': True, 'tier1': True, 'label': 'hyperchaotic', 'exps': [0.0690232915469592, 0.010626525682879955, -5.708371683750945e-05, -1.079592735857448]}
+R79 {'stage0': False, 'tier1': False, 'label': None, 'exps': None}
+wall 21 s
