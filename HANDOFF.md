@@ -298,3 +298,44 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Catalogue: hyperchaos/catalogue/ (5,101 hits, 1,260 structure families, from experiments/export_catalogue.py).
 - Verification (Windows, Python 3.14): chaos-jax `pytest -q` 67 passed, 1 xfailed; hyperchaos `pytest -q tests` 108 passed, 5 xfailed.
 - Caveats: not pushed, repo still private; hyperchaos/LITERATURE.md not checked for copied passages; catalogue families not matched to literature beyond Sprott A to S; dependency licences not checked.
+## 2026-10-27 Task A7b (`fds` as a black box on Lorenz-63): done
+
+- Branch `claude/phase-A7b-fds`. Predictions and gates in `docs/PREDICTIONS-A7b.md`, committed before any `fds` run. Results are in the same file and in `results/phaseA7b_*.json`.
+- Result: `fds` 0.1.0.dev1 (2016 pre-release, GPL-3.0, no source copied or read) runs on Python 3.13 with `mpich` from PyPI. With the RK4 wrapper: rho 1.01709 +- 0.00024, sigma 0.13362 +- 0.00021, beta -1.65926 +- 0.00239 (8 orbits, T = 1000). That is within 0.1% of nilss-jax and on the shadowing side of the oracle gaps (+1.39% rho, -10.2% sigma). With DOP853 (rtol = atol = 1e-12, T = 500) it agrees with the RK4 run within 2 SE for all three. A shared RK4 effect is not the cause of the gaps. Which side is nearer to the truth is still open.
+- Controls: C-F1 (9 tests), C-F2 (Van der Pol, 1.6%), C-F3 (mean z 23.55) pass. Three planted bugs caught.
+- Misses: P-F2 (my first control call used a lambda, which `fds` cannot send to worker processes), P-F4 (spread much smaller than predicted), P-F6 (time out of range for three parameters).
+- Deviations: the main run used 8 orbits instead of 16 by the fallback rule written in advance. The algorithm page of the `fds` documentation is empty on the site, so I could not log which formulation it implements. I printed `inspect.signature(fds.shadowing)` (names only). The owner added `fds.readthedocs.io` to the allowed hosts for this.
+- Verification: `python -m pytest -q`: `76 passed, 1 xfailed in 63.80s`. The `fds` runs need the scratch environment (`fds`, `mpich`) and are not part of the test suite. The numpy wrapper test runs without `fds`.
+- `RESULTS.md`: one paragraph updated. The failed-predictions table was not changed, so A7b misses are only in `docs/PREDICTIONS-A7b.md`.
+- Next step: owner review. Open: A6, A7 (Julia), the map-scope unstable-contribution test.
+
+## 2026-10-27 Task A6 (double pendulum): stopped at the first check, by the rule in `TODO.md`
+
+- Branch `claude/phase-A6-pendulum`, stacked on `claude/phase-A7b-fds` (PR 15). Merge PR 15 first. Predictions and gates in `docs/PREDICTIONS-A6.md`, committed before the run.
+- Result: **stage 1 fails.** On the energy shell E = 23.58 (g = 9.81, unit masses and lengths, dt = 0.00125), 32 random starts, T = 1000, observable cos(theta2): gates G-A6.1 (R = 1.52) and G-A6.2 (0.67) pass, G-A6.3 fails. One start (number 22) is in a regular island (finite-time exponent 0.015, against 1.19 to 1.56 for the others). For cos(theta1) the island start gives 0.805 against about 0.05 for the others.
+- Post-hoc, not a gate: without that start the other 31 agree within noise (R 0.93, ratio 0.48).
+- Stage 2 (sensitivity) not started. The sensitivity of a Hamiltonian flow also needs a definition (fixed energy or fixed start) and shadowing theory assumes a hyperbolic flow. See the last section of `docs/PREDICTIONS-A6.md`.
+- Misses: P-A6.1 (predicted a pass at 60%), part of P-A6.3 (range 0.108 against 0.05).
+- Verification: `python -m pytest -q` was run on the A7b branch (`76 passed, 1 xfailed in 63.80s`). This task adds no test and changes no library code.
+- Next step: owner decides. Options: stop the pendulum line here, or ask for a stage 2 with a rule that drops regular starts (the rule would be a new, pre-registered choice), or A7 (Julia) or the map-scope unstable-contribution test.
+
+## 2026-10-27 Task A7 (Julia cross-check): skipped by the rule in `TODO.md`
+
+- Branch `claude/phase-A7-julia`, stacked on `claude/phase-A6-pendulum` (PR 16), which is stacked on PR 15. Merge in that order.
+- `julia --version` gives `julia: command not found`. I wrote `docs/julia-skipped.md` and ran nothing. I did not install Julia and wrote no Julia code.
+- `RESULTS.md`: one clause added to the "Not done" line.
+- Verification: documentation only. `python -m pytest -q tests/test_results_doc.py` passes.
+- Next step: owner decides. Options: provide a Julia environment, or the map-scope unstable-contribution test, or stop the audit here.
+
+## 2026-10-27 Task A5c, map scope (S3 on the Solenoid map): done
+
+- Branch `claude/phase-A5c-map-unstable`, stacked on `claude/phase-A7-julia` (PR 17), then PR 16, then PR 15. Merge in the order 15, 16, 17, then this one. Predictions in `docs/PREDICTIONS-A5c.md`, committed before the code ran. Results in the same file and in `results/phaseA5c_*.json`.
+- Result: my S3 implementation (arXiv 2103.08816, Eqs. 4.5 to 4.10, checked on the page images) matches a noise-free oracle on the Solenoid map. The oracle is exact for s1 (derivative 2) and comes from a Fourier transfer operator for s2. S3 total: s1 1.99983 +- 0.00030 (exact 2), s2 -0.3807 +- 0.0031 (oracle -0.3833) at s = (1, 0), s2 -0.1895 +- 0.0017 (oracle -0.1906) at s = (1, 0.5). All gates G-M0 to G-M4 pass.
+- Main finding: the shadowing contribution (the bounded solution of the tangent equation) equals the full response for s1 and is about zero for s2 (0.00004 and -0.00075, against -0.383 and -0.191). A shadowing target can miss the whole response of a uniformly hyperbolic map at unstable dimension 1 of 3.
+- Not shown: that the Lorenz-63 gaps have this cause. The flow is not hyperbolic, and the objective and perturbations differ. Decision on a flow version (rule written before the run): do not implement one now. See the end of `docs/PREDICTIONS-A5c.md`.
+- Deviations and misses: the oracle derivative stencil failed G-M0 (a) at first and was changed by a dated Amendment before any S3 run. P-M1 (a typo in my own test) and P-M5 (run time 14 s against 2 to 10 minutes) missed.
+- Break-it: four planted bugs, all caught. Two are caught only by the small-sample oracle test.
+- Reading: `READING-LOG.md` has rows for arXiv 2103.08816 and arXiv 2003.09801 (partial). The section on the conditions for a small unstable contribution in 2003.09801 is not read.
+- Verification: `python -m pytest -q`: `81 passed, 1 xfailed in 111.21s`.
+- `RESULTS.md`: the paragraph on the missing unstable contribution (section 5) now includes the map result, and `tests/test_results_doc.py` checks its numbers. The failed-predictions table is unchanged, so the A5c misses are only in `docs/PREDICTIONS-A5c.md`.
+- Next step: owner review. The audit tasks of `TODO.md` are done, skipped (A7) or stopped by rule (A6). Open for the owner: whether to try a flow version (not recommended), a stage 2 of A6, and what to post upstream.

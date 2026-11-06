@@ -1,0 +1,7 @@
+{
+ "E_target": 23.57765660554626,
+ "C-A6.1_max_rel_energy_error": 4.520441201902292e-16,
+ "C-A6.1_pass": true,
+ "C-A6.2_max_rel_drift_T100": 5.327693590557075e-08,
+ "C-A6.2_pass": true
+}
