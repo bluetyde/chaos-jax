@@ -1,0 +1,7 @@
+conservative candidates: 71  with an a^2-b^2 first integral: 66
+labels: {'chaotic': 71}  distinct supports: 23
+no a^2-b^2 integral: 22 chaotic 3 0.0055 [0, 24, 39, 58]
+no a^2-b^2 integral: 23 chaotic 3 0.0055 [0, 24, 39, 58]
+no a^2-b^2 integral: 41 chaotic 3 0.0055 [2, 24, 39, 58]
+no a^2-b^2 integral: 42 chaotic 3 0.0055 [2, 24, 39, 58]
+no a^2-b^2 integral: 63 chaotic 3 0.0152 [6, 27, 38, 56]

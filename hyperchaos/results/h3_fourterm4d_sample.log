@@ -1,0 +1,7 @@
+support classes 2340 chunks 234 to run 20 of 20
+10/20 chunks this run, elapsed 81 s
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+20/20 chunks this run, elapsed 184 s
+{'n': 17408, 'stage0': 4713, 'tier1': 6, 'stage2': 0, 'by_rank': {'4': 2800, '3': 9200, '2': 5408}, 'chunks': 20, 'wall_this_run_s': 184.46718835830688} hits 0 cons 0
+wall 184 s

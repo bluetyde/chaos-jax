@@ -1,0 +1,6 @@
+hits 4673 distinct classes 4673 classes seen more than once 0 max multiplicity 1
+by k: {6: 3570, 5: 1103}
+distinct classes by k: {6: 3570, 5: 1103}
+main run hits 472 classes 472 of these classes also found tonight 0
+lambda1 median 0.157 max 41.708
+hyperchaotic (lambda2>0.01): 5

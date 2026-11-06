@@ -1,0 +1,44 @@
+[
+ {
+  "case": "F",
+  "n": 2000,
+  "evaluator_chaotic": 4,
+  "stage1_kept": 4,
+  "stage1_survivors": 6
+ },
+ {
+  "case": "B",
+  "n": 2000,
+  "evaluator_chaotic": 111,
+  "stage1_kept": 111,
+  "stage1_survivors": 122
+ },
+ {
+  "case": "C",
+  "n": 2000,
+  "evaluator_chaotic": 123,
+  "stage1_kept": 123,
+  "stage1_survivors": 218
+ },
+ {
+  "case": "S",
+  "n": 2000,
+  "evaluator_chaotic": 4,
+  "stage1_kept": 4,
+  "stage1_survivors": 4
+ },
+ {
+  "case": "K",
+  "n": 2000,
+  "evaluator_chaotic": 2,
+  "stage1_kept": 2,
+  "stage1_survivors": 3
+ },
+ {
+  "case": "Q",
+  "n": 2000,
+  "evaluator_chaotic": 1,
+  "stage1_kept": 1,
+  "stage1_survivors": 1
+ }
+]

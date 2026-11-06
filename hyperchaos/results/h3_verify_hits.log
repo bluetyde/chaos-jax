@@ -1,0 +1,17 @@
+hits to verify: 15
+0 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+1 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+2 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+3 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+4 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+5 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+6 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+7 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+8 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+9 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+10 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+11 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+12 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+13 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+14 chaotic not verified {'G0_0.01': ('diverges', ''), 'G0_0.005': ('diverges', ''), 'G1_0.01': ('diverges', ''), 'G1_0.005': ('diverges', '')}
+verified 0 of 15

@@ -1,0 +1,1067 @@
+[
+ {
+  "i": 0,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999712317100254,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   47
+  ]
+ },
+ {
+  "i": 1,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999712317100254,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   47
+  ]
+ },
+ {
+  "i": 2,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999712317100254,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   47
+  ]
+ },
+ {
+  "i": 3,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999712317100254,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   47
+  ]
+ },
+ {
+  "i": 4,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.001572653269555,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   51
+  ]
+ },
+ {
+  "i": 5,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.001572653269555,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   51
+  ]
+ },
+ {
+  "i": 6,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.0015725763316874,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   51
+  ]
+ },
+ {
+  "i": 7,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.0015725763316874,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   51
+  ]
+ },
+ {
+  "i": 8,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   54
+  ]
+ },
+ {
+  "i": 9,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   54
+  ]
+ },
+ {
+  "i": 10,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   54
+  ]
+ },
+ {
+  "i": 11,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   54
+  ]
+ },
+ {
+  "i": 12,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   55
+  ]
+ },
+ {
+  "i": 13,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   55
+  ]
+ },
+ {
+  "i": 14,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   55
+  ]
+ },
+ {
+  "i": 15,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   55
+  ]
+ },
+ {
+  "i": 16,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999475699615648,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   56
+  ]
+ },
+ {
+  "i": 17,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.00001651495255,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   56
+  ]
+ },
+ {
+  "i": 18,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999475699615648,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   56
+  ]
+ },
+ {
+  "i": 19,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.00001651495255,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   56
+  ]
+ },
+ {
+  "i": 20,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   59
+  ]
+ },
+ {
+  "i": 21,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   18,
+   32,
+   59
+  ]
+ },
+ {
+  "i": 22,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005458666044153836,
+  "max_abs_derivative": 119.28052033119467,
+  "integral": "z^2-w^2",
+  "has_integral": false,
+  "support": [
+   0,
+   24,
+   39,
+   58
+  ]
+ },
+ {
+  "i": 23,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005458666044153836,
+  "max_abs_derivative": 136.8282640486909,
+  "integral": "x^2-z^2",
+  "has_integral": false,
+  "support": [
+   0,
+   24,
+   39,
+   58
+  ]
+ },
+ {
+  "i": 24,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739132352,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 25,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141442473357697,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-w^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 26,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141442473236854,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-w^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 27,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739169198,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 28,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.8659560890033682,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "z^2-w^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 29,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739132352,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 30,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141442473357697,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-w^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 31,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141442473236854,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-w^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 32,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739169198,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 33,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.8659560890033682,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   0,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 34,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.9999306851992158,
+  "max_abs_derivative": 0.0,
+  "integral": "x^2-y^2",
+  "has_integral": true,
+  "support": [
+   2,
+   16,
+   42,
+   58
+  ]
+ },
+ {
+  "i": 35,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141665559060503,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   2,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 36,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141665559060503,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   2,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 37,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141665559057042,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   2,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 38,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141665559057042,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   2,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 39,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141442472077004,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   2,
+   22,
+   36,
+   59
+  ]
+ },
+ {
+  "i": 40,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.414144247207227,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   2,
+   22,
+   36,
+   59
+  ]
+ },
+ {
+  "i": 41,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005458666044153836,
+  "max_abs_derivative": 177.1231620706571,
+  "integral": "x^2-y^2",
+  "has_integral": false,
+  "support": [
+   2,
+   24,
+   39,
+   58
+  ]
+ },
+ {
+  "i": 42,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005458666044153836,
+  "max_abs_derivative": 79.18114951102818,
+  "integral": "x^2-w^2",
+  "has_integral": false,
+  "support": [
+   2,
+   24,
+   39,
+   58
+  ]
+ },
+ {
+  "i": 43,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005453550371613849,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   2,
+   28,
+   41,
+   59
+  ]
+ },
+ {
+  "i": 44,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005453550371613849,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   2,
+   28,
+   41,
+   59
+  ]
+ },
+ {
+  "i": 45,
+  "rank": 2,
+  "label": "chaotic",
+  "l1": 0.035446855433072286,
+  "max_abs_derivative": 1.1368683772161603e-13,
+  "integral": "z^2-w^2",
+  "has_integral": true,
+  "support": [
+   5,
+   21,
+   38,
+   52
+  ]
+ },
+ {
+  "i": 46,
+  "rank": 2,
+  "label": "chaotic",
+  "l1": 0.017561251035638072,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "z^2-w^2",
+  "has_integral": true,
+  "support": [
+   5,
+   21,
+   38,
+   52
+  ]
+ },
+ {
+  "i": 47,
+  "rank": 2,
+  "label": "chaotic",
+  "l1": 0.008507343448869843,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "z^2-w^2",
+  "has_integral": true,
+  "support": [
+   5,
+   21,
+   38,
+   52
+  ]
+ },
+ {
+  "i": 48,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005453550371613842,
+  "max_abs_derivative": 1.1368683772161603e-13,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   5,
+   22,
+   36,
+   54
+  ]
+ },
+ {
+  "i": 49,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005453550371613842,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   5,
+   22,
+   36,
+   54
+  ]
+ },
+ {
+  "i": 50,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.00545355037161385,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   5,
+   22,
+   36,
+   55
+  ]
+ },
+ {
+  "i": 51,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.00545355037161385,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   5,
+   22,
+   36,
+   55
+  ]
+ },
+ {
+  "i": 52,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.00545355037161385,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   5,
+   22,
+   36,
+   59
+  ]
+ },
+ {
+  "i": 53,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141442473357697,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-w^2",
+  "has_integral": true,
+  "support": [
+   5,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 54,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4141442473236854,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-w^2",
+  "has_integral": true,
+  "support": [
+   5,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 55,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739132352,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   5,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 56,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739169198,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   5,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 57,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.8659560890033682,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "z^2-w^2",
+  "has_integral": true,
+  "support": [
+   5,
+   28,
+   41,
+   55
+  ]
+ },
+ {
+  "i": 58,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.005893808785832068,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true,
+  "support": [
+   6,
+   20,
+   38,
+   52
+  ]
+ },
+ {
+  "i": 59,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.4999712051239501,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   6,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 60,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.4999712051239501,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   6,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 61,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4999712222789552,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   6,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 62,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.4999712222789552,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   6,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 63,
+  "rank": 3,
+  "label": "chaotic",
+  "l1": 0.015203326929105216,
+  "max_abs_derivative": 166.05946029268398,
+  "integral": "x^2-w^2",
+  "has_integral": false,
+  "support": [
+   6,
+   27,
+   38,
+   56
+  ]
+ },
+ {
+  "i": 64,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.5848373688052828,
+  "max_abs_derivative": 3.552713678800501e-15,
+  "integral": "y^2-w^2",
+  "has_integral": true,
+  "support": [
+   6,
+   28,
+   35,
+   55
+  ]
+ },
+ {
+  "i": 65,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739169198,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   9,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 66,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739169198,
+  "max_abs_derivative": 1.4210854715202004e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   9,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 67,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.8659560890033682,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   9,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 68,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 0.8659560890033682,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   9,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 69,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739132352,
+  "max_abs_derivative": 7.105427357601002e-15,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   9,
+   22,
+   36,
+   50
+  ]
+ },
+ {
+  "i": 70,
+  "rank": 4,
+  "label": "chaotic",
+  "l1": 1.1179646739132352,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true,
+  "support": [
+   9,
+   22,
+   36,
+   50
+  ]
+ }
+]

@@ -1,0 +1,36 @@
+support classes 2340 chunks 234 to run 214 of 234
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+10/214 chunks this run, elapsed 121 s
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+20/214 chunks this run, elapsed 193 s
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+30/214 chunks this run, elapsed 325 s
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+  x = um.subtract(arr, arrmean, out=...)
+40/214 chunks this run, elapsed 564 s
+50/214 chunks this run, elapsed 831 s
+60/214 chunks this run, elapsed 999 s
+70/214 chunks this run, elapsed 1156 s
+80/214 chunks this run, elapsed 1368 s
+90/214 chunks this run, elapsed 1512 s
+100/214 chunks this run, elapsed 1612 s
+110/214 chunks this run, elapsed 1636 s
+120/214 chunks this run, elapsed 1857 s
+130/214 chunks this run, elapsed 2037 s
+140/214 chunks this run, elapsed 2187 s
+150/214 chunks this run, elapsed 2505 s
+160/214 chunks this run, elapsed 2701 s
+170/214 chunks this run, elapsed 3251 s
+180/214 chunks this run, elapsed 4200 s
+190/214 chunks this run, elapsed 5418 s
+200/214 chunks this run, elapsed 6423 s
+210/214 chunks this run, elapsed 6883 s
+{'n': 369600, 'stage0': 204145, 'tier1': 8649, 'stage2': 16, 'by_rank': {'4': 30048, '3': 169200, '2': 100048, '1': 70304}, 'chunks': 234, 'wall_this_run_s': 7360.685277223587} hits 15 cons 71
+wall 7361 s

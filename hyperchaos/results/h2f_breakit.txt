@@ -1,0 +1,16 @@
+baseline exit 0 18 passed in 33.72s
+bug 1 support class ignores one of the 6 variable permutations -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_canonical_support_is_invariant_under_renaming_variables']
+bug 2 stage 1a test inverted (drops chaos, keeps the wrong orbits) -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_stage1_keeps_chaos_and_drops_divergence']
+bug 3 monomial order swapped in the flow (decode swaps xz and yy) -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_flow_matches_the_hand_written_sprott_cases']
+bug 4 sampler grid back to magnitudes up to 10 (the 2026-10-27 mistake) -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_grid_is_the_registered_100_values - a...']
+bug 5 middle filter drop test inverted (keeps failing systems, drops chaos) -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_mid_filter_keeps_chaos - AssertionErr...']
+bug 6 middle filter threshold so low that nothing is dropped on exponents -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_mid_filter_drops_sink_divergence_and_periodic_orbit']
+bug 7 boundedness filter keeps the escapes and drops the bounded orbits -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_bound_keep_keeps_chaos - assert [Fals...']
+bug 8 boundedness filter stuck limit zero (sinks no longer dropped) -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_bound_keep_drops_escape_blowup_and_sink']
+bug 9 float32 filter result inverted -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_f32_keep_keeps_chaos - assert [False,...']
+bug 10 float32 sum-check tolerance huge -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_f32_sum_check_drops_stiff_system - as...']
+bug 11 float32 lambda_1 threshold hugely negative -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_f32_keep_drops_sink_centre_and_sum_mismatch']
+bug 12 float32 zero-exponent limit huge -> exit 1 CAUGHT ['FAILED tests/test_h2_search.py::test_g5_f32_zero_exponent_rule_drops_system_without_zero_exponent']
+bug 13 orbit transform drops the monomial sign factor -> exit 1 CAUGHT ['FAILED tests/test_orbits.py::test_g5_transformed_flow_equals_the_change_of_variables']
+bug 14 orbit transform leaves the equations in place (renames variables only) -> exit 1 CAUGHT ['FAILED tests/test_orbits.py::test_g5_transformed_flow_equals_the_change_of_variables']
+tree clean after restore: True
