@@ -20,7 +20,7 @@ Read `PLAN.md`, then `TODO.md` (the current task list and direction), then `HAND
 
 ## Reference papers
 
-- The papers live in a separate private repository, `bluetyde/chaos-reference`, mounted at `reference/` as a git submodule. If `reference/` is empty, run `git submodule update --init`. If that fails (no access), say so in `HANDOFF.md` and carry on with the parts of the plan that need no paper.
+- The papers are NOT in this repository (the `reference/` submodule was removed on 2026-11-06 before publication; some papers are paywalled). Old notes cite `reference/...` paths. Cite papers by arXiv id or title, and if you need one, say so in `HANDOFF.md` and carry on with the parts of the plan that need no paper.
 - Search `reference/text/*.txt` first. Check every equation you implement against the PDF page; extracted text garbles symbols.
 - Record in `READING-LOG.md` what you read, how much (full, section, or search only), and what you took from it. Never describe a paper you did not open.
 - Reimplement methods from the mathematics. Do not copy code from the authors' repositories, and never copy PDFs or long passages into this repo.

@@ -293,6 +293,11 @@ Append-only. Newest entry last. Format: Status, Changes, Verification, Caveats, 
 - Verification: documentation only. `python -m pytest -q tests/test_results_doc.py` passes.
 - Next step: owner decides. Options: (a) a map algorithm of Ni's fast response, validated on the Solenoid map, then decide whether a flow version is feasible; (b) A7b (`fds` as a black box); (c) A6 (double pendulum).
 
+## 2026-11-06 Release prep (local branch claude/publish-prep, not pushed)
+- Status: hyperchaos history imported under hyperchaos/ (git subtree, 94 commits), reference/ submodule and .gitmodules removed, MIT LICENSE added, READMEs rewritten, 5 documented H1 gate failures marked xfail in hyperchaos/tests/conftest.py, local Windows paths scrubbed from logs.
+- Catalogue: hyperchaos/catalogue/ (5,101 hits, 1,260 structure families, from experiments/export_catalogue.py).
+- Verification (Windows, Python 3.14): chaos-jax `pytest -q` 67 passed, 1 xfailed; hyperchaos `pytest -q tests` 108 passed, 5 xfailed.
+- Caveats: not pushed, repo still private; hyperchaos/LITERATURE.md not checked for copied passages; catalogue families not matched to literature beyond Sprott A to S; dependency licences not checked.
 ## 2026-10-27 Task A7b (`fds` as a black box on Lorenz-63): done
 
 - Branch `claude/phase-A7b-fds`. Predictions and gates in `docs/PREDICTIONS-A7b.md`, committed before any `fds` run. Results are in the same file and in `results/phaseA7b_*.json`.

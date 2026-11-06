@@ -1,0 +1,4 @@
+case A support (2, 11, 18, 20, 27) rank 4 invariant(s) [0.0] in range
+A {'found': False, 'found_conservative': True, 'n': 1952, 'keep_a': 1086, 'stage2': 0, 'hits': 0, 'conservative_hits': 51}
+found dissipative 0 conservative 1 of 1
+wall 184 s

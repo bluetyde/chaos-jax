@@ -1,0 +1,102 @@
+[
+ {
+  "name": "fixed sink",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": false,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1a",
+  "lam_est": []
+ },
+ {
+  "name": "spiral sink",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": false,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1a",
+  "lam_est": []
+ },
+ {
+  "name": "centre",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": true,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1b",
+  "lam_est": []
+ },
+ {
+  "name": "divergent",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": false,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1a",
+  "lam_est": []
+ },
+ {
+  "name": "Sprott A",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": true,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1b",
+  "lam_est": []
+ },
+ {
+  "name": "Rossler c=2.5",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": true,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1b",
+  "lam_est": []
+ },
+ {
+  "name": "Rossler c=3",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": true,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1b",
+  "lam_est": []
+ },
+ {
+  "name": "Rossler c=3.5",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": true,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1b",
+  "lam_est": []
+ },
+ {
+  "name": "Rossler c=4",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": true,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1b",
+  "lam_est": []
+ },
+ {
+  "name": "Lorenz rho=14",
+  "evaluator_chaotic_T20000": false,
+  "stage1a": false,
+  "stage1b": false,
+  "stage2": false,
+  "confirmed": false,
+  "rejected_at": "stage 1a",
+  "lam_est": []
+ }
+]

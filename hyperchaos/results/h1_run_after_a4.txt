@@ -1,0 +1,93 @@
+......................................F...............FF.......F.F...... [ 90%]
+........                                                                 [100%]
+================================== FAILURES ===================================
+_____________________________ test_g3_labels[KP] ______________________________
+
+sid = 'KP', cls = <functools._lru_cache_wrapper object at 0x000001AF434409E0>
+
+    @pytest.mark.parametrize("sid", [s.id for s in POSITIVE] + [s.id for s in NEGATIVE if s.id != "N-cons"])
+    def test_g3_labels(sid, cls):
+        got = cls(sid).label
+        want = ALL[sid].expected
+        if sid == "N-lor160" and got != want:
+            pytest.xfail("memory about rho = 160 being periodic was wrong: got " + got)
+>       assert got == want
+E       AssertionError: assert 'chaotic' == 'hyperchaotic'
+E         
+E         - hyperchaotic
+E         + chaotic
+
+tests\test_h1_controls.py:31: AssertionError
+_______________________ test_g4_published_values[CS13] ________________________
+
+s = System(id='CS13', f=<function cs13.<locals>.f at 0x000001AF23524EB0>, x0=(0.1, 0.1, 0.1, 0.1), width=0.05, dt=0.01, expected='hyperchaotic', published=(0.132, 0.035, 0.0, -1.25), note='')
+run = <functools._lru_cache_wrapper object at 0x000001AF23525D20>
+
+    @pytest.mark.parametrize("s", PUBLISHED, ids=[s.id for s in PUBLISHED])
+    def test_g4_published_values(s, run):
+        r = run(s.id)
+        pub = np.sort(np.array(s.published))[::-1]
+        for got, want in zip(r.exponents, pub):
+>           assert abs(got - want) <= max(0.01, 0.02 * abs(want)), (s.id, r.exponents.tolist(), pub.tolist())
+E           AssertionError: ('CS13', [0.1367621010302001, 0.03770950492234507, -0.0005590816119845551, -1.2873384123245153], [0.132, 0.035, 0.0, -1.25])
+E           assert np.float64(0.03733841232451529) <= np.float64(0.025)
+E            +  where np.float64(0.03733841232451529) = abs((np.float64(-1.2873384123245153) - np.float64(-1.25)))
+E            +  and   np.float64(0.025) = max(0.01, (0.02 * np.float64(1.25)))
+E            +    where np.float64(1.25) = abs(np.float64(-1.25))
+
+tests\test_h1_controls.py:43: AssertionError
+_______________________ test_g4_published_values[CS12] ________________________
+
+s = System(id='CS12', f=<function cs12.<locals>.f at 0x000001AF23525220>, x0=(0.1, 0.1, 0.1, 0.1), width=0.05, dt=0.01, expected='hyperchaotic', published=(0.141, 0.0168, 0.0, -0.257), note='')
+run = <functools._lru_cache_wrapper object at 0x000001AF23525D20>
+
+    @pytest.mark.parametrize("s", PUBLISHED, ids=[s.id for s in PUBLISHED])
+    def test_g4_published_values(s, run):
+        r = run(s.id)
+        pub = np.sort(np.array(s.published))[::-1]
+        for got, want in zip(r.exponents, pub):
+>           assert abs(got - want) <= max(0.01, 0.02 * abs(want)), (s.id, r.exponents.tolist(), pub.tolist())
+E           AssertionError: ('CS12', [0.1493155710593484, 0.02163974466858947, -0.0015775750252719344, -0.2693840619353246], [0.141, 0.0168, 0.0, -0.257])
+E           assert np.float64(0.012384061935324597) <= 0.01
+E            +  where np.float64(0.012384061935324597) = abs((np.float64(-0.2693840619353246) - np.float64(-0.257)))
+E            +  and   0.01 = max(0.01, (0.02 * np.float64(0.257)))
+E            +    where np.float64(0.257) = abs(np.float64(-0.257))
+
+tests\test_h1_controls.py:43: AssertionError
+____________________ test_g5_positive_controls_verify[LS] _____________________
+
+sid = 'LS', ver = <functools._lru_cache_wrapper object at 0x000001AF43440BF0>
+
+    @pytest.mark.parametrize("sid", [s.id for s in POSITIVE])
+    def test_g5_positive_controls_verify(sid, ver):
+        v = ver(sid)
+>       assert v["verified"], {k: v[k] for k in ["V1", "V2", "V3", "V4"]}
+E       AssertionError: {'V1': True, 'V2': True, 'V3': True, 'V4': False}
+E       assert False
+
+tests\test_h1_controls.py:49: AssertionError
+___________________ test_g5_positive_controls_verify[CS12] ____________________
+
+sid = 'CS12', ver = <functools._lru_cache_wrapper object at 0x000001AF43440BF0>
+
+    @pytest.mark.parametrize("sid", [s.id for s in POSITIVE])
+    def test_g5_positive_controls_verify(sid, ver):
+        v = ver(sid)
+>       assert v["verified"], {k: v[k] for k in ["V1", "V2", "V3", "V4"]}
+E       AssertionError: {'V1': True, 'V2': False, 'V3': True, 'V4': False}
+E       assert False
+
+tests\test_h1_controls.py:49: AssertionError
+============================== warnings summary ===============================
+tests/test_h1_controls.py::test_g3_labels[N-div]
+  <repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:232: RuntimeWarning: invalid value encountered in subtract
+    return um.subtract(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_h1_controls.py::test_g3_labels[KP] - AssertionError: assert...
+FAILED tests/test_h1_controls.py::test_g4_published_values[CS13] - AssertionE...
+FAILED tests/test_h1_controls.py::test_g4_published_values[CS12] - AssertionE...
+FAILED tests/test_h1_controls.py::test_g5_positive_controls_verify[LS] - Asse...
+FAILED tests/test_h1_controls.py::test_g5_positive_controls_verify[CS12] - As...
+5 failed, 75 passed, 1 warning in 74.38s (0:01:14)

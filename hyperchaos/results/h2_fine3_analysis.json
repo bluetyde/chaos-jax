@@ -1,0 +1,492 @@
+[
+ {
+  "i": 0,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.09202310637829605,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 1,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.1662837955939252,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 2,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.0456885627799198,
+  "max_abs_derivative": 1.1368683772161603e-13,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 3,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.06800757091016488,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 4,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.09240080892250561,
+  "max_abs_derivative": 4.263256414560601e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 5,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.04029639719142091,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 6,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.03058078129802224,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 7,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.03875882088170879,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 8,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.024686122643408366,
+  "max_abs_derivative": 4.263256414560601e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 9,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.029133961842247914,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 10,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.018769838194859584,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 11,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.01845141079911724,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 12,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.02504643687817561,
+  "max_abs_derivative": 8.526512829121202e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 13,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.02256415336956854,
+  "max_abs_derivative": 1.1368683772161603e-13,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 14,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.012377344417765113,
+  "max_abs_derivative": 8.526512829121202e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 15,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.014377739445742532,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 16,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.012776116574176372,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 17,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.01353313078463499,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 18,
+  "support": [
+   4,
+   8,
+   16,
+   25
+  ],
+  "rank": 3,
+  "l1": 0.007124933039246592,
+  "max_abs_derivative": 1.4210854715202004e-13,
+  "integral": "y^2-z^2",
+  "has_integral": true
+ },
+ {
+  "i": 19,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.012905681908474418,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 20,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.016042713878200422,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 21,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.01972364404067039,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 22,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.024447965494366987,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 23,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.028091849810942936,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 24,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.021124378681223372,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 25,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.029556299195407747,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 26,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.026288297273659018,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 27,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.03771936311245376,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 28,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.027123424324634042,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 29,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.028678755737010498,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 30,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.03096752757978729,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 31,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.08598172432522898,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 32,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.10471680417536788,
+  "max_abs_derivative": 5.684341886080802e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 33,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.16178264379076424,
+  "max_abs_derivative": 2.842170943040401e-14,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ },
+ {
+  "i": 34,
+  "support": [
+   8,
+   16,
+   25,
+   29
+  ],
+  "rank": 3,
+  "l1": 0.16096927424507473,
+  "max_abs_derivative": 1.1368683772161603e-13,
+  "integral": "x^2-y^2",
+  "has_integral": true
+ }
+]

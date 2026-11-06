@@ -1,0 +1,2 @@
+night1 {'total': 4673, 'removed': 39, 'kept': 4634, 'removed_sums_min': 0.00576224967377855, 'kept_sum_max': -0.005333289242644942, 'removed_confirm_true': 0, 'kept_bad': 0, 'removed_k': {5: 7, 6: 32}}
+main {'total': 472, 'removed': 5, 'kept': 467, 'removed_sums_min': 0.06773894608575992, 'kept_sum_max': -0.01326690087060354, 'removed_confirm_true': 0, 'kept_bad': 0, 'removed_k': {5: 0, 6: 5}}
