@@ -80,7 +80,7 @@ E       assert False
 tests\test_h1_controls.py:49: AssertionError
 ============================== warnings summary ===============================
 tests/test_h1_controls.py::test_g3_labels[N-div]
-  C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:232: RuntimeWarning: invalid value encountered in subtract
+  <repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:232: RuntimeWarning: invalid value encountered in subtract
     return um.subtract(
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html

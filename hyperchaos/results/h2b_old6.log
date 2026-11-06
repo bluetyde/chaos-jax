@@ -1,14 +1,14 @@
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 seed 1000 {'draws': 20000, 'keep_a': 4804, 'keep_b': 54, 'mid': 54, 'stage2': 0, 'confirmed': 0, 'secs': 88.06708836555481} | total {'draws': 20000, 'keep_a': 4804, 'keep_b': 54, 'mid': 54, 'stage2': 0, 'confirmed': 0} | wall 89s
 seed 1001 {'draws': 20000, 'keep_a': 4683, 'keep_b': 47, 'mid': 47, 'stage2': 1, 'confirmed': 1, 'secs': 89.53233575820923} | total {'draws': 40000, 'keep_a': 9487, 'keep_b': 101, 'mid': 101, 'stage2': 1, 'confirmed': 1} | wall 90s

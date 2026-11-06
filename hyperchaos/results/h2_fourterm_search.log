@@ -1,9 +1,9 @@
 supports 13500 chunks 338
 0 / 338 {'n': 9472, 'keep_a': 1905, 'keep_b': 30, 'bound': 0, 'stage2': 0, 'cons': [], 'by_rank': {4: 320, 3: 3744, 2: 5408}} hits 0 elapsed 38 s
 20 / 338 {'n': 84096, 'keep_a': 25060, 'keep_b': 314, 'bound': 36, 'stage2': 0, 'cons': [], 'by_rank': {4: 9632, 3: 47424, 2: 27040}} hits 0 elapsed 143 s
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 40 / 338 {'n': 143168, 'keep_a': 41277, 'keep_b': 428, 'bound': 118, 'stage2': 0, 'cons': [], 'by_rank': {4: 19408, 3: 85904, 2: 37856}} hits 0 elapsed 276 s
 60 / 338 {'n': 277312, 'keep_a': 71159, 'keep_b': 842, 'bound': 135, 'stage2': 0, 'cons': [], 'by_rank': {4: 26672, 3: 153296, 2: 97344}} hits 0 elapsed 401 s

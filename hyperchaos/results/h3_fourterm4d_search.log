@@ -1,18 +1,18 @@
 support classes 2340 chunks 234 to run 214 of 234
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 10/214 chunks this run, elapsed 121 s
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 20/214 chunks this run, elapsed 193 s
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 30/214 chunks this run, elapsed 325 s
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 40/214 chunks this run, elapsed 564 s
 50/214 chunks this run, elapsed 831 s

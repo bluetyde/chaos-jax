@@ -15,7 +15,7 @@
 2026-10-28 12:02:36 140/489 chunks this run, hits 0, cons 0, elapsed 6 min
 2026-10-28 12:03:07 150/489 chunks this run, hits 0, cons 0, elapsed 7 min
 2026-10-28 12:03:38 160/489 chunks this run, hits 0, cons 0, elapsed 7 min
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 2026-10-28 12:04:46 170/489 chunks this run, hits 0, cons 0, elapsed 8 min
 2026-10-28 12:05:20 180/489 chunks this run, hits 0, cons 0, elapsed 9 min

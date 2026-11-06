@@ -4,9 +4,9 @@ seed 1002 {'draws': 20000, 'keep_a': 4654, 'keep_b': 51, 'mid': 19, 'bound': 19,
 seed 1003 {'draws': 20000, 'keep_a': 4609, 'keep_b': 51, 'mid': 17, 'bound': 17, 'stage2': 0, 'confirmed': 0, 'secs': 40.04682803153992} | total {'draws': 80000, 'keep_a': 18750, 'keep_b': 203, 'mid': 78, 'bound': 78, 'stage2': 2, 'confirmed': 2} | wall 56s
 seed 1004 {'draws': 20000, 'keep_a': 4738, 'keep_b': 42, 'mid': 12, 'bound': 12, 'stage2': 1, 'confirmed': 1, 'secs': 44.15210294723511} | total {'draws': 100000, 'keep_a': 23488, 'keep_b': 245, 'mid': 90, 'bound': 90, 'stage2': 3, 'confirmed': 3} | wall 56s
 seed 1005 {'draws': 20000, 'keep_a': 4626, 'keep_b': 60, 'mid': 28, 'bound': 28, 'stage2': 0, 'confirmed': 0, 'secs': 57.20104217529297} | total {'draws': 120000, 'keep_a': 28114, 'keep_b': 305, 'mid': 118, 'bound': 118, 'stage2': 3, 'confirmed': 3} | wall 58s
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 seed 1006 {'draws': 20000, 'keep_a': 4608, 'keep_b': 59, 'mid': 26, 'bound': 26, 'stage2': 4, 'confirmed': 3, 'secs': 97.763188123703} | total {'draws': 140000, 'keep_a': 32722, 'keep_b': 364, 'mid': 144, 'bound': 144, 'stage2': 7, 'confirmed': 6} | wall 138s
 seed 1007 {'draws': 20000, 'keep_a': 4712, 'keep_b': 54, 'mid': 22, 'bound': 22, 'stage2': 0, 'confirmed': 0, 'secs': 48.704803228378296} | total {'draws': 160000, 'keep_a': 37434, 'keep_b': 418, 'mid': 166, 'bound': 166, 'stage2': 7, 'confirmed': 6} | wall 138s
@@ -14,7 +14,7 @@ seed 1008 {'draws': 20000, 'keep_a': 4626, 'keep_b': 56, 'mid': 28, 'bound': 28,
 seed 1009 {'draws': 20000, 'keep_a': 4734, 'keep_b': 56, 'mid': 22, 'bound': 22, 'stage2': 1, 'confirmed': 1, 'secs': 59.12204194068909} | total {'draws': 200000, 'keep_a': 46794, 'keep_b': 530, 'mid': 216, 'bound': 216, 'stage2': 8, 'confirmed': 7} | wall 138s
 seed 1010 {'draws': 20000, 'keep_a': 4617, 'keep_b': 65, 'mid': 29, 'bound': 29, 'stage2': 3, 'confirmed': 3, 'secs': 89.24021458625793} | total {'draws': 220000, 'keep_a': 51411, 'keep_b': 595, 'mid': 245, 'bound': 245, 'stage2': 11, 'confirmed': 10} | wall 145s
 seed 1011 {'draws': 20000, 'keep_a': 4730, 'keep_b': 60, 'mid': 26, 'bound': 26, 'stage2': 3, 'confirmed': 3, 'secs': 84.99180150032043} | total {'draws': 240000, 'keep_a': 56141, 'keep_b': 655, 'mid': 271, 'bound': 271, 'stage2': 14, 'confirmed': 13} | wall 145s
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 seed 1012 {'draws': 20000, 'keep_a': 4693, 'keep_b': 57, 'mid': 26, 'bound': 26, 'stage2': 2, 'confirmed': 2, 'secs': 73.32080411911011} | total {'draws': 260000, 'keep_a': 60834, 'keep_b': 712, 'mid': 297, 'bound': 297, 'stage2': 16, 'confirmed': 15} | wall 167s
 seed 1013 {'draws': 20000, 'keep_a': 4633, 'keep_b': 61, 'mid': 21, 'bound': 21, 'stage2': 0, 'confirmed': 0, 'secs': 41.84325647354126} | total {'draws': 280000, 'keep_a': 65467, 'keep_b': 773, 'mid': 318, 'bound': 318, 'stage2': 16, 'confirmed': 15} | wall 167s
@@ -62,7 +62,7 @@ seed 1054 {'draws': 20000, 'keep_a': 4568, 'keep_b': 54, 'mid': 22, 'bound': 22,
 seed 1055 {'draws': 20000, 'keep_a': 4583, 'keep_b': 58, 'mid': 26, 'bound': 26, 'stage2': 2, 'confirmed': 2, 'secs': 67.79266905784607} | total {'draws': 1120000, 'keep_a': 260808, 'keep_b': 3029, 'mid': 1270, 'bound': 1270, 'stage2': 75, 'confirmed': 62} | wall 616s
 seed 1056 {'draws': 20000, 'keep_a': 4672, 'keep_b': 56, 'mid': 17, 'bound': 17, 'stage2': 0, 'confirmed': 0, 'secs': 36.13138771057129} | total {'draws': 1140000, 'keep_a': 265480, 'keep_b': 3085, 'mid': 1287, 'bound': 1287, 'stage2': 75, 'confirmed': 62} | wall 616s
 seed 1057 {'draws': 20000, 'keep_a': 4654, 'keep_b': 59, 'mid': 35, 'bound': 35, 'stage2': 0, 'confirmed': 0, 'secs': 58.76415181159973} | total {'draws': 1160000, 'keep_a': 270134, 'keep_b': 3144, 'mid': 1322, 'bound': 1322, 'stage2': 75, 'confirmed': 62} | wall 616s
-C:\Users\jwncr\Claude Code Test\hyperchaos-catalogue\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
+<repo>\.venv\Lib\site-packages\numpy\_core\_methods.py:188: RuntimeWarning: invalid value encountered in subtract
   x = um.subtract(arr, arrmean, out=...)
 seed 1058 {'draws': 20000, 'keep_a': 4636, 'keep_b': 61, 'mid': 25, 'bound': 25, 'stage2': 1, 'confirmed': 1, 'secs': 51.03332805633545} | total {'draws': 1180000, 'keep_a': 274770, 'keep_b': 3205, 'mid': 1347, 'bound': 1347, 'stage2': 76, 'confirmed': 63} | wall 630s
 seed 1059 {'draws': 20000, 'keep_a': 4633, 'keep_b': 53, 'mid': 19, 'bound': 19, 'stage2': 0, 'confirmed': 0, 'secs': 36.61712384223938} | total {'draws': 1200000, 'keep_a': 279403, 'keep_b': 3258, 'mid': 1366, 'bound': 1366, 'stage2': 76, 'confirmed': 63} | wall 630s
